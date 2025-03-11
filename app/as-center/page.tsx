@@ -1,20 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Separator } from "@/components/ui/separator";
-import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
 export default function ASCenterPage() {
-    const navItems = [
-        { id: 1, title: '전체' },
-        { id: 2, title: '제품' },
-        { id: 3, title: '주문/결제' },
-        { id: 4, title: '취소/환불' },
-        { id: 5, title: '배송' },
-        { id: 6, title: 'A/S' },
-    ];
-
     // Service center features
     const serviceFeatures = [
         {

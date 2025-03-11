@@ -96,7 +96,7 @@ export const ImagesSlider = ({
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, []);
+  }, [handleNext, handlePrevious]);
 
   const slideVariants = {
     initial: {
