@@ -81,9 +81,11 @@ export default function ASCenterPage() {
                 <div className="flex justify-center mt-[60px] md:mt-[140px] px-5 md:px-0">
                     <div className="w-full md:w-[1280px] h-[320px] md:h-[240px] relative bg-[#f7f9fe] rounded-[10px]">
                         <div className="flex flex-col items-center md:items-start md:absolute md:left-[70px] md:top-[75px] pt-10 md:pt-0">
-                            <img
+                            <Image
                                 src="/service_info_icon.svg"
                                 alt="Service Info Icon"
+                                width={90}
+                                height={90}
                                 className="w-[60px] h-[60px] md:w-[90px] md:h-[90px]"
                             />
                         </div>

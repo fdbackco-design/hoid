@@ -1,7 +1,25 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
+import Image from 'next/image';
+
+interface IImageSliderProps {
+  images: string[];
+  children: React.ReactNode;
+  overlay?: React.ReactNode;
+  overlayClassName?: string;
+  className?: string;
+  autoplay?: boolean;
+  direction?: "up" | "down";
+  autoplayInterval?: number;
+}
+
+interface IImageData {
+  src: string;
+  width: number;
+  height: number;
+}
 
 export const ImagesSlider = ({
   images,
@@ -11,53 +29,59 @@ export const ImagesSlider = ({
   className,
   autoplay = true,
   direction = "up",
-}: {
-  images: string[];
-  children: React.ReactNode;
-  overlay?: React.ReactNode;
-  overlayClassName?: string;
-  className?: string;
-  autoplay?: boolean;
-  direction?: "up" | "down";
-}) => {
+  autoplayInterval = 3000,
+}: IImageSliderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const [loadedImages, setLoadedImages] = useState<string[]>([]);
+  const [loadedImages, setLoadedImages] = useState<IImageData[]>([]);
 
-  const handleNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex + 1 === images.length ? 0 : prevIndex + 1
-    );
-  };
+  const loadImages = useCallback(async () => {
+    try {
+      const imagePromises = images.map(async (src) => {
+        const img = new window.Image();
+        return new Promise<IImageData>((resolve) => {
+          img.onload = () => {
+            resolve({
+              src,
+              width: img.width,
+              height: img.height
+            });
+          };
+          img.src = src;
+        });
+      });
+      const loadedImageData = await Promise.all(imagePromises);
+      setLoadedImages(loadedImageData);
+    } catch (error) {
+      console.error('Error loading images:', error);
+    }
+  }, [images]);
 
-  const handlePrevious = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex - 1 < 0 ? images.length - 1 : prevIndex - 1
-    );
+  const handlePrevious = useCallback(() => {
+    setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+  }, [images.length]);
+
+  const handleNext = useCallback(() => {
+    setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+  }, [images.length]);
+
+  const handleDotClick = (index: number) => {
+    setCurrentIndex(index);
   };
 
   useEffect(() => {
     loadImages();
-  }, []);
+  }, [loadImages]);
 
-  const loadImages = () => {
-    setLoading(true);
-    const loadPromises = images.map((image) => {
-      return new Promise((resolve, reject) => {
-        const img = new Image();
-        img.src = image;
-        img.onload = () => resolve(image);
-        img.onerror = reject;
-      });
-    });
+  useEffect(() => {
+    if (!autoplayInterval) return;
 
-    Promise.all(loadPromises)
-      .then((loadedImages) => {
-        setLoadedImages(loadedImages as string[]);
-        setLoading(false);
-      })
-      .catch((error) => console.error("Failed to load images", error));
-  };
+    const interval = setInterval(() => {
+      handleNext();
+    }, autoplayInterval);
+
+    return () => clearInterval(interval);
+  }, [autoplayInterval, handleNext]);
+
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "ArrowRight") {
@@ -69,17 +93,8 @@ export const ImagesSlider = ({
 
     window.addEventListener("keydown", handleKeyDown);
 
-    // autoplay
-    let interval: any;
-    if (autoplay) {
-      interval = setInterval(() => {
-        handleNext();
-      }, 5000);
-    }
-
     return () => {
       window.removeEventListener("keydown", handleKeyDown);
-      clearInterval(interval);
     };
   }, []);
 
@@ -134,18 +149,39 @@ export const ImagesSlider = ({
       )}
 
       {areImagesLoaded && (
-        <AnimatePresence>
-          <motion.img
-            key={currentIndex}
-            src={loadedImages[currentIndex]}
-            initial="initial"
-            animate="visible"
-            exit={direction === "up" ? "upExit" : "downExit"}
-            variants={slideVariants}
-            className="image h-full w-full absolute inset-0 object-cover object-center"
-          />
-        </AnimatePresence>
+        <div className="relative w-full h-full">
+          <div className="relative w-full h-full">
+            {loadedImages.map((image, index) => (
+              <div
+                key={image.src}
+                className={`absolute w-full h-full transition-opacity duration-500 ${
+                  index === currentIndex ? 'opacity-100' : 'opacity-0'
+                }`}
+              >
+                <Image
+                  src={image.src}
+                  alt={`Slide ${index + 1}`}
+                  fill
+                  className="object-cover"
+                  priority={index === 0}
+                />
+              </div>
+            ))}
+          </div>
+
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+            {loadedImages.map((_, index) => (
+              <button
+                key={index}
+                className={`w-2 h-2 rounded-full ${
+                  index === currentIndex ? 'bg-white' : 'bg-white/50'
+                }`}
+                onClick={() => handleDotClick(index)}
+              />
+            ))}
+          </div>
+        </div>
       )}
     </div>
   );
-}; 
+};
