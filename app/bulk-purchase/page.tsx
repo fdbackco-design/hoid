@@ -44,10 +44,11 @@ export default function BulkPurchasePage() {
         <div className="w-full md:w-[1280px] h-auto md:h-[240px] relative bg-[#f7f9fe] rounded-[10px]">
           <div className="block md:hidden p-[30px]">
             <div className="flex flex-col items-center gap-4">
-              <img
+              <Image
                 src="/bulk_icon.svg"
                 alt="Service Info Icon"
-                className="w-[60px] h-[60px]"
+                width={60}
+                height={60}
               />
               <div className="text-[#111111] text-[14px] font-bold text-center">
                 아래의 양식을 작성해주시면<br/>담당자가 가능한 빠른 답변을 드리겠습니다.
@@ -62,10 +63,11 @@ export default function BulkPurchasePage() {
           </div>
           <div className="hidden md:flex">
             <div className="absolute left-[70px] top-[75px]">
-              <img
+              <Image
                 src="/bulk_icon.svg"
                 alt="Service Info Icon"
-                className="w-[90px] h-[90px]"
+                width={90}
+                height={90}
               />
             </div>
             <div className="absolute left-[200px] top-[42px]">

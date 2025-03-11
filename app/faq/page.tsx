@@ -1,6 +1,5 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useState } from 'react';
 import Image from 'next/image';
@@ -144,10 +143,11 @@ export default function FAQPage() {
                   <h2 className="text-[#111111] text-lg font-semibold font-pretendard">{faq.question}</h2>
                   <p className="text-[#51a4e4] text-sm font-semibold font-pretendard">{faq.category}</p>
                 </div>
-                <img 
+                <Image 
                   src="/down_arrow.svg" 
                   alt="Toggle FAQ" 
-                  className="w-[18px] h-[18px]"
+                  width={18}
+                  height={18}
                 />
               </div>
             </div>
@@ -165,10 +165,11 @@ export default function FAQPage() {
           <div className="w-44 h-[52px] absolute bg-white rounded border border-[#dddddd]" />
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 inline-flex justify-start items-center gap-2">
             <div className="text-black text-sm font-semibold font-pretendard">view more</div>
-            <img 
+            <Image 
               src="/plus.svg" 
               alt="View More" 
-              className="w-3 h-3"
+              width={12}
+              height={12}
             />
           </div>
         </div>

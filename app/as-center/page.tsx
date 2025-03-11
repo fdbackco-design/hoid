@@ -5,13 +5,14 @@ import { ChevronDown } from "lucide-react";
 import Image from "next/image";
 import React from "react";
 
-export default function SubAS() {
-    // Navigation menu items
+export default function ASCenterPage() {
     const navItems = [
-        { label: "A/s 센터", href: "#" },
-        { label: "자주 묻는 질문", href: "#" },
-        { label: "대량 구매 문의", href: "#" },
-        { label: "스토어", href: "#", hasDropdown: true },
+        { id: 1, title: '전체' },
+        { id: 2, title: '제품' },
+        { id: 3, title: '주문/결제' },
+        { id: 4, title: '취소/환불' },
+        { id: 5, title: '배송' },
+        { id: 6, title: 'A/S' },
     ];
 
     // Service center features
@@ -118,9 +119,11 @@ export default function SubAS() {
                             <div className="flex flex-col md:flex-row py-[40px] md:py-[62px] items-center md:items-start">
                                 <div className="w-[80px] md:w-[100px] h-[78px] md:h-[98px] mb-6 md:mb-0 md:mr-[70px]">
                                     <div className="relative h-full">
-                                        <img
+                                        <Image
                                             src="/free_repair.svg"
                                             alt="Free Repair Icon"
+                                            width={100}
+                                            height={98}
                                             className="w-full h-full"
                                         />
                                     </div>
@@ -147,9 +150,11 @@ export default function SubAS() {
                             <div className="flex flex-col md:flex-row py-[40px] md:py-[62px] items-center md:items-start">
                                 <div className="w-[80px] md:w-[100px] h-[71px] md:h-[91px] mb-6 md:mb-0 md:mr-[70px]">
                                     <div className="relative h-full">
-                                        <img
+                                        <Image
                                             src="/paid_repair.svg"
                                             alt="Paid Repair Icon"
+                                            width={100}
+                                            height={91}
                                             className="w-full h-full"
                                         />
                                     </div>
@@ -190,9 +195,11 @@ export default function SubAS() {
                                 >
                                     <CardContent className="flex flex-col items-center justify-center h-full p-6">
                                         <div className="w-[100px] md:w-[132px] h-[104px] md:h-[136px] mb-[26px]">
-                                            <img
+                                            <Image
                                                 src={feature.image}
                                                 alt="Service Feature"
+                                                width={132}
+                                                height={136}
                                                 className="w-full h-full"
                                             />
                                         </div>
