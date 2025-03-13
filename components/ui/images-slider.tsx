@@ -1,6 +1,5 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
 import React, { useEffect, useState, useCallback } from "react";
 import Image from 'next/image';
 
@@ -10,8 +9,6 @@ interface IImageSliderProps {
   overlay?: React.ReactNode;
   overlayClassName?: string;
   className?: string;
-  autoplay?: boolean;
-  direction?: "up" | "down";
   autoplayInterval?: number;
 }
 
@@ -27,8 +24,6 @@ export const ImagesSlider = ({
   overlay = true,
   overlayClassName,
   className,
-  autoplay = true,
-  direction = "up",
   autoplayInterval = 3000,
 }: IImageSliderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -97,37 +92,6 @@ export const ImagesSlider = ({
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [handleNext, handlePrevious]);
-
-  const slideVariants = {
-    initial: {
-      scale: 0,
-      opacity: 0,
-      rotateX: 45,
-    },
-    visible: {
-      scale: 1,
-      rotateX: 0,
-      opacity: 1,
-      transition: {
-        duration: 0.5,
-        ease: [0.645, 0.045, 0.355, 1.0],
-      },
-    },
-    upExit: {
-      opacity: 1,
-      y: "-150%",
-      transition: {
-        duration: 1,
-      },
-    },
-    downExit: {
-      opacity: 1,
-      y: "150%",
-      transition: {
-        duration: 1,
-      },
-    },
-  };
 
   const areImagesLoaded = loadedImages.length > 0;
 
