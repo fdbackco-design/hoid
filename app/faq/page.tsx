@@ -97,7 +97,7 @@ export default function FAQPage() {
       </div>
 
       {/* Category Filter */}
-      <div className="flex flex-wrap md:inline-flex justify-center items-center gap-2 mt-20 w-full px-5 md:px-0">
+      <div className="flex flex-wrap md:inline-flex justify-center items-center gap-2 mt-20 w-full px-2 md:px-0">
         <div className="w-[calc(33.33%-8px)] md:w-auto">
           <button className="w-full md:w-auto px-[25px] py-3 bg-[#51a4e4] rounded-[30px] flex justify-center items-center gap-2.5">
             <span className="text-white text-[14px] md:text-base font-bold font-pretendard">전체</span>
