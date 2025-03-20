@@ -34,7 +34,7 @@ const reviews: IReview[] = [
 ]
 
 export default function Reviews() {
-  const [emblaRef] = useEmblaCarousel({ loop: true }, [Autoplay()])
+  const [emblaRef] = useEmblaCarousel({ loop: true }, []) // Autoplay() 주석 처리
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const [isHovered, setIsHovered] = useState<number | null>(null)
   const [isMobile, setIsMobile] = useState(false)
@@ -56,49 +56,58 @@ export default function Reviews() {
         <div className="embla__container flex gap-[10px]">
           {reviews.map((review, index) => (
             <div key={index} className="embla__slide flex-[0_0_100%] md:flex-[0_0_33.33%] min-w-0 md:px-4">
-              <div 
-                className="relative h-[320px] md:h-[400px] bg-white rounded-lg shadow-md cursor-pointer mx-auto"
-                onMouseEnter={() => !isMobile && setIsHovered(index)}
-                onMouseLeave={() => !isMobile && setIsHovered(null)}
-                onClick={() => {
-                  if (isMobile) {
-                    setActiveIndex(prev => prev === index ? null : index)
-                  }
-                }}
-              >
-                {((!isMobile && isHovered === index) || (isMobile && activeIndex === index)) ? (
-                  <div className="absolute inset-0 p-5 md:p-6 bg-white rounded-lg">
-                    <div className="flex items-start mb-3 md:mb-4">
-                      <Image
-                        src="/review_start.svg"
-                        alt="Review start"
-                        width={20}
-                        height={20}
-                        className="mr-2 md:w-6 md:h-6"
-                      />
-                      <div>
-                        <h3 className="text-lg font-bold mb-1">{review.productName}</h3>
-                        <p className="text-[13px] text-gray-500">{review.modelName}</p>
-                      </div>
-                    </div>
-                    <p className="text-[#333333] text-[14px] md:text-base leading-relaxed">
-                      {review.content}
-                    </p>
-                  </div>
-                ) : (
-                  <>
+              <div className="flex flex-col">
+                <div
+                  className="relative w-full h-[320px] md:h-[400px] bg-white shadow-md cursor-pointer mx-auto overflow-hidden"
+                  onMouseEnter={() => !isMobile && setIsHovered(index)}
+                  onMouseLeave={() => !isMobile && setIsHovered(null)}
+                  onClick={() => {
+                    if (isMobile) {
+                      setActiveIndex(prev => prev === index ? null : index)
+                    }
+                  }}
+                >
+                  <div className="relative w-full h-full">
                     <Image
                       src={review.image}
                       alt={review.productName}
                       fill
-                      className="object-cover rounded-lg"
+                      className="object-cover"
+                      sizes="(max-width: 768px) 100vw, 33vw"
                     />
-                    <div className="absolute bottom-0 left-0 right-0 p-5 md:p-6 bg-gradient-to-t from-black/70 to-transparent text-white">
-                      <h3 className="text-lg md:text-xl font-bold mb-1">{review.productName}</h3>
-                      <p className="text-[13px] md:text-sm">{review.modelName}</p>
+                  </div>
+                  {((!isMobile && isHovered === index) || (isMobile && activeIndex === index)) && (
+                    <div className="absolute inset-0 p-5 md:p-6 bg-[#D9D9D9]/90 flex flex-col justify-end">
+                      <div className="flex flex-col ml-[40px] mb-[43px]">
+                        <div className="flex items-start mb-3 md:mb-4">
+                          <Image
+                            src="/review_start.svg"
+                            alt="Review start"
+                            width={40}
+                            height={24}
+                          />
+                        </div>
+                        <p className="text-[#333333] text-[14px] md:text-base leading-relaxed">
+                          {review.content}
+                        </p>
+                      </div>
                     </div>
-                  </>
-                )}
+                  )}
+                </div>
+                <div className="ml-3 mt-4 flex items-center">
+                  <div className="bg-[#E2ECF4] rounded-[12px]">
+                    <Image
+                      src="/review_b.svg"
+                      alt="Review start"
+                      width={86}
+                      height={86}
+                    />
+                  </div>
+                  <div className="ml-6">
+                    <p className="text-[#333333] text-lg font-bold mb-1">{review.productName}</p>
+                    <p className="text-[#666666] text-[13px]">{review.modelName}</p>
+                  </div>
+                </div>
               </div>
             </div>
           ))}

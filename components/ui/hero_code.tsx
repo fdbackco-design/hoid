@@ -11,8 +11,14 @@ export default function ImagesSlider_() {
   ];
   return (
     <div className="w-full md:w-[calc(100%-240px)] mx-auto">
-      <ImagesSlider className="h-[540px] md:h-[40rem]" images={images} overlay={false}>
-        <div className="absolute inset-0 flex items-center justify-center">
+      <ImagesSlider 
+        className="h-[540px] md:h-[40rem]" 
+        images={images} 
+        overlay={false}
+        indicatorClassName="w-2 h-2 rounded-full [&.active]:bg-blue-400"
+        indicatorContainerClassName="gap-5"
+      >
+        <div className="absolute inset-0 flex items-center">
           <motion.div
             initial={{
               opacity: 0,
@@ -25,25 +31,25 @@ export default function ImagesSlider_() {
             transition={{
               duration: 0.6,
             }}
-            className="z-50 flex flex-col justify-center items-center max-w-[320px] md:max-w-[499px] px-5 md:px-0"
+            className="z-50 flex flex-col justify-center ml-[120px] max-w-[320px] md:max-w-[499px]"
           >
-            <div className="flex flex-col items-stretch space-y-4 md:space-y-6">
+            <div className="flex flex-col items-start space-y-4 md:space-y-6">
               <motion.h1 
-                className="text-[#111111] font-pretendard text-[24px] md:text-[46px] font-bold text-center leading-tight"
+                className="text-[#111111] font-pretendard text-[24px] md:text-[48px] font-bold text-left leading-tight"
               >
-                순환 청정 & 집중 청정으로<br />더 멀리, 더 효율적으로 청정
+                강력한 살균, 완벽한 청정<br />HOID가 답이다
               </motion.h1>
               <motion.p 
-                className="text-[#333333] text-base md:text-xl text-center"
+                className="text-[#333333] text-base md:text-[22px] text-left font-medium"
               >
-                호이드 UV살균 공기청정기 AP-2501
+                강력한 UV 살균과 공기청정 기술이 하나로!
               </motion.p>
+              <motion.button 
+                className="px-9 py-4 bg-blue-400 rounded-[50px] inline-flex justify-center items-center gap-2.5 text-white text-center font-semibold font-['Pretendard'] capitalize tracking-tight"
+              >
+                제품 자세히 보기
+              </motion.button>
             </div>
-            <motion.button 
-              className="mt-6 md:mt-10 px-6 md:px-9 py-[14px] md:py-[18px] bg-[#51A4E4] rounded-[50px] text-white text-sm md:text-base hover:bg-[#4593d3] transition-colors"
-            >
-              제품 자세히 보기
-            </motion.button>
           </motion.div>
         </div>
       </ImagesSlider>

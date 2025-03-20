@@ -27,23 +27,23 @@ const companyInfo: ICompanyInfo = {
 export default function Footer() {
     return (
         <footer className="w-full">
-            <div className="w-full bg-[#272727] py-[50px] px-5 md:px-[220px]">
-                <div className="w-full md:w-[600px] text-[#FFFFFF] text-[13px] md:text-sm leading-[22px] md:leading-[24px]">
+            <div className="w-full bg-[#272727] py-[70px] px-5 md:px-[230px]">
+                <div className="w-full md:w-[600px]">
                     <Image
                         src="/footer_logo.png"
                         alt="Footer Logo"
                         width={96}
                         height={25}
-                        className="mb-[40px]"
+                        className="mb-[40px] md:mb-[40px]"
                     />
                     
-                    <div className="flex flex-wrap gap-y-1">
-                        <div className="flex items-center w-full md:w-auto">
+                    <div className="flex flex-col gap-y-1.5 text-[#888] text-[13px] font-[500] font-pretendard tracking-[-0.13px]">
+                        <div className="flex items-center">
                             <span>{companyInfo.name}</span>
                             <span className="mx-2">|</span>
                             <span>대표 : {companyInfo.representative}</span>
                         </div>
-                        <div className="w-full md:w-auto">
+                        <div>
                             <span>주소 : {companyInfo.address}</span>
                         </div>
                         <div className="flex flex-wrap items-center w-full md:w-auto">
@@ -57,7 +57,7 @@ export default function Footer() {
                             <span className="w-full md:w-auto">E-mail : {companyInfo.email}</span>
                         </div>
                     </div>
-                    <div className="mt-[30px] text-[#888888] text-xs font-medium">
+                    <div className="mt-[24px] text-[#888] text-xs font-[500] font-pretendard tracking-[-0.13px]">
                         {companyInfo.copyright}
                     </div>
                 </div>

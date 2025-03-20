@@ -10,6 +10,8 @@ interface IImageSliderProps {
   overlayClassName?: string;
   className?: string;
   autoplayInterval?: number;
+  indicatorClassName?: string;
+  indicatorContainerClassName?: string;
 }
 
 interface IImageData {
@@ -25,6 +27,8 @@ export const ImagesSlider = ({
   overlayClassName,
   className,
   autoplayInterval = 3000,
+  indicatorClassName,
+  indicatorContainerClassName,
 }: IImageSliderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loadedImages, setLoadedImages] = useState<IImageData[]>([]);
@@ -133,13 +137,15 @@ export const ImagesSlider = ({
             ))}
           </div>
 
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-5">
             {loadedImages.map((_, index) => (
               <button
                 key={index}
-                className={`w-2 h-2 rounded-full ${
-                  index === currentIndex ? 'bg-white' : 'bg-white/50'
-                }`}
+                className={cn(
+                  `w-2 h-2 rounded-full transition-colors`,
+                  index === currentIndex ? 'bg-blue-400 active' : 'bg-white',
+                  indicatorClassName
+                )}
                 onClick={() => handleDotClick(index)}
               />
             ))}

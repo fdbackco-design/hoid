@@ -15,14 +15,14 @@ const ServiceCards: IServiceCard[] = [
         <Image
           src="/service_1.svg"
           alt="사용 설명서 아이콘"
-          width={50}
-          height={50}
+          width={62}
+          height={62}
           className="object-contain md:w-[62px] md:h-[62px]"
         />
       </div>
     ),
     title: "사용 설명서",
-    description: "제품에 대해 궁금하신가요?\n사용설명서에서 확인하실 수\n있습니다.",
+    description: "제품에 대해 궁금하신가요?\n사용설명서에서 확인하실 수 있습니다.",
     link: "/manual"
   },
   {
@@ -31,8 +31,8 @@ const ServiceCards: IServiceCard[] = [
         <Image
           src="/service_2.svg"
           alt="A/S 안내 아이콘"
-          width={50}
-          height={50}
+          width={62}
+          height={62}
           className="object-contain md:w-[62px] md:h-[62px]"
         />
       </div>
@@ -47,8 +47,8 @@ const ServiceCards: IServiceCard[] = [
         <Image
           src="/service_3.svg"
           alt="FAQ 아이콘"
-          width={50}
-          height={50}
+          width={62}
+          height={62}
           className="object-contain md:w-[62px] md:h-[62px]"
         />
       </div>
@@ -63,8 +63,8 @@ const ServiceCards: IServiceCard[] = [
         <Image
           src="/service_4.svg"
           alt="1:1 문의 아이콘"
-          width={50}
-          height={50}
+          width={62}
+          height={62}
           className="object-contain md:w-[62px] md:h-[62px]"
         />
       </div>
@@ -79,8 +79,8 @@ export default function ServiceCenter() {
   return (
     <section className="w-full py-[40px] md:py-[90px] mt-[60px] md:mt-0">
       <div className="text-center mb-[40px] md:mb-[50px] px-5 md:px-0">
-        <h2 className="font-pretendard text-[24px] md:text-[40px] font-bold text-black mb-3 md:mb-5">HOID 서비스 센터</h2>
-        <p className="text-[#111111] text-[14px] md:text-lg">
+        <h2 className="font-pretendard text-[24px] md:text-[48px] font-bold text-black mb-3 md:mb-5">HOID 서비스 센터</h2>
+        <p className="text-[#111111] text-[14px] md:text-[18px] font-medium">
           <span className="md:hidden">제품 관련 문제사항을<br /></span>
           <span className="hidden md:inline">제품 관련 문제사항을 </span>
           해결할 수 있도록 도와드립니다.
@@ -147,7 +147,7 @@ export default function ServiceCenter() {
                       {card.icon}
                     </div>
                     <div className="flex flex-col items-center text-center">
-                      <h3 className="text-[#333333] text-lg font-medium mb-3">{card.title}</h3>
+                      <h3 className="text-[#333333] text-lg font-bold mb-3">{card.title}</h3>
                       <p className="text-[#666666] text-sm leading-[24px] whitespace-pre-line">{card.description}</p>
                     </div>
                   </div>

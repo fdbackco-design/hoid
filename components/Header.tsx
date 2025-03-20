@@ -17,13 +17,13 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-white border-b z-50">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+      <div className="container mx-auto px-4 h-[90px] flex items-center justify-between">
         <Link href="/" className="flex items-center">
           <Image
             src="/logo.svg"
             alt="HOID Logo"
-            width={80}
-            height={21}
+            width={96}
+            height={25}
             className="w-[80px] h-[21px] md:w-[100px] md:h-[40px]"
             priority
           />
@@ -31,12 +31,12 @@ export default function Header() {
         
         {/* Desktop Navigation */}
         <nav className="hidden md:block">
-          <ul className="flex items-center space-x-[88px]">
+          <ul className="flex items-center space-x-[88px] pt-[35px] pb-[35px]">
             {menuItems.map((item, index) => (
               <li key={index}>
                 <Link 
                   href={item.href}
-                  className="text-[14px] leading-[21px] text-black hover:text-gray-600 transition-colors font-normal"
+                  className="justify-start text-black text-lg font-semibold font-['Pretendard'] capitalize"
                 >
                   {item.label}
                 </Link>
