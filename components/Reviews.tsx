@@ -91,7 +91,7 @@ export default function Reviews() {
                             height={24}
                           />
                         </div>
-                        <p className="text-[#333333] text-[14px] md:text-base leading-relaxed">
+                        <p className="text-[#333333] text-[14px] md:text-[21px] leading-relaxed font-pretendard">
                           {review.content}
                         </p>
                       </div>
@@ -109,8 +109,8 @@ export default function Reviews() {
                       />
                     </div>
                     <div className="ml-6">
-                      <p className="text-[#333333] text-lg font-bold mb-1">{review.productName}</p>
-                      <p className="text-[#666666] text-[13px]">{review.modelName}</p>
+                      <p className="text-[#333333] text-lg font-bold mb-1 font-pretendard">{review.productName}</p>
+                      <p className="text-[#666666] text-[13px] font-pretendard">{review.modelName}</p>
                     </div>
                   </div>
                   <Link href={review.href}>
