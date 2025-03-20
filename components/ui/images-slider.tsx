@@ -12,6 +12,8 @@ interface IImageSliderProps {
   autoplayInterval?: number;
   indicatorClassName?: string;
   indicatorContainerClassName?: string;
+  currentPageClassName?: string;
+  otherPageClassName?: string;
 }
 
 interface IImageData {
@@ -29,6 +31,8 @@ export const ImagesSlider = ({
   autoplayInterval = 3000,
   indicatorClassName,
   indicatorContainerClassName,
+  currentPageClassName = "w-[40px] h-[3px] bg-white",
+  otherPageClassName = "w-[40px] h-[3px] bg-white/30",
 }: IImageSliderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loadedImages, setLoadedImages] = useState<IImageData[]>([]);

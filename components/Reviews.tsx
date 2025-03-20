@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import useEmblaCarousel from 'embla-carousel-react'
-import Autoplay from 'embla-carousel-autoplay'
 
 interface IReview {
   productName: string
@@ -34,7 +33,7 @@ const reviews: IReview[] = [
 ]
 
 export default function Reviews() {
-  const [emblaRef] = useEmblaCarousel({ loop: true }, []) // Autoplay() 주석 처리
+  const [emblaRef] = useEmblaCarousel({ loop: true })
   const [activeIndex, setActiveIndex] = useState<number | null>(null)
   const [isHovered, setIsHovered] = useState<number | null>(null)
   const [isMobile, setIsMobile] = useState(false)
