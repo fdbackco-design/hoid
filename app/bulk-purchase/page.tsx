@@ -17,9 +17,9 @@ export default function BulkPurchasePage() {
   };
 
   return (
-    <div>
+    <div className="pt-[27px]">
       {/* Hero Section */}
-      <div className="relative h-[400px] w-full">
+      <div className="relative h-[600px] w-[1920px] mx-auto">
         <Image
           src="/bulk.png"
           alt="Bulk Purchase Hero Background"

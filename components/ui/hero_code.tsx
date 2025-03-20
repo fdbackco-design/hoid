@@ -10,13 +10,13 @@ export default function ImagesSlider_() {
     "/hero_3.png"
   ];
   return (
-    <div className="w-full md:w-[calc(100%-240px)] mx-auto">
+    <div className="w-[1680px] mx-auto pt-[27px]">
       <ImagesSlider 
-        className="h-[540px] md:h-[40rem]" 
+        className="h-[780px]" 
         images={images} 
         overlay={false}
         indicatorClassName="w-2 h-2 rounded-full [&.active]:bg-blue-400"
-        indicatorContainerClassName="space-x-[20px]"
+        indicatorContainerClassName="space-x-[20px] -translate-y-[40px]"
       >
         <div className="absolute inset-0 flex items-center">
           <motion.div

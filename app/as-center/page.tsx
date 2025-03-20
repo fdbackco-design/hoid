@@ -7,17 +7,17 @@ export default function ASCenterPage() {
     // Service center features
     const serviceFeatures = [
         {
-            title: "A/S 발생 시 지역에 상관없이 어디에서나 동일한 서비스를 빠르고 신속하게 제공",
+            title: "A/S 발생 시 지역에 상관없이 \n 어디에서나 동일한 서비스를 \n빠르고 신속하게 제공",
             highlight: "어디에서나 동일한 서비스",
             image: "/as_1.svg",
         },
         {
-            title: "단일 서비스 시스템을 구축하여 가장 안전한 시스템으로 최고의 서비스를 약속",
+            title: "단일 서비스 시스템을 \n구축하여 가장 안전한 시스템으로 \n최고의 서비스를 약속",
             highlight: "가장 안전한 시스템",
             image: "/as_2.svg",
         },
         {
-            title: "서비스 전문가를 통해 불편하거나 궁금하신 부분을 편안하게 상담 가능",
+            title: "서비스 전문가를 통해 \n불편하거나 궁금하신 부분을 \n편안하게 상담 가능",
             highlight: "불편하거나 궁금하신 부분",
             image: "/as_3.svg",
         },
@@ -40,7 +40,7 @@ export default function ASCenterPage() {
 
     return (
         <div className="bg-white flex flex-row justify-center w-full">
-            <div className="bg-white w-full max-w-[1920px] relative">
+            <div className="bg-white w-full max-w-[1920px] relative pt-[27px]">
 
                 {/* Hero Section */}
                 <div className="w-full h-[400px] md:h-[600px] relative bg-cover bg-center">
@@ -54,7 +54,7 @@ export default function ASCenterPage() {
                         />
                     </div>
                     <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
-                        <div className="w-[320px] md:w-[543px] flex flex-col items-center gap-8">
+                        <div className="w-[320px] md:w-[700px] flex flex-col items-center gap-8">
                             <div className="w-full text-center text-white text-[32px] md:text-[46px] font-extrabold tracking-wide">
                                 HOID SERVICE
                             </div>
@@ -120,7 +120,7 @@ export default function ASCenterPage() {
                                     </div>
                                 </div>
 
-                                <div className="flex flex-col w-full md:w-[589px] gap-6">
+                                <div className="flex flex-col w-full md:w-full gap-6">
                                     <h3 className="font-bold text-black text-[20px] md:text-[22px] text-left">무상수리</h3>
                                     <div className="flex flex-col gap-3 px-5 md:px-0">
                                         {repairGuidelines.free.map((item, index) => (
@@ -151,7 +151,7 @@ export default function ASCenterPage() {
                                     </div>
                                 </div>
 
-                                <div className="flex flex-col w-full md:w-[589px] gap-6">
+                                <div className="flex flex-col w-full md:w-full gap-6">
                                     <h3 className="font-bold text-black text-[20px] md:text-[22px] text-left">유상수리</h3>
                                     <div className="flex flex-col gap-3 px-5 md:px-0">
                                         {repairGuidelines.paid.map((item, index) => (

@@ -78,9 +78,9 @@ export default function FAQPage() {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="pt-[27px]">
       {/* Header Section */}
-      <div className="relative h-[400px] w-full">
+      <div className="relative h-[600px] w-[1920px] mx-auto">
         <Image
           src="/faq.svg"
           alt="FAQ Background"
@@ -88,11 +88,15 @@ export default function FAQPage() {
           className="object-cover"
           priority
         />
-        <div className="absolute inset-0 flex flex-col items-center justify-center px-5 md:px-0">
-          <h1 className="text-[32px] md:text-4xl font-bold text-white text-center">자주 묻는 질문</h1>
-          <p className="text-base md:text-lg mt-4 text-white text-center whitespace-pre-line">
-            {"제품에 문제가 생겼나요?\n먼저 FAQ를 확인해보세요."}
-          </p>
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="md:w-[543px] inline-flex flex-col justify-start items-center gap-4 md:gap-8">
+            <div className="self-stretch text-center justify-start text-white text-[26px] md:text-[46px] font-extrabold font-['Pretendard'] capitalize tracking-wide">
+              자주 묻는 질문
+            </div>
+            <div className="self-stretch text-center justify-start text-white text-[15px] md:text-[28px] font-medium font-['Pretendard'] capitalize leading-normal md:leading-10">
+              제품에 문제가 생겼나요?<br/>먼저 FAQ를 확인해보세요.
+            </div>
+          </div>
         </div>
       </div>
 
