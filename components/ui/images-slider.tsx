@@ -12,8 +12,6 @@ interface IImageSliderProps {
   autoplayInterval?: number;
   indicatorClassName?: string;
   indicatorContainerClassName?: string;
-  currentPageClassName?: string;
-  otherPageClassName?: string;
 }
 
 interface IImageData {
@@ -31,8 +29,6 @@ export const ImagesSlider = ({
   autoplayInterval = 3000,
   indicatorClassName,
   indicatorContainerClassName,
-  currentPageClassName = "w-[40px] h-[3px] bg-white",
-  otherPageClassName = "w-[40px] h-[3px] bg-white/30",
 }: IImageSliderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loadedImages, setLoadedImages] = useState<IImageData[]>([]);
@@ -141,7 +137,7 @@ export const ImagesSlider = ({
             ))}
           </div>
 
-          <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-5">
+          <div className={cn("absolute bottom-4 left-1/2 transform -translate-x-1/2 flex", indicatorContainerClassName)}>
             {loadedImages.map((_, index) => (
               <button
                 key={index}

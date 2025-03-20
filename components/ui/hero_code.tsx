@@ -16,7 +16,7 @@ export default function ImagesSlider_() {
         images={images} 
         overlay={false}
         indicatorClassName="w-2 h-2 rounded-full [&.active]:bg-blue-400"
-        indicatorContainerClassName="gap-5"
+        indicatorContainerClassName="space-x-[20px]"
       >
         <div className="absolute inset-0 flex items-center">
           <motion.div
