@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className={inter.className}>
         <Header />
-        <main className="pt-16">
+        <main className="mt-[72px]">
           {children}
         </main>
         <Footer />

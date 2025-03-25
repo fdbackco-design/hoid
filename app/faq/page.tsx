@@ -13,21 +13,21 @@ export default function FAQPage() {
       question: '[HO-AP2501] 가습필터 및 수조부 관리방법은 어떻게 하나요?', 
       category: '제품/공기청정기',
       content: (
-        <div className="text-[#666666] text-[15px] leading-[26px]">
-          <p className="mb-6">노블 가습기 가습 필터는 세척 주기가 1주일 1회, 수조부 매입 1회, 물통청소 매일 1회입니다. 세척가 나타 있는 동안 계속 작동이 멈추가 필요합니다.</p>
+        <div className="text-[#111111] text-[13px] leading-[26px] w-[280px]">
+          <p className="mb-6">노블 가습기 가습 필터는 세척 주기가 1주일 1회, 수조부 매일 1회, 물통청소 매일 1회입니다. 세척가 나타 있는 동안 계속 작동이 멈추가 필요합니다.</p>
           <div className="mb-4">
             <p className="font-bold mb-2">가습필터 세척방법</p>
-            <ol className="list-decimal pl-5 space-y-1">
-              <li>미온수(40도 미만) 외에 가습 필터를 5분 이상 담궈줍니다.</li>
-              <li>가볍 필터를 깨끗이 이는수로 가볍 필터를 1회 세척합니다.</li>
-              <li>1,2번과 같은 방법으로 두이 이상 반복해줍니다.</li>
+            <ol className="list-decimal space-y-1 ml-4">
+              <li className="pl-0">미온수(40도 미만) 외에 가습 필터를 5분 이상 담궈줍니다.</li>
+              <li className="pl-0">가볍 필터를 깨끗이 이는수로 가볍 필터를 1회 세척합니다.</li>
+              <li className="pl-0">1,2번과 같은 방법으로 두이 이상 반복해줍니다.</li>
             </ol>
           </div>
           <div>
             <p className="font-bold mb-2">수조부 세척방법</p>
-            <ol className="list-decimal pl-5 space-y-1">
-              <li>수조부 부품들을 부드러운 천이나 칫솔에 중성세제를 묻혀 꼼꼼히 세척해줍니다.</li>
-              <li>세제이 묻은 수조부 부품들은 마른 천으로 닦고 자연건조시킨후 건조해줍니다.</li>
+            <ol className="list-decimal space-y-1 ml-4">
+              <li className="pl-0">수조부 부품들을 부드러운 천이나 칫솔에 중성세제를 묻혀 꼼꼼히 세척해줍니다.</li>
+              <li className="pl-0">세제이 묻은 수조부 부품들은 마른 천으로 닦고 자연건조시킨후 건조해줍니다.</li>
             </ol>
           </div>
         </div>
@@ -78,103 +78,108 @@ export default function FAQPage() {
   ];
 
   return (
-    <div className="pt-[27px]">
-      {/* Header Section */}
-      <div className="relative h-[600px] w-[1920px] mx-auto">
-        <Image
-          src="/faq.svg"
-          alt="FAQ Background"
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="md:w-[543px] inline-flex flex-col justify-start items-center gap-4 md:gap-8">
-            <div className="self-stretch text-center justify-start text-white text-[26px] md:text-[46px] font-extrabold font-['Pretendard'] capitalize tracking-wide">
-              자주 묻는 질문
-            </div>
-            <div className="self-stretch text-center justify-start text-white text-[15px] md:text-[28px] font-medium font-['Pretendard'] capitalize leading-normal md:leading-10">
-              제품에 문제가 생겼나요?<br/>먼저 FAQ를 확인해보세요.
+    <div className="font-pretendard bg-white flex flex-row justify-center w-full">
+      <div className="bg-white w-full max-w-[1920px] relative">
+        {/* Hero Section */}
+        <div className="w-full h-[320px] md:h-[600px] relative bg-cover bg-center">
+          <div className="absolute inset-0">
+            <Image
+              src="/faq.svg"
+              alt="FAQ Background"
+              fill
+              className="object-cover"
+              priority
+            />
+          </div>
+          <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
+            <div className="w-[320px] md:w-[700px] flex flex-col items-center gap-4">
+              <div className="w-full text-center text-white text-[26px] md:text-[46px] font-extrabold tracking-wide">
+                자주 묻는 질문
+              </div>
+              <div className="w-full text-center text-white text-[15px] md:text-[28px] font-medium leading-relaxed">
+                제품에 문제가 생겼나요?<br/>
+                자주 묻는 질문을 먼저 살펴보세요.
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Category Filter */}
-      <div className="flex flex-wrap md:inline-flex justify-center items-center gap-2 mt-20 w-full px-2 md:px-0">
-        <div className="w-[calc(33.33%-8px)] md:w-auto">
-          <button className="w-full md:w-auto px-[25px] py-3 bg-[#51a4e4] rounded-[30px] flex justify-center items-center gap-2.5">
-            <span className="text-white text-[14px] md:text-base font-bold font-pretendard">전체</span>
-          </button>
+        {/* Category Filter */}
+        <div className="flex flex-wrap md:inline-flex justify-center items-center gap-2 mt-[60px] md:mt-[140px] w-full md:px-0">
+          <div className="w-[69px] h-[39px] md:w-auto">
+            <button className="w-full md:w-auto py-[11px] px-[22px] bg-[#51a4e4] rounded-[30px] flex justify-center items-center">
+              <span className="text-white text-[14px] md:text-base font-bold font-pretendard">전체</span>
+            </button>
+          </div>
+          <div className="w-[69px] h-[39px] md:w-auto">
+            <button className="w-full md:w-auto py-[11px] px-[22px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
+              <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">제품</span>
+            </button>
+          </div>
+          <div className="w-[100px] h-[39px] md:w-auto">
+            <button className="w-full md:w-auto py-[11px] px-[22px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
+              <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">주문/결제</span>
+            </button>
+          </div>
+          <div className="w-[100px] h-[39px] md:w-auto py-[10px]">
+            <button className="w-full md:w-auto py-[11px] px-[22px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
+              <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">취소/환불</span>
+            </button>
+          </div>
+          <div className="w-[69px] h-[39px] md:w-auto py-[10px]">
+            <button className="w-full md:w-auto py-[11px] px-[22px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
+              <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">배송</span>
+            </button>
+          </div>
+          <div className="w-[69px] h-[39px] md:w-auto py-[10px]">
+            <button className="w-full md:w-auto py-[11px] px-[22px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
+              <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">A/S</span>
+            </button>
+          </div>
         </div>
-        <div className="w-[calc(33.33%-8px)] md:w-auto">
-          <button className="w-full md:w-auto px-[25px] py-3 bg-white rounded-[30px] outline outline-1 outline-[#dddddd] flex justify-center items-center gap-2.5">
-            <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">제품</span>
-          </button>
-        </div>
-        <div className="w-[calc(33.33%-8px)] md:w-auto">
-          <button className="w-full md:w-auto px-[25px] py-3 bg-white rounded-[30px] outline outline-1 outline-[#dddddd] flex justify-center items-center gap-2.5">
-            <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">주문/결제</span>
-          </button>
-        </div>
-        <div className="w-[calc(33.33%-8px)] md:w-auto mt-2 md:mt-0">
-          <button className="w-full md:w-auto px-[25px] py-3 bg-white rounded-[30px] outline outline-1 outline-[#dddddd] flex justify-center items-center gap-2.5">
-            <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">취소/환불</span>
-          </button>
-        </div>
-        <div className="w-[calc(33.33%-8px)] md:w-auto mt-2 md:mt-0">
-          <button className="w-full md:w-auto px-[25px] py-3 bg-white rounded-[30px] outline outline-1 outline-[#dddddd] flex justify-center items-center gap-2.5">
-            <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">배송</span>
-          </button>
-        </div>
-        <div className="w-[calc(33.33%-8px)] md:w-auto mt-2 md:mt-0">
-          <button className="w-full md:w-auto px-[25px] py-3 bg-white rounded-[30px] outline outline-1 outline-[#dddddd] flex justify-center items-center gap-2.5">
-            <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">A/S</span>
-          </button>
-        </div>
-      </div>
 
-      {/* FAQ List */}
-      <div className="mt-10 max-w-[1280px] mx-auto">
-        {faqs.map((faq) => (
-          <Card key={faq.id} className="cursor-pointer overflow-hidden border-0 border-b border-[#e3e3e3] rounded-none shadow-none">
-            <div 
-              className="py-[41px] px-[30px]" 
-              onClick={() => setSelected(selected === faq.id ? null : faq.id)}
-            >
-              <div className="flex justify-between items-center">
-                <div className="flex flex-col gap-3">
-                  <h2 className="text-[#111111] text-lg font-semibold font-pretendard">{faq.question}</h2>
-                  <p className="text-[#51a4e4] text-sm font-semibold font-pretendard">{faq.category}</p>
+        {/* FAQ List */}
+        <div className="mt-[49px] max-w-[1280px] mx-auto border-0 border-b border-[#e3e3e3]">
+          {faqs.map((faq) => (
+            <Card key={faq.id} className="cursor-pointer overflow-hidden border-0 border-t border-[#e3e3e3] rounded-none shadow-none">
+              <div 
+                className="py-[41px] px-[20px]" 
+                onClick={() => setSelected(selected === faq.id ? null : faq.id)}
+              >
+                <div className="flex justify-between items-center">
+                  <div className="flex flex-col gap-3 w-[268px]">
+                    <h2 className="text-[#111111] text-sm font-semibold font-pretendard">{faq.question}</h2>
+                    <p className="text-[#51a4e4] text-sm font-semibold font-pretendard">{faq.category}</p>
+                  </div>
+                  <Image 
+                    src="/down_arrow.svg" 
+                    alt="Toggle FAQ" 
+                    width={18}
+                    height={18}
+                  />
                 </div>
-                <Image 
-                  src="/down_arrow.svg" 
-                  alt="Toggle FAQ" 
-                  width={18}
-                  height={18}
-                />
               </div>
-            </div>
-            {selected === faq.id && (
-              <div className="px-[30px] pb-[41px] pt-4 bg-[#fbfbfb]">
-                {faq.content}
-              </div>
-            )}
-          </Card>
-        ))}
-      </div>
+              {selected === faq.id && (
+                <div className="px-[30px] pb-[41px] bg-[#fbfbfb]">
+                  {faq.content}
+                </div>
+              )}
+            </Card>
+          ))}
+        </div>
 
-      <div className="flex justify-center my-[30px]">
-        <div className="w-44 h-[52px] relative">
-          <div className="w-44 h-[52px] absolute bg-white rounded border border-[#dddddd]" />
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 inline-flex justify-start items-center gap-2">
-            <div className="text-black text-sm font-semibold font-pretendard">view more</div>
-            <Image 
-              src="/plus.svg" 
-              alt="View More" 
-              width={12}
-              height={12}
-            />
+        <div className="flex justify-center mt-[60px] mb-[200px]">
+          <div className="w-44 h-[52px] relative">
+            <div className="w-44 h-[52px] absolute bg-white rounded border border-[#dddddd]" />
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 inline-flex justify-start items-center gap-2">
+              <div className="text-black text-sm font-semibold font-pretendard">view more</div>
+              <Image 
+                src="/plus.svg" 
+                alt="View More" 
+                width={12}
+                height={12}
+              />
+            </div>
           </div>
         </div>
       </div>

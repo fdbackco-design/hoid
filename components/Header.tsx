@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
-import { Menu } from 'lucide-react'
 import { useState } from 'react'
 
 export default function Header() {
@@ -17,20 +16,20 @@ export default function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-white border-b z-50">
-      <div className="container mx-auto px-4 h-[90px] flex items-center justify-between">
+      {/* PC Header */}
+      <div className="hidden md:flex container mx-auto px-4 h-[90px] items-center justify-between">
         <Link href="/" className="flex items-center">
           <Image
             src="/logo.svg"
             alt="HOID Logo"
             width={96}
             height={25}
-            className="w-[80px] h-[21px] md:w-[100px] md:h-[40px]"
+            className="w-[100px] h-[40px]"
             priority
           />
         </Link>
         
-        {/* Desktop Navigation */}
-        <nav className="hidden md:block">
+        <nav className="block">
           <ul className="flex items-center space-x-[88px] pt-[35px] pb-[35px]">
             {menuItems.map((item, index) => (
               <li key={index}>
@@ -44,37 +43,56 @@ export default function Header() {
             ))}
           </ul>
         </nav>
-
-        {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden p-2"
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          aria-label="Toggle menu"
-        >
-          <Menu className="w-6 h-6" />
-        </button>
       </div>
 
-      {/* Mobile Navigation */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-white border-t">
-          <nav className="container mx-auto px-4">
-            <ul className="py-4 space-y-4">
-              {menuItems.map((item, index) => (
-                <li key={index}>
-                  <Link 
-                    href={item.href}
-                    className="block text-[14px] leading-[21px] text-black hover:text-gray-600 transition-colors font-normal py-2"
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
+      {/* Mobile Header */}
+      <div className="w-[360px] mx-auto">
+        <div className="md:hidden flex items-center justify-between h-[72px] w-[320px] mx-5">
+          <Link href="/" className="h-[18px]">
+            <Image
+              src="/logo.svg"
+              alt="HOID Logo"
+              width={70}
+              height={18}
+              priority
+            />
+          </Link>
+
+          <button 
+            className="w-5 h-[18px] flex items-center justify-center p-0"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            aria-label="Menu"
+          >
+            <Image
+              src="/hamburger.svg"
+              alt="Menu"
+              width={20}
+              height={18}
+            />
+          </button>
         </div>
-      )}
+
+        {/* Mobile Navigation */}
+        {isMenuOpen && (
+          <div className="md:hidden bg-white border-t">
+            <nav className="w-[320px] mx-5">
+              <ul className="py-4 space-y-4">
+                {menuItems.map((item, index) => (
+                  <li key={index}>
+                    <Link 
+                      href={item.href}
+                      className="block text-[14px] leading-[21px] text-black hover:text-gray-600 transition-colors font-normal py-2"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+        )}
+      </div>
     </header>
   )
 } 

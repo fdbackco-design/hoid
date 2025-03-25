@@ -39,11 +39,11 @@ export default function ASCenterPage() {
     };
 
     return (
-        <div className="bg-white flex flex-row justify-center w-full">
-            <div className="bg-white w-full max-w-[1920px] relative pt-[27px]">
+        <div className="font-pretendard bg-white flex flex-row justify-center w-full">
+            <div className="bg-white w-full max-w-[1920px] relative">
 
                 {/* Hero Section */}
-                <div className="w-full h-[400px] md:h-[600px] relative bg-cover bg-center">
+                <div className="w-full h-[320px] md:h-[600px] relative bg-cover bg-center">
                     <div className="absolute inset-0">
                         <Image
                             src="/service_hero.svg"
@@ -54,11 +54,11 @@ export default function ASCenterPage() {
                         />
                     </div>
                     <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
-                        <div className="w-[320px] md:w-[700px] flex flex-col items-center gap-8">
+                        <div className="w-[320px] md:w-[700px] flex flex-col items-center gap-4">
                             <div className="w-full text-center text-white text-[32px] md:text-[46px] font-extrabold tracking-wide">
                                 HOID SERVICE
                             </div>
-                            <div className="w-full text-center text-white text-[14px] md:text-[28px] font-medium leading-relaxed md:leading-10">
+                            <div className="w-full text-center text-white text-[14px] md:text-[28px] font-medium leading-relaxed">
                                 HOID의 서비스는 자체 전문가팀을 통해<br/>
                                 전국 어디에서나 동일한 서비스를 제공해드립니다.
                             </div>
@@ -78,17 +78,17 @@ export default function ASCenterPage() {
                                 className="w-[60px] h-[60px] md:w-[90px] md:h-[90px]"
                             />
                         </div>
-                        <div className="flex flex-col items-center md:items-start md:absolute md:left-[200px] md:top-[42px] mt-8 md:mt-0 px-5 md:px-0">
+                        <div className="flex flex-col items-center md:items-start md:absolute md:left-[200px] md:top-[42px] mt-[10px] md:mt-0 px-5 md:px-0">
                             <div className="w-full md:w-[518px] flex flex-col gap-8">
-                                <div className="text-[#111111] text-[14px] md:text-[22px] font-bold text-center md:text-left">
-                                    제품 관련 문제사항을 빠르게 <br /> 해결할 수 있도록 도와드립니다.
+                                <div className="text-[#111111] text-[16px] md:text-[22px] font-bold text-center md:text-left whitespace-pre-line">
+                                    {"제품 관련 문제사항을 빠르게 \n해결할 수 있도록 도와드립니다."}
                                 </div>
-                                <div className="flex flex-col gap-3.5">
+                                <div className="flex flex-col gap-3">
                                     <div className="text-[#366cf2] text-lg md:text-xl font-bold text-center md:text-left">
                                         서비스센터 운영시간
                                     </div>
                                     <div className="text-[#333333] text-[15px] md:text-[17px] font-medium text-center md:text-left">
-                                        평일 : 09:00~18:00 / 토요일 09:00~13:00<br className="md:hidden"/> (일요일/공휴일 휴무)
+                                        평일 : 09:00~18:00<br className="md:hidden"/><span className="hidden md:inline"> / </span>토요일 09:00~13:00 (일요일/공휴일 휴무)
                                     </div>
                                 </div>
                             </div>
@@ -99,7 +99,7 @@ export default function ASCenterPage() {
                 {/* Repair Guidelines Section */}
                 <section className="flex flex-col items-center mt-[60px] md:mt-[100px] px-5 md:px-0">
                     <div className="w-full md:w-[1280px]">
-                        <h2 className="font-bold text-black text-[24px] md:text-[28px] tracking-[-0.28px] mb-[40px] text-left">
+                        <h2 className="font-bold text-black text-[20px] md:text-[28px] tracking-[-0.28px] mb-[24px] text-left">
                             유무상 수리기준 안내
                         </h2>
 
@@ -120,9 +120,9 @@ export default function ASCenterPage() {
                                     </div>
                                 </div>
 
-                                <div className="flex flex-col w-full md:w-full gap-6">
-                                    <h3 className="font-bold text-black text-[20px] md:text-[22px] text-left">무상수리</h3>
-                                    <div className="flex flex-col gap-3 px-5 md:px-0">
+                                <div className="flex flex-col w-full md:w-full gap-3">
+                                    <h3 className="font-bold text-black text-[16px] md:text-[22px] text-left">무상수리</h3>
+                                    <div className="flex flex-col gap-[10px] px-5 md:px-0">
                                         {repairGuidelines.free.map((item, index) => (
                                             <div key={index} className="flex items-start md:items-center gap-2.5">
                                                 <div className="w-[5px] h-[5px] mt-2 md:mt-0 bg-[#356aeb] rounded-[2.5px] flex-shrink-0" />
@@ -151,9 +151,9 @@ export default function ASCenterPage() {
                                     </div>
                                 </div>
 
-                                <div className="flex flex-col w-full md:w-full gap-6">
-                                    <h3 className="font-bold text-black text-[20px] md:text-[22px] text-left">유상수리</h3>
-                                    <div className="flex flex-col gap-3 px-5 md:px-0">
+                                <div className="flex flex-col w-full md:w-full gap-3">
+                                    <h3 className="font-bold text-black text-[16px] md:text-[22px] text-left">유상수리</h3>
+                                    <div className="flex flex-col gap-[10px] px-5 md:px-0">
                                         {repairGuidelines.paid.map((item, index) => (
                                             <div key={index} className="flex items-start md:items-center gap-2.5">
                                                 <div className="w-[5px] h-[5px] mt-2 md:mt-0 bg-[#356aeb] rounded-[2.5px] flex-shrink-0" />
@@ -172,9 +172,9 @@ export default function ASCenterPage() {
                 </section>
 
                 {/* Service Features Section */}
-                <section className="flex flex-col items-center mt-[60px] md:mt-[100px] mb-[90px] px-5 md:px-0">
+                <section className="flex flex-col items-center mt-[80px] md:mt-[120px] mb-[100px] px-5 md:px-0">
                     <div className="w-full md:w-[1280px]">
-                        <h2 className="font-bold text-black text-[24px] md:text-[28px] tracking-[-0.28px] mb-[40px] text-left">
+                        <h2 className="font-bold text-black text-[24px] md:text-[28px] tracking-[-0.28px] mb-[24px] text-left">
                             Hoid 서비스 센터
                         </h2>
 
@@ -182,10 +182,10 @@ export default function ASCenterPage() {
                             {serviceFeatures.map((feature, index) => (
                                 <Card
                                     key={index}
-                                    className="w-full md:w-[406px] h-[420px] bg-[#fcfcff] border-[#efeff8] rounded-[10px]"
+                                    className="w-full md:w-[406px] h-[320px] bg-[#fcfcff] border-[#efeff8] rounded-[10px]"
                                 >
                                     <CardContent className="flex flex-col items-center justify-center h-full p-6">
-                                        <div className="w-[100px] md:w-[132px] h-[104px] md:h-[136px] mb-[26px]">
+                                        <div className="w-[320px] md:w-[132px] h-[104px] md:h-[136px]">
                                             <Image
                                                 src={feature.image}
                                                 alt="Service Feature"
@@ -194,7 +194,7 @@ export default function ASCenterPage() {
                                                 className="w-full h-full"
                                             />
                                         </div>
-                                        <p className="font-semibold text-[#333333] text-lg md:text-xl text-center leading-8 whitespace-pre-line">
+                                        <p className="font-semibold text-[#333333] text-[16px] md:text-xl text-center leading-[24px] whitespace-pre-line">
                                             {feature.title.split(feature.highlight).map((part, i, arr) => 
                                                 i === arr.length - 1 ? part : (
                                                     <React.Fragment key={i}>

@@ -27,7 +27,7 @@ const companyInfo: ICompanyInfo = {
 export default function Footer() {
     return (
         <footer className="w-full">
-            <div className="w-full bg-[#272727] py-[70px] px-5 md:px-[230px]">
+            <div className="w-full bg-[#272727] py-[70px] px-5 md:px-[220px]">
                 <div className="w-full md:w-[600px]">
                     <Image
                         src="/footer_logo.png"

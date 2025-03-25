@@ -55,7 +55,7 @@ export default function Reviews() {
   }, [])
 
   return (
-    <section className="w-full py-[40px] md:py-[60px]">
+    <section className="w-full pb-[40px] md:pb-[60px]">
       <div className="embla overflow-hidden px-5 md:px-0" ref={emblaRef}>
         <div className="embla__container flex gap-[10px]">
           {reviews.map((review, index) => (
@@ -117,9 +117,9 @@ export default function Reviews() {
                     <Image
                       src="/review_btn.svg"
                       alt="Review Button"
-                      width={52}
-                      height={52}
-                      className="cursor-pointer mr-[30px]"
+                      width={32}
+                      height={32}
+                      className="cursor-pointer w-[32px] h-[32px] md:w-[52px] md:h-[52px] md:mr-[30px]"
                     />
                   </Link>
                 </div>
