@@ -21,7 +21,7 @@ export default function ImagesSlider_() {
   return (
     <>
       {/* PC 버전 */}
-      <div className="hidden md:block w-[1680px] mx-auto pt-[27px]">
+      <div className="hidden md:block w-[1680px] mx-auto">
         <ImagesSlider 
           className="h-[780px]" 
           images={images} 
