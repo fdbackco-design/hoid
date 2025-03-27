@@ -12,13 +12,13 @@ interface IServiceCard {
 const ServiceCards: IServiceCard[] = [
   {
     icon: (
-      <div className="w-[62px] h-[54px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
+      <div className="w-[62px] h-[32px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
         <Image
           src="/service_1.svg"
           alt="사용 설명서 아이콘"
-          width={62}
-          height={62}
-          className="object-contain md:h-[62px]"
+          width={32}
+          height={32}
+          className="w-[32px] h-[32px] md:w-[52px] md:h-[52px] object-contain"
         />
       </div>
     ),
@@ -28,13 +28,13 @@ const ServiceCards: IServiceCard[] = [
   },
   {
     icon: (
-      <div className="w-[62px] h-[54px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
+      <div className="w-[62px] h-[32px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
         <Image
           src="/service_2.svg"
           alt="A/S 안내 아이콘"
-          width={62}
-          height={62}
-          className="object-contain md:w-[62px] md:h-[62px]"
+          width={32}
+          height={32}
+          className="w-[32px] h-[32px] md:w-[52px] md:h-[52px] object-contain"
         />
       </div>
     ),
@@ -44,13 +44,13 @@ const ServiceCards: IServiceCard[] = [
   },
   {
     icon: (
-      <div className="w-[62px] h-[54px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
+      <div className="w-[62px] h-[32px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
         <Image
           src="/service_3.svg"
           alt="FAQ 아이콘"
-          width={62}
-          height={62}
-          className="object-contain md:w-[62px] md:h-[62px]"
+          width={32}
+          height={32}
+          className="w-[32px] h-[32px] md:w-[52px] md:h-[52px] object-contain"
         />
       </div>
     ),
@@ -60,13 +60,13 @@ const ServiceCards: IServiceCard[] = [
   },
   {
     icon: (
-      <div className="w-[62px] h-[54px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
+      <div className="w-[62px] h-[32px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
         <Image
           src="/service_4.svg"
           alt="1:1 문의 아이콘"
-          width={62}
-          height={62}
-          className="object-contain md:w-[62px] md:h-[62px]"
+          width={32}
+          height={32}
+          className="w-[32px] h-[32px] md:w-[52px] md:h-[52px] object-contain"
         />
       </div>
     ),
@@ -102,7 +102,7 @@ export default function ServiceCenter() {
         <div className="w-full md:w-[880px] h-[520px] md:h-[640px] bg-[#F5F5F5] relative">
           {/* 모바일 그리드 */}
           <div className="md:hidden absolute inset-0 flex items-center justify-center">
-            <div className="grid grid-cols-2 gap-x-14 gap-y-[56px] px-4 relative">
+            <div className="grid grid-cols-2 gap-x-14 gap-y-[20px] px-4 relative">
               {/* 수직 구분선 - 상단 */}
               <div className="absolute left-1/2 -translate-x-1/2 top-[-16px] h-[188px] w-[1px] bg-[#E4E4E4]" />
               {/* 수직 구분선 - 하단 */}
@@ -119,12 +119,10 @@ export default function ServiceCenter() {
                   className="flex flex-col items-center"
                 >
                   <Card className="border-none shadow-none bg-transparent">
-                    <CardContent className="flex flex-col items-center w-[120px] relative bg-transparent">
-                      <div>
-                        {card.icon}
-                      </div>
-                      <div className="flex flex-col items-center gap-3">
-                        <h3 className="w-fit font-pretendard font-semibold text-[#333333] text-lg tracking-[-0.18px] leading-[normal] whitespace-nowrap text-center">
+                    <CardContent className="flex flex-col items-center w-[120px] relative bg-transparent p-0">
+                      {card.icon}
+                      <div className="flex flex-col items-center mt-5">
+                        <h3 className="w-fit font-pretendard font-semibold text-[#333333] text-lg tracking-[-0.18px] leading-[normal] whitespace-nowrap text-center mb-3">
                           {card.title}
                         </h3>
                         <p className="w-[120px] font-pretendard font-medium text-[#666666] text-sm tracking-[-0.14px] leading-[22px] text-center whitespace-pre-line">

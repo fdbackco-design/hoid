@@ -4,7 +4,7 @@ import Link from 'next/link'
 export default function AsIntro() {
   return (
     <div className="w-full overflow-hidden">
-      <section className="relative w-full md:w-[1680px] h-[400px] md:h-[700px] mx-auto">
+      <section className="relative w-full md:w-[1680px] h-[400px] md:h-[680px] mx-auto">
         {/* 배경 이미지 */}
         <div className="absolute inset-0">
           <Image
