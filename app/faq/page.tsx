@@ -13,7 +13,7 @@ export default function FAQPage() {
       question: '[HO-AP2501] 가습필터 및 수조부 관리방법은 어떻게 하나요?', 
       category: '제품/공기청정기',
       content: (
-        <div className="text-[#111111] text-[13px] leading-[26px] w-[280px]">
+        <div className="text-[#111111] text-[13px] leading-[26px] w-[280px] md:w-[847px]">
           <p className="mb-6">노블 가습기 가습 필터는 세척 주기가 1주일 1회, 수조부 매일 1회, 물통청소 매일 1회입니다. 세척가 나타 있는 동안 계속 작동이 멈추가 필요합니다.</p>
           <div className="mb-4">
             <p className="font-bold mb-2">가습필터 세척방법</p>
@@ -107,32 +107,32 @@ export default function FAQPage() {
         {/* Category Filter */}
         <div className="flex flex-wrap md:inline-flex justify-center items-center gap-2 mt-[60px] md:mt-[140px] w-full md:px-0">
           <div className="w-[69px] h-[39px] md:w-auto">
-            <button className="w-full md:w-auto py-[11px] px-[22px] bg-[#51a4e4] rounded-[30px] flex justify-center items-center">
+            <button className="w-full md:w-auto py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-[#51a4e4] rounded-[30px] flex justify-center items-center">
               <span className="text-white text-[14px] md:text-base font-bold font-pretendard">전체</span>
             </button>
           </div>
           <div className="w-[69px] h-[39px] md:w-auto">
-            <button className="w-full md:w-auto py-[11px] px-[22px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
+            <button className="w-full md:w-auto py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
               <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">제품</span>
             </button>
           </div>
           <div className="w-[100px] h-[39px] md:w-auto">
-            <button className="w-full md:w-auto py-[11px] px-[22px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
+            <button className="w-full md:w-auto py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
               <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">주문/결제</span>
             </button>
           </div>
-          <div className="w-[100px] h-[39px] md:w-auto py-[10px]">
-            <button className="w-full md:w-auto py-[11px] px-[22px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
+          <div className="w-[100px] h-[39px] md:w-auto py-[10px] md:py-0">
+            <button className="w-full md:w-auto py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
               <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">취소/환불</span>
             </button>
           </div>
-          <div className="w-[69px] h-[39px] md:w-auto py-[10px]">
-            <button className="w-full md:w-auto py-[11px] px-[22px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
+          <div className="w-[69px] h-[39px] md:w-auto py-[10px] md:py-0">
+            <button className="w-full md:w-auto py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
               <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">배송</span>
             </button>
           </div>
-          <div className="w-[69px] h-[39px] md:w-auto py-[10px]">
-            <button className="w-full md:w-auto py-[11px] px-[22px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
+          <div className="w-[69px] h-[39px] md:w-auto py-[10px] md:py-0">
+            <button className="w-full md:w-auto py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
               <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">A/S</span>
             </button>
           </div>
@@ -143,11 +143,11 @@ export default function FAQPage() {
           {faqs.map((faq) => (
             <Card key={faq.id} className="cursor-pointer overflow-hidden border-0 border-t border-[#e3e3e3] rounded-none shadow-none">
               <div 
-                className="py-[41px] px-[20px]" 
+                className="py-[40px] px-[20px]" 
                 onClick={() => setSelected(selected === faq.id ? null : faq.id)}
               >
                 <div className="flex justify-between items-center">
-                  <div className="flex flex-col gap-3 w-[268px]">
+                  <div className="flex flex-col gap-3 w-[268px] md:w-full">
                     <h2 className="text-[#111111] text-sm font-semibold font-pretendard">{faq.question}</h2>
                     <p className="text-[#51a4e4] text-sm font-semibold font-pretendard">{faq.category}</p>
                   </div>
@@ -160,7 +160,7 @@ export default function FAQPage() {
                 </div>
               </div>
               {selected === faq.id && (
-                <div className="px-[30px] pb-[41px] bg-[#fbfbfb]">
+                <div className="px-[30px] pb-[41px] bg-[#fbfbfb] md:py-[40px]">
                   {faq.content}
                 </div>
               )}

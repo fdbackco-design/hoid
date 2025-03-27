@@ -68,7 +68,7 @@ export default function ASCenterPage() {
 
                 {/* Service Center Info */}
                 <div className="flex justify-center mt-[60px] md:mt-[140px] px-5 md:px-0">
-                    <div className="w-full md:w-[1280px] h-[320px] md:h-[240px] relative bg-[#f7f9fe] rounded-[10px]">
+                    <div className="w-full md:w-[1280px] h-[320px] md:h-[266px] relative bg-[#f7f9fe] rounded-[10px]">
                         <div className="flex flex-col items-center md:items-start md:absolute md:left-[70px] md:top-[75px] pt-10 md:pt-0">
                             <Image
                                 src="/service_info_icon.svg"
@@ -81,7 +81,7 @@ export default function ASCenterPage() {
                         <div className="flex flex-col items-center md:items-start md:absolute md:left-[200px] md:top-[42px] mt-[10px] md:mt-0 px-5 md:px-0">
                             <div className="w-full md:w-[518px] flex flex-col gap-8">
                                 <div className="text-[#111111] text-[16px] md:text-[22px] font-bold text-center md:text-left whitespace-pre-line">
-                                    {"제품 관련 문제사항을 빠르게 \n해결할 수 있도록 도와드립니다."}
+                                    {"제품 관련 문제사항을 빠르게 해결할 수 있도록 도와드립니다."}
                                 </div>
                                 <div className="flex flex-col gap-3">
                                     <div className="text-[#366cf2] text-lg md:text-xl font-bold text-center md:text-left">
@@ -115,16 +115,16 @@ export default function ASCenterPage() {
                                             alt="Free Repair Icon"
                                             width={100}
                                             height={98}
-                                            className="w-full h-full"
+                                            className="w-full h-full md:ml-[70px]"
                                         />
                                     </div>
                                 </div>
 
                                 <div className="flex flex-col w-full md:w-full gap-3">
-                                    <h3 className="font-bold text-black text-[16px] md:text-[22px] text-left">무상수리</h3>
+                                    <h3 className="font-bold text-black text-[16px] md:text-[22px] text-left md:ml-[70px]">무상수리</h3>
                                     <div className="flex flex-col gap-[10px] px-5 md:px-0">
                                         {repairGuidelines.free.map((item, index) => (
-                                            <div key={index} className="flex items-start md:items-center gap-2.5">
+                                            <div key={index} className="flex items-start md:items-center gap-2.5 md:ml-[70px]">
                                                 <div className="w-[5px] h-[5px] mt-2 md:mt-0 bg-[#356aeb] rounded-[2.5px] flex-shrink-0" />
                                                 <p className="font-medium text-[#333333] text-[14px] md:text-lg">
                                                     {item}
@@ -146,16 +146,16 @@ export default function ASCenterPage() {
                                             alt="Paid Repair Icon"
                                             width={100}
                                             height={91}
-                                            className="w-full h-full"
+                                            className="w-full h-full md:ml-[70px]"
                                         />
                                     </div>
                                 </div>
 
                                 <div className="flex flex-col w-full md:w-full gap-3">
-                                    <h3 className="font-bold text-black text-[16px] md:text-[22px] text-left">유상수리</h3>
+                                    <h3 className="font-bold text-black text-[16px] md:text-[22px] text-left md:ml-[70px]">유상수리</h3>
                                     <div className="flex flex-col gap-[10px] px-5 md:px-0">
                                         {repairGuidelines.paid.map((item, index) => (
-                                            <div key={index} className="flex items-start md:items-center gap-2.5">
+                                            <div key={index} className="flex items-start md:items-center gap-2.5 md:ml-[70px]">
                                                 <div className="w-[5px] h-[5px] mt-2 md:mt-0 bg-[#356aeb] rounded-[2.5px] flex-shrink-0" />
                                                 <p className="font-medium text-[#333333] text-[14px] md:text-lg">
                                                     {item}
@@ -174,27 +174,27 @@ export default function ASCenterPage() {
                 {/* Service Features Section */}
                 <section className="flex flex-col items-center mt-[80px] md:mt-[120px] mb-[100px] px-5 md:px-0">
                     <div className="w-full md:w-[1280px]">
-                        <h2 className="font-bold text-black text-[24px] md:text-[28px] tracking-[-0.28px] mb-[24px] text-left">
-                            Hoid 서비스 센터
+                        <h2 className="font-bold text-black text-[24px] md:text-[28px] tracking-[-0.28px] mb-[24px] md:mb-[40px] text-left">
+                            HOID 서비스 센터
                         </h2>
 
                         <div className="flex flex-col md:flex-row gap-5 md:gap-[31px]">
                             {serviceFeatures.map((feature, index) => (
                                 <Card
                                     key={index}
-                                    className="w-full md:w-[406px] h-[320px] bg-[#fcfcff] border-[#efeff8] rounded-[10px]"
+                                    className="w-full md:w-[406px] h-[320px] md:h-[420px] md:pt-[100px] md:pb-[70px] bg-[#fcfcff] border-[#efeff8] rounded-[10px]"
                                 >
-                                    <CardContent className="flex flex-col items-center justify-center h-full p-6">
-                                        <div className="w-[320px] md:w-[132px] h-[104px] md:h-[136px]">
+                                    <CardContent className="flex flex-col items-center justify-center h-full">
+                                        <div className="w-[320px] md:w-[140x] h-[104px] md:h-[127px] md:mb-[27px]">
                                             <Image
                                                 src={feature.image}
                                                 alt="Service Feature"
-                                                width={132}
-                                                height={136}
+                                                width={140}
+                                                height={127}
                                                 className="w-full h-full"
                                             />
                                         </div>
-                                        <p className="font-semibold text-[#333333] text-[16px] md:text-xl text-center leading-[24px] whitespace-pre-line">
+                                        <p className="font-semibold text-[#333333] text-[16px] md:text-[20px] md:leading-[32px] text-center leading-[26px] whitespace-pre-line">
                                             {feature.title.split(feature.highlight).map((part, i, arr) => 
                                                 i === arr.length - 1 ? part : (
                                                     <React.Fragment key={i}>

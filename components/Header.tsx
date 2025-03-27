@@ -35,7 +35,7 @@ export default function Header() {
   return (
     <header className="fixed top-0 left-0 right-0 bg-white border-b border-[#E4E4E4] z-50">
       {/* PC Header */}
-      <div className="hidden md:flex w-full max-w-[1200px] mx-auto h-[90px] items-center justify-between px-[40px]">
+      <div className="hidden md:flex w-full max-w-[1480px] mx-auto h-[90px] items-center justify-between px-[40px]">
         <Link href="/" className="flex items-center">
           <Image
             src="/logo.svg"

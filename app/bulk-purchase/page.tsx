@@ -100,7 +100,7 @@ export default function BulkPurchasePage() {
             <div className="flex flex-col gap-[16px]">
               <div>
                 <div className="flex items-center">
-                  <label className="w-[140px] text-[15px] font-medium">기업명</label>
+                  <label className="w-[140px] md:w-[50px] text-[15px] font-medium">기업명</label>
                   <input 
                     type="text" 
                     className="flex-1 h-[52px] bg-[#f8f8f8] px-4"
@@ -111,7 +111,7 @@ export default function BulkPurchasePage() {
               </div>
               <div>
                 <div className="flex items-center">
-                  <label className="w-[140px] text-[15px] font-medium">소속</label>
+                  <label className="w-[140px] md:w-[50px] text-[15px] font-medium">소속</label>
                   <input 
                     type="text" 
                     className="flex-1 h-[52px] bg-[#f8f8f8] px-4"
@@ -122,7 +122,7 @@ export default function BulkPurchasePage() {
               </div>
               <div>
                 <div className="flex items-center">
-                  <label className="w-[140px] text-[15px] font-medium">이름</label>
+                  <label className="w-[140px] md:w-[50px] text-[15px] font-medium">이름</label>
                   <input 
                     type="text" 
                     className="flex-1 h-[52px] bg-[#f8f8f8] px-4"
@@ -133,7 +133,7 @@ export default function BulkPurchasePage() {
               </div>
               <div>
                 <div className="flex items-center">
-                  <label className="w-[140px] text-[15px] font-medium">연락처</label>
+                  <label className="w-[140px] md:w-[50px] text-[15px] font-medium">연락처</label>
                   <input 
                     type="tel" 
                     className="flex-1 h-[52px] bg-[#f8f8f8] px-4"
@@ -144,7 +144,7 @@ export default function BulkPurchasePage() {
               </div>
               <div>
                 <div className="flex items-center">
-                  <label className="w-[140px] text-[15px] font-medium">이메일</label>
+                  <label className="w-[140px] md:w-[50px] text-[15px] font-medium">이메일</label>
                   <input 
                     type="email" 
                     className="flex-1 h-[52px] bg-[#f8f8f8] px-4"
@@ -219,7 +219,7 @@ export default function BulkPurchasePage() {
             <h2 className="text-[18px] font-bold mb-[20px]">개인정보수집 및 이용동의</h2>
             <div className="w-full md:w-[1280px] h-px bg-[#111111]" />
             <div className="bg-[#ffffff] mt-[20px]">
-              <p className="text-stone-500 text-sm font-medium font-['Pretendard'] capitalize leading-relaxed -tracking-widest">
+              <p className="text-stone-500 text-[14px] leading-[24px] md:text-[16px] md:leading-[26px] font-pretendard font-medium capitalize tracking-[-0.01em]">
                 HOID는 고객님께서 제품 주문 및 여러 문의사항을 처리함에 있어, 신속하고 원활한 대응을 위해 아래와 같이 최소한의 정보를 수집하며 이에 대한 동의절차를 수행합니다.<br/><br/>
                 - 개인정보를 수집하는 자 : hOID<br/>
                 - 개인정보 수집항목 : 기업명, 소속, 이름, 이메일, 연락처<br/>
@@ -232,12 +232,12 @@ export default function BulkPurchasePage() {
             <div className="w-full md:w-[1280px] h-px bg-[#E3E3E3] mt-[20px]" />
             <div className="flex justify-start mt-[20px]">
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" className="w-5 h-5" />
+                <input type="checkbox" className="w-4 h-4" />
                 <span className="text-[14px] font-medium font-['Pretendard']">개인정보수집 및 이용에 동의합니다.</span>
               </label>
             </div>
             <div className="flex justify-center mt-[40px] mb-[100px]">
-              <button className="bg-[#51a4e4] px-[68px] py-[16px] rounded-[50px] w-[180px] h-[50px] inline-flex justify-center items-center text-center text-white text-[15px] font-semibold font-['Pretendard'] capitalize tracking-tight">
+              <button className="bg-[#51a4e4] px-[70px] py-[16px] rounded-[50px] w-[180px] h-[50px] inline-flex justify-center items-center text-center text-white text-[15px] font-semibold font-['Pretendard'] capitalize tracking-tight">
                 보내기
               </button>
             </div>

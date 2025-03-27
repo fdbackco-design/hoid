@@ -1,0 +1,14 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Disallow admin and private paths
+Disallow: /admin/
+Disallow: /private*/
+
+# Allow Naver search robot
+User-agent: Yeti
+Allow: /
+
+# Sitemap
+Sitemap: https://hoid.kr/sitemap.xml 

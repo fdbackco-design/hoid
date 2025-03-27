@@ -12,13 +12,13 @@ interface IServiceCard {
 const ServiceCards: IServiceCard[] = [
   {
     icon: (
-      <div className="w-[62px] h-[32px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
+      <div className="w-[54px] h-[54px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
         <Image
           src="/service_1.svg"
           alt="사용 설명서 아이콘"
           width={32}
           height={32}
-          className="w-[32px] h-[32px] md:w-[52px] md:h-[52px] object-contain"
+          className="w-[54px] h-[54px] md:w-[62px] md:h-[62px] object-contain"
         />
       </div>
     ),
@@ -28,13 +28,13 @@ const ServiceCards: IServiceCard[] = [
   },
   {
     icon: (
-      <div className="w-[62px] h-[32px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
+      <div className="w-[54px] h-[54px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
         <Image
           src="/service_2.svg"
           alt="A/S 안내 아이콘"
           width={32}
           height={32}
-          className="w-[32px] h-[32px] md:w-[52px] md:h-[52px] object-contain"
+          className="w-[54px] h-[54px] md:w-[62px] md:h-[62px] object-contain"
         />
       </div>
     ),
@@ -44,13 +44,13 @@ const ServiceCards: IServiceCard[] = [
   },
   {
     icon: (
-      <div className="w-[62px] h-[32px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
+      <div className="w-[54px] h-[54px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
         <Image
           src="/service_3.svg"
           alt="FAQ 아이콘"
           width={32}
           height={32}
-          className="w-[32px] h-[32px] md:w-[52px] md:h-[52px] object-contain"
+          className="w-[54px] h-[54px] md:w-[62px] md:h-[62px] object-contain"
         />
       </div>
     ),
@@ -60,13 +60,13 @@ const ServiceCards: IServiceCard[] = [
   },
   {
     icon: (
-      <div className="w-[62px] h-[32px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
+      <div className="w-[54px] h-[54px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
         <Image
           src="/service_4.svg"
           alt="1:1 문의 아이콘"
           width={32}
           height={32}
-          className="w-[32px] h-[32px] md:w-[52px] md:h-[52px] object-contain"
+          className="w-[54px] h-[54px] md:w-[62px] md:h-[62px] object-contain"
         />
       </div>
     ),
@@ -80,7 +80,7 @@ export default function ServiceCenter() {
   return (
     <section className="w-full py-[40px] md:py-[183px] mt-[40px] md:mt-0">
       <div className="font-pretendard text-center mb-[40px] md:mb-[90px] px-5 md:px-0">
-        <h2 className="text-[24px] md:text-[48px] font-bold text-black mb-[12px] md:mb-5">HOID 서비스 센터</h2>
+        <h2 className="text-[24px] md:text-[48px] font-semibold text-black mb-[12px] md:mb-5">HOID 서비스 센터</h2>
         <p className="text-[#111111] text-[15px] md:text-[18px] font-medium">
           <span className="md:hidden">제품 관련 문제사항을<br /></span>
           <span className="hidden md:inline">제품 관련 문제사항을 </span>
@@ -102,15 +102,15 @@ export default function ServiceCenter() {
         <div className="w-full md:w-[880px] h-[520px] md:h-[640px] bg-[#F5F5F5] relative">
           {/* 모바일 그리드 */}
           <div className="md:hidden absolute inset-0 flex items-center justify-center">
-            <div className="grid grid-cols-2 gap-x-14 gap-y-[20px] px-4 relative">
+            <div className="grid grid-cols-2 gap-x-14 gap-y-[50px] px-4 relative">
               {/* 수직 구분선 - 상단 */}
-              <div className="absolute left-1/2 -translate-x-1/2 top-[-16px] h-[188px] w-[1px] bg-[#E4E4E4]" />
+              <div className="absolute left-1/2 -translate-x-1/2 top-[-22px] h-[207px] w-[1px] bg-[#E4E4E4]" />
               {/* 수직 구분선 - 하단 */}
-              <div className="absolute left-1/2 -translate-x-1/2 top-1/2 h-[188px] w-[1px] bg-[#E4E4E4]" />
+              <div className="absolute left-1/2 -translate-x-1/2 top-[204px] h-[207px] w-[1px] bg-[#E4E4E4]" />
               {/* 수평 구분선 - 좌측 */}
-              <div className="absolute top-[189px] -translate-y-1/2 w-[140px] h-[1px] left-[10px] bg-[#E4E4E4]" />
+              <div className="absolute top-[196px] -translate-y-1/2 w-[140px] h-[1px] left-[10px] bg-[#E4E4E4]" />
               
-              <div className="absolute top-[189px] -translate-y-1/2 w-[140px] h-[1px] left-[178px] bg-[#E4E4E4]" />
+              <div className="absolute top-[196px] -translate-y-1/2 w-[140px] h-[1px] left-[178px] bg-[#E4E4E4]" />
 
               {ServiceCards.map((card, index) => (
                 <Link 
@@ -161,8 +161,8 @@ export default function ServiceCenter() {
                       {card.icon}
                     </div>
                     <div className="flex flex-col items-center text-center">
-                      <h3 className="text-[#333333] text-lg font-bold mb-3">{card.title}</h3>
-                      <p className="text-[#666666] text-sm leading-[24px] whitespace-pre-line">{card.description}</p>
+                      <h3 className="text-[#333333] text-[22px] font-bold mb-3">{card.title}</h3>
+                      <p className="text-[#666666] text-[16px] leading-[24px] whitespace-pre-line">{card.description}</p>
                     </div>
                   </div>
                 </Link>

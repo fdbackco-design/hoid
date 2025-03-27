@@ -17,7 +17,7 @@ const reviews: IReview[] = [
   {
     productName: "HOID 공기청정기",
     modelName: "TP-850",
-    content: "공기청정기를 켜놓으면 실내 공기가 확실히 깨끗해지는 게 느껴져요. 특히 미세먼지가 심한 날에는 정말 효과를 실감할 수 있어요. 디자인도 너무 예쁘고 인테리어 효과도 있어서 더욱 만족스럽습니다.",
+    content: "HOID 제품 처음 써보는데 가격대비 너무 좋습니다. 디자인도 깔끔하고 성능은 생각했던 것보다 더 좋네요. A/S센터도 있어서 만약 문제 생겨도 걱정 없더라구요. HOID 다른 제품도 사보려구요...",
     image: "/review_1.png",
     href: "#"
   },
@@ -55,14 +55,14 @@ export default function Reviews() {
   }, [])
 
   return (
-    <section className="w-full pb-[40px] md:pb-[60px]">
+    <section className="w-full md:mb-[200px] mb-[100px]">
       <div className="embla overflow-hidden px-5 md:px-0" ref={emblaRef}>
-        <div className="embla__container flex gap-[10px]">
+        <div className="embla__container flex gap-[16px]">
           {reviews.map((review, index) => (
             <div key={index} className="embla__slide flex-[0_0_100%] md:flex-[0_0_33.33%] min-w-0 md:px-4">
               <div className="flex flex-col">
                 <div
-                  className="relative w-full h-[320px] md:h-[400px] bg-white shadow-md cursor-pointer mx-auto overflow-hidden"
+                  className="relative w-full h-[300px] md:h-[490px] bg-white shadow-md cursor-pointer mx-auto overflow-hidden"
                   onMouseEnter={() => !isMobile && setIsHovered(index)}
                   onMouseLeave={() => !isMobile && setIsHovered(null)}
                   onClick={() => {
@@ -81,14 +81,15 @@ export default function Reviews() {
                     />
                   </div>
                   {((!isMobile && isHovered === index) || (isMobile && activeIndex === index)) && (
-                    <div className="absolute inset-0 p-5 md:p-6 bg-[#F5F5F5]/95 flex flex-col justify-end">
-                      <div className="flex flex-col ml-[40px] mb-[43px]">
+                    <div className="absolute inset-0 md:p-6 bg-[#F5F5F5]/95 flex flex-col justify-end">
+                      <div className="flex flex-col px-[28px] py-[30px]">
                         <div className="flex items-start mb-3 md:mb-4">
                           <Image
                             src="/review_start.svg"
                             alt="Review start"
                             width={40}
                             height={24}
+                            className="md:w-[40px] md:h-[24px] w-[24px] h-[14px]"
                           />
                         </div>
                         <p className="text-[#333333] text-[14px] md:text-[21px] leading-relaxed font-pretendard">
@@ -98,19 +99,20 @@ export default function Reviews() {
                     </div>
                   )}
                 </div>
-                <div className="ml-3 mt-4 flex items-center justify-between w-full">
+                <div className="md:ml-[40px] mt-4 flex items-center justify-between w-full">
                   <div className="flex items-center">
                     <div className="bg-[#E2ECF4] rounded-[12px]">
                       <Image
                         src="/review_b.svg"
-                        alt="Review start"
-                        width={86}
-                        height={86}
+                        alt="Review thumbnail"
+                        width={52}
+                        height={52}
+                        className="md:w-[86px] md:h-[86px] w-[50px] h-[50px]"
                       />
                     </div>
                     <div className="ml-6">
-                      <p className="text-[#333333] text-lg font-bold mb-1 font-pretendard">{review.productName}</p>
-                      <p className="text-[#666666] text-[13px] font-pretendard">{review.modelName}</p>
+                      <p className="text-[#333333] text-lg md:text-[20px] font-bold mb-1 font-pretendard">{review.productName}</p>
+                      <p className="text-[#666666] text-[13px] md:text-[20px] font-pretendard">{review.modelName}</p>
                     </div>
                   </div>
                   <Link href={review.href}>

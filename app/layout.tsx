@@ -41,7 +41,7 @@ export default function RootLayout({
     <html lang="ko">
       <body className="font-pretendard">
         <Header />
-        <main className="mt-[72px]">
+        <main className="mt-[90px]">
           {children}
         </main>
         <Footer />
