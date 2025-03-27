@@ -3,12 +3,34 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { Pretendard } from '@/lib/fonts'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'HOID',
-  description: 'HOID - Your trusted partner',
+  description: 'HOID 공식 홈페이지입니다. A/S 센터, 자주 묻는 질문, 대량 구매 문의를 확인하실 수 있습니다.',
+  openGraph: {
+    type: 'website',
+    title: 'HOID - 공식 홈페이지',
+    description: 'HOID 공식 홈페이지입니다. A/S 센터, 자주 묻는 질문, 대량 구매 문의를 확인하실 수 있습니다.',
+    url: 'https://hoid.kr',
+    siteName: 'HOID',
+    images: [
+      {
+        url: 'https://hoid.kr/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'HOID',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'HOID - 공식 홈페이지',
+    description: 'HOID 공식 홈페이지입니다. A/S 센터, 자주 묻는 질문, 대량 구매 문의를 확인하실 수 있습니다.',
+    images: ['https://hoid.kr/og-image.jpg'],
+  },
 }
 
 export default function RootLayout({
@@ -18,7 +40,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={inter.className}>
+      <body className={Pretendard.className}>
         <Header />
         <main className="mt-[72px]">
           {children}

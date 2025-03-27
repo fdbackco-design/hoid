@@ -11,33 +11,51 @@ export default function Header() {
     { href: "/as-center", label: "A/S 센터" },
     { href: "/faq", label: "자주 묻는 질문" },
     { href: "/bulk-purchase", label: "대량 구매 문의" },
-    { href: "/store", label: "스토어" },
+    { href: "/store", label: "스토어", hasIcon: true },
   ];
 
+  const renderMenuItem = (item: typeof menuItems[0], isPc: boolean = false) => {
+    if (item.hasIcon && isPc) {
+      return (
+        <div className="flex items-center gap-2">
+          {item.label}
+          <Image
+            src="/header_store.svg"
+            alt="Store Icon"
+            width={16}
+            height={16}
+            className="w-4 h-4"
+          />
+        </div>
+      );
+    }
+    return item.label;
+  };
+
   return (
-    <header className="fixed top-0 left-0 right-0 bg-white border-b z-50">
+    <header className="fixed top-0 left-0 right-0 bg-white border-b border-[#E4E4E4] z-50">
       {/* PC Header */}
-      <div className="hidden md:flex container mx-auto px-4 h-[90px] items-center justify-between">
+      <div className="hidden md:flex w-full max-w-[1200px] mx-auto h-[90px] items-center justify-between px-[40px]">
         <Link href="/" className="flex items-center">
           <Image
             src="/logo.svg"
             alt="HOID Logo"
             width={96}
             height={25}
-            className="w-[100px] h-[40px]"
+            className="w-[96px] h-[25px]"
             priority
           />
         </Link>
         
-        <nav className="block">
-          <ul className="flex items-center space-x-[88px] pt-[35px] pb-[35px]">
+        <nav>
+          <ul className="flex items-center gap-[88px]">
             {menuItems.map((item, index) => (
               <li key={index}>
                 <Link 
                   href={item.href}
-                  className="justify-start text-black text-lg font-semibold font-['Pretendard'] capitalize"
+                  className="text-[#111111] text-[18px] tracking-[-0.18px] font-semibold font-pretendard hover:text-[#666666] transition-colors"
                 >
-                  {item.label}
+                  {renderMenuItem(item, true)}
                 </Link>
               </li>
             ))}
@@ -46,20 +64,21 @@ export default function Header() {
       </div>
 
       {/* Mobile Header */}
-      <div className="w-[360px] mx-auto">
-        <div className="md:hidden flex items-center justify-between h-[72px] w-[320px] mx-5">
-          <Link href="/" className="h-[18px]">
+      <div className="w-full md:hidden">
+        <div className="flex items-center justify-between h-[72px] px-5">
+          <Link href="/" className="flex items-center">
             <Image
               src="/logo.svg"
               alt="HOID Logo"
               width={70}
               height={18}
+              className="w-[70px] h-[18px]"
               priority
             />
           </Link>
 
           <button 
-            className="w-5 h-[18px] flex items-center justify-center p-0"
+            className="w-[20px] h-[18px] flex items-center justify-center p-0"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
             aria-label="Menu"
           >
@@ -68,23 +87,24 @@ export default function Header() {
               alt="Menu"
               width={20}
               height={18}
+              className="w-[20px] h-[18px]"
             />
           </button>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden bg-white border-t">
-            <nav className="w-[320px] mx-5">
-              <ul className="py-4 space-y-4">
+          <div className="md:hidden bg-white border-t border-[#E4E4E4]">
+            <nav className="px-5">
+              <ul className="py-4">
                 {menuItems.map((item, index) => (
-                  <li key={index}>
+                  <li key={index} className="py-2">
                     <Link 
                       href={item.href}
-                      className="block text-[14px] leading-[21px] text-black hover:text-gray-600 transition-colors font-normal py-2"
+                      className="block text-[14px] leading-[21px] text-[#111111] font-pretendard font-normal hover:text-[#666666] transition-colors"
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      {item.label}
+                      {renderMenuItem(item)}
                     </Link>
                   </li>
                 ))}
