@@ -69,7 +69,7 @@ export default function ASCenterPage() {
                 {/* Service Center Info */}
                 <div className="flex justify-center mt-[60px] md:mt-[140px] px-5 md:px-0">
                     <div className="w-full md:w-[1280px] h-[320px] md:h-[266px] relative bg-[#f7f9fe] rounded-[10px]">
-                        <div className="flex flex-col items-center md:items-start md:absolute md:left-[70px] md:top-[75px] pt-10 md:pt-0">
+                        <div className="flex flex-col items-center md:items-start md:absolute md:left-[70px] md:top-[88px] pt-10 md:pt-0">
                             <Image
                                 src="/service_info_icon.svg"
                                 alt="Service Info Icon"
@@ -78,16 +78,16 @@ export default function ASCenterPage() {
                                 className="w-[60px] h-[60px] md:w-[90px] md:h-[90px]"
                             />
                         </div>
-                        <div className="flex flex-col items-center md:items-start md:absolute md:left-[200px] md:top-[42px] mt-[10px] md:mt-0 px-5 md:px-0">
-                            <div className="w-full md:w-[518px] flex flex-col gap-8">
-                                <div className="text-[#111111] text-[16px] md:text-[22px] font-bold text-center md:text-left whitespace-pre-line">
+                        <div className="flex flex-col items-center md:items-start md:absolute md:left-[200px] md:top-[75px] mt-[10px] md:mt-0 px-5 md:px-0">
+                            <div className="w-full flex flex-col gap-8">
+                                <div className="text-[#111111] text-[16px] md:text-[22px] font-bold text-center md:text-left whitespace-pre-line md:ml-[40px]">
                                     {"제품 관련 문제사항을 빠르게 해결할 수 있도록 도와드립니다."}
                                 </div>
                                 <div className="flex flex-col gap-3">
-                                    <div className="text-[#366cf2] text-lg md:text-xl font-bold text-center md:text-left">
+                                    <div className="text-[#366cf2] text-lg md:text-xl font-bold text-center md:text-left md:ml-[40px]">
                                         서비스센터 운영시간
                                     </div>
-                                    <div className="text-[#333333] text-[15px] md:text-[17px] font-medium text-center md:text-left">
+                                    <div className="text-[#333333] text-[15px] md:text-[17px] font-medium text-center md:text-left md:ml-[40px]">
                                         평일 : 09:00~18:00<br className="md:hidden"/><span className="hidden md:inline"> / </span>토요일 09:00~13:00 (일요일/공휴일 휴무)
                                     </div>
                                 </div>
@@ -122,11 +122,11 @@ export default function ASCenterPage() {
 
                                 <div className="flex flex-col w-full md:w-full gap-3">
                                     <h3 className="font-bold text-black text-[16px] md:text-[22px] text-left md:ml-[70px]">무상수리</h3>
-                                    <div className="flex flex-col gap-[10px] px-5 md:px-0">
+                                    <div className="flex flex-col gap-[12px] px-5 md:px-0">
                                         {repairGuidelines.free.map((item, index) => (
                                             <div key={index} className="flex items-start md:items-center gap-2.5 md:ml-[70px]">
                                                 <div className="w-[5px] h-[5px] mt-2 md:mt-0 bg-[#356aeb] rounded-[2.5px] flex-shrink-0" />
-                                                <p className="font-medium text-[#333333] text-[14px] md:text-lg">
+                                                <p className="font-medium text-[#333333] text-[14px] md:text-[18px]">
                                                     {item}
                                                 </p>
                                             </div>

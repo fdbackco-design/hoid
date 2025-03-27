@@ -4,7 +4,7 @@ export default function ReviewTitle() {
       <h1 className="text-black text-[26px] md:text-[48px] font-semibold w-full text-center">
         제품 사용 후기
       </h1>
-      <p className="text-[#111111] text-[15px] md:text-[18px] w-full text-center whitespace-pre-line">{"고객님들의 실제 \n제품 사용 후기를 확인해보세요."}</p>
+      <p className="text-[#111111] text-[15px] md:text-[18px] w-full text-center whitespace-pre-line md:whitespace-normal">{"고객님들의 실제 \n제품 사용 후기를 확인해보세요."}</p>
     </div>
   )
 } 

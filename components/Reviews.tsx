@@ -59,7 +59,7 @@ export default function Reviews() {
       <div className="embla overflow-hidden px-5 md:px-0" ref={emblaRef}>
         <div className="embla__container flex gap-[16px]">
           {reviews.map((review, index) => (
-            <div key={index} className="embla__slide flex-[0_0_100%] md:flex-[0_0_33.33%] min-w-0 md:px-4">
+            <div key={index} className="embla__slide flex-[0_0_100%] md:flex-[0_0_40.3%] min-w-0 md:px-4">
               <div className="flex flex-col">
                 <div
                   className="relative w-full h-[300px] md:h-[490px] bg-white shadow-md cursor-pointer mx-auto overflow-hidden"
@@ -121,7 +121,7 @@ export default function Reviews() {
                       alt="Review Button"
                       width={32}
                       height={32}
-                      className="cursor-pointer w-[32px] h-[32px] md:w-[52px] md:h-[52px] md:mr-[30px]"
+                      className="cursor-pointer w-[32px] h-[32px] md:w-[52px] md:h-[52px] md:mr-[70px]"
                     />
                   </Link>
                 </div>
