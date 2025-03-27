@@ -236,8 +236,8 @@ export default function BulkPurchasePage() {
                 <span className="text-[14px] font-medium font-['Pretendard']">개인정보수집 및 이용에 동의합니다.</span>
               </label>
             </div>
-            <div className="flex justify-center mt-[40px] mb-[100px]">
-              <button className="bg-[#51a4e4] px-[70px] py-[16px] rounded-[50px] w-[180px] h-[50px] inline-flex justify-center items-center text-center text-white text-[15px] font-semibold font-['Pretendard'] capitalize tracking-tight">
+            <div className="flex justify-center mt-[50px] mb-[200px]">
+              <button className="bg-[#51a4e4] px-[70px] py-[16px] md:px-[80px] md:py-[22px] rounded-[50px] w-[180px] md:w-[213px] h-[50px] md:h-[68px] inline-flex justify-center items-center text-center text-white text-[15px] md:text-[20px] font-semibold font-pretendard capitalize tracking-tight">
                 보내기
               </button>
             </div>
