@@ -105,35 +105,35 @@ export default function FAQPage() {
         </div>
 
         {/* Category Filter */}
-        <div className="flex flex-wrap md:inline-flex justify-center items-center gap-2 mt-[60px] md:mt-[140px] w-full md:px-0">
-          <div className="w-[69px] h-[39px] md:w-auto">
-            <button className="w-full md:w-auto py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-[#51a4e4] rounded-[30px] flex justify-center items-center">
+        <div className="flex flex-wrap md:inline-flex justify-center items-center gap-2 mt-[60px] md:mt-[160px] w-full md:px-0">
+          <div className="w-[69px] h-[39px] md:w-[78px] md:h-[43px]">
+            <button className="w-full md:w-[78px] md:h-[43px] py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-[#51a4e4] rounded-[30px] flex justify-center items-center">
               <span className="text-white text-[14px] md:text-base font-bold font-pretendard">전체</span>
             </button>
           </div>
-          <div className="w-[69px] h-[39px] md:w-auto">
-            <button className="w-full md:w-auto py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
-              <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">제품</span>
+          <div className="w-[69px] h-[39px] md:w-[78px] md:h-[43px]">
+            <button className="w-full md:w-[78px] md:h-[43px] py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
+              <span className="text-[#888888] text-[14px] md:text-[16px] font-semibold font-pretendard">제품</span>
             </button>
           </div>
           <div className="w-[100px] h-[39px] md:w-auto">
-            <button className="w-full md:w-auto py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
-              <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">주문/결제</span>
+            <button className="w-full md:w-auto md:h-[43px] py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
+              <span className="text-[#888888] text-[14px] md:text-[16px] font-semibold font-pretendard">주문/결제</span>
             </button>
           </div>
           <div className="w-[100px] h-[39px] md:w-auto py-[10px] md:py-0">
-            <button className="w-full md:w-auto py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
-              <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">취소/환불</span>
+            <button className="w-full md:w-auto md:h-[43px] py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
+              <span className="text-[#888888] text-[14px] md:text-[16px] font-semibold font-pretendard">취소/환불</span>
             </button>
           </div>
           <div className="w-[69px] h-[39px] md:w-auto py-[10px] md:py-0">
-            <button className="w-full md:w-auto py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
-              <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">배송</span>
+            <button className="w-full md:w-[78px] md:h-[43px] py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
+              <span className="text-[#888888] text-[14px] md:text-[16px] font-semibold font-pretendard">배송</span>
             </button>
           </div>
           <div className="w-[69px] h-[39px] md:w-auto py-[10px] md:py-0">
-            <button className="w-full md:w-auto py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
-              <span className="text-[#888888] text-[14px] md:text-base font-semibold font-pretendard">A/S</span>
+            <button className="w-full md:w-[78px] md:h-[43px] py-[11px] px-[22px] md:py-[12px] md:px-[25px] bg-white rounded-[30px] flex justify-center items-center outline outline-1 outline-[#dddddd]">
+              <span className="text-[#888888] text-[14px] md:text-[16px] font-semibold font-pretendard">A/S</span>
             </button>
           </div>
         </div>
