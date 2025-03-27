@@ -59,7 +59,7 @@ export default {
   		},
   		fontFamily: {
   			sans: ["Pretendard Variable", ...defaultTheme.fontFamily.sans],
-  			pretendard: ['var(--font-pretendard)'],
+  			pretendard: ['Pretendard Variable', 'sans-serif'],
   		},
 		keyframes: {
 			"accordion-down": {

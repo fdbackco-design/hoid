@@ -1,11 +1,7 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
-import { Pretendard } from '@/lib/fonts'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'HOID',
@@ -40,7 +36,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ko">
-      <body className={Pretendard.className}>
+      <body className="font-pretendard">
         <Header />
         <main className="mt-[72px]">
           {children}
