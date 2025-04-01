@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    title: 'HOID 공기청정기',
+    title: 'HOID 공기청정기 공식몰',
     description: 'HOID 3IN1 프리미엄 공기청정기',
     url: 'https://hoid.co.kr',
     siteName: 'HOID',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'HOID 공기청정기',
+    title: 'HOID 공기청정기 공식몰',
     description: 'HOID 3IN1 프리미엄 공기청정기',
     images: ['https://hoid.co.kr/og-image.png'],
   },
