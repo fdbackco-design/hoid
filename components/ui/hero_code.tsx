@@ -21,7 +21,7 @@ export default function ImagesSlider_() {
   return (
     <>
       {/* PC 버전 */}
-      <div className="hidden md:block w-[1680px] mx-auto">
+      <div className="hidden md:block w-[1920px] mx-auto">
         <ImagesSlider 
           className="h-[780px]" 
           images={images} 
@@ -67,7 +67,7 @@ export default function ImagesSlider_() {
       </div>
 
       {/* 모바일 버전 */}
-      <div className="md:hidden px-5">
+      <div className="md:hidden">
         <Card className="w-full h-[540px] relative overflow-hidden border-0 shadow-none rounded-none">
           <CardContent className="w-full h-full p-0 border-0 rounded-none">
             <ImagesSlider 
