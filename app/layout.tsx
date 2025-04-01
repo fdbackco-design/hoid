@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: 'HOID',
     images: [
       {
-        url: 'https://hoid.co.kr/og-image.jpg',
+        url: 'https://hoid.co.kr/og-image.png',
         width: 1200,
         height: 630,
         alt: '호이드 공기청정기',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: '호이드 공기청정기 - HOID 공식 홈페이지',
     description: '프리미엄 공기청정기, 호이드! 다양한 서비스 정보를 확인하세요.',
-    images: ['https://hoid.co.kr/og-image.jpg'],
+    images: ['https://hoid.co.kr/og-image.png'],
   },
 }
 
