@@ -14,11 +14,11 @@ export const metadata: Metadata = {
     type: 'website',
     title: '호이드 공기청정기 - HOID 공식 홈페이지',
     description: '프리미엄 공기청정기, 호이드! A/S 센터, 자주 묻는 질문, 대량 구매 문의를 공식 홈페이지에서 확인하세요.',
-    url: 'https://hoid.kr',
+    url: 'https://hoid.co.kr',
     siteName: 'HOID',
     images: [
       {
-        url: 'https://hoid.kr/og-image.jpg',
+        url: 'https://hoid.co.kr/og-image.jpg',
         width: 1200,
         height: 630,
         alt: '호이드 공기청정기',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: '호이드 공기청정기 - HOID 공식 홈페이지',
     description: '프리미엄 공기청정기, 호이드! 다양한 서비스 정보를 확인하세요.',
-    images: ['https://hoid.kr/og-image.jpg'],
+    images: ['https://hoid.co.kr/og-image.jpg'],
   },
 }
 
