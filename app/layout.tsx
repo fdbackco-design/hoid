@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: 'HOID',
   description: 'HOID 공식 홈페이지입니다. A/S 센터, 자주 묻는 질문, 대량 구매 문의를 확인하실 수 있습니다.',
   other: {
-    'naver-site-verification': 'ef8eea773f3a0a223a19f8e1adcae83cececeb97',
+    'naver-site-verification': 'fb40e3967fdf7177af22bbbdc5badc4c4bed5cf6',
   },
   openGraph: {
     type: 'website',
