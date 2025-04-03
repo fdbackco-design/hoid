@@ -4,7 +4,7 @@ import Link from 'next/link'
 export default function AsIntro() {
   return (
     <div className="w-full overflow-hidden">
-      <section className="relative w-full md:w-[1680px] h-[400px] md:h-[680px] mx-auto">
+      <section className="relative w-full md:w-[1920px] h-[400px] md:h-[680px] mx-auto">
         {/* 배경 이미지 */}
         <div className="absolute inset-0">
           <Image
@@ -22,7 +22,7 @@ export default function AsIntro() {
             <h2 className="w-full text-[24px] md:text-[46px] font-bold text-white leading-[1.4] md:leading-[1.2] break-keep md:whitespace-nowrap whitespace-pre-line">
               {"HOID 제품 \n전문가와 상담하세요"}
             </h2>
-            <p className="w-full mt-3 md:mt-7 text-[14px] md:text-xl text-white font-medium leading-[22px] md:leading-loose">
+            <p className="w-full mt-3 md:mt-7 text-[14px] md:text-xl text-white font-medium leading-[22px] md:leading-[34px]">
               HOID는 A/S 센터를 상시 운영하고 있습니다.<br className="hidden md:block" />
               제품 문제가 생겼을 경우 언제든 서비스를<br className="md:hidden" /> 받으실 수 있습니다.
             </p>

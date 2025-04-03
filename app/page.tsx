@@ -5,7 +5,7 @@ import AsTitle from '@/components/AsTitle'
 import ReviewTitle from '@/components/ReviewTitle'
 import Reviews from '@/components/Reviews'
 import ImagesSlider_ from '@/components/ui/hero_code'
-
+import Bulk from '@/components/Bulk'
 export default function Home() {
   return (
     <div>
@@ -15,6 +15,7 @@ export default function Home() {
       <AsIntro />
       <ReviewTitle />
       <Reviews />
+      <Bulk />
     </div>
   )
 }

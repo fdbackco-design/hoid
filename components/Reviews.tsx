@@ -55,7 +55,7 @@ export default function Reviews() {
   }, [])
 
   return (
-    <section className="w-full md:mb-[200px] mb-[100px]">
+    <section className="w-full md:mb-[220px] mb-[100px]">
       <div className="embla overflow-hidden px-5 md:px-0" ref={emblaRef}>
         <div className="embla__container flex gap-[16px]">
           {reviews.map((review, index) => (
