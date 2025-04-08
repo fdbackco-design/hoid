@@ -62,7 +62,7 @@ export default function Reviews() {
             <div key={index} className="embla__slide flex-[0_0_100%] md:flex-[0_0_40.3%] min-w-0 md:px-4">
               <div className="flex flex-col">
                 <div
-                  className="relative w-full h-[300px] md:h-[490px] bg-white shadow-md cursor-pointer mx-auto overflow-hidden"
+                  className="relative w-full h-[300px] md:h-[490px] bg-white cursor-pointer mx-auto overflow-hidden"
                   onMouseEnter={() => !isMobile && setIsHovered(index)}
                   onMouseLeave={() => !isMobile && setIsHovered(null)}
                   onClick={() => {
