@@ -1,7 +1,8 @@
 "use client";
 import { cn } from "@/lib/utils";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import Image from 'next/image';
+import { motion, AnimatePresence } from "framer-motion";
 
 interface IImageSliderProps {
   images: string[];
@@ -12,12 +13,20 @@ interface IImageSliderProps {
   autoplayInterval?: number;
   indicatorClassName?: string;
   indicatorContainerClassName?: string;
+  videoUrl?: string;
+  slideIntervals?: number[];
 }
 
 interface IImageData {
   src: string;
   width: number;
   height: number;
+}
+
+interface IVimeoPlayer extends HTMLIFrameElement {
+  contentWindow: Window & {
+    postMessage: (message: unknown, targetOrigin: string) => void;
+  };
 }
 
 export const ImagesSlider = ({
@@ -27,11 +36,15 @@ export const ImagesSlider = ({
   overlayClassName,
   className,
   autoplayInterval = 3000,
-  indicatorClassName,
-  indicatorContainerClassName,
+  indicatorClassName = "w-2 h-2 rounded-full [&.active]:bg-blue-400",
+  indicatorContainerClassName = "space-x-[20px] -translate-y-[40px]",
+  videoUrl,
+  slideIntervals = [17000, 3000, 3000],
 }: IImageSliderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loadedImages, setLoadedImages] = useState<IImageData[]>([]);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
+  const playerRef = useRef<IVimeoPlayer | null>(null);
 
   const loadImages = useCallback(async () => {
     try {
@@ -56,12 +69,15 @@ export const ImagesSlider = ({
   }, [images]);
 
   const handlePrevious = useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
-  }, [images.length]);
+    setCurrentIndex((prevIndex) => {
+      const newIndex = prevIndex - 1;
+      return newIndex < 0 ? images.length + (videoUrl ? 0 : -1) : newIndex;
+    });
+  }, [images.length, videoUrl]);
 
   const handleNext = useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
-  }, [images.length]);
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % (images.length + (videoUrl ? 1 : 0)));
+  }, [images.length, videoUrl]);
 
   const handleDotClick = (index: number) => {
     setCurrentIndex(index);
@@ -72,14 +88,44 @@ export const ImagesSlider = ({
   }, [loadImages]);
 
   useEffect(() => {
+    if (!videoUrl || !playerRef.current) return;
+    
+    const handleMessage = (event: MessageEvent) => {
+      if (event.origin !== 'https://player.vimeo.com') return;
+      
+      try {
+        const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+        if (data.event === 'ended') {
+          setIsVideoPlaying(false);
+          setTimeout(() => {
+            handleNext();
+          }, 100);
+        } else if (data.event === 'play') {
+          setIsVideoPlaying(true);
+        }
+      } catch (error) {
+        console.error('Error parsing Vimeo message:', error);
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+
+    return () => {
+      window.removeEventListener('message', handleMessage);
+    };
+  }, [videoUrl, handleNext]);
+
+  useEffect(() => {
     if (!autoplayInterval) return;
 
     const interval = setInterval(() => {
-      handleNext();
-    }, autoplayInterval);
+      if (!isVideoPlaying) {
+        handleNext();
+      }
+    }, slideIntervals[currentIndex]);
 
     return () => clearInterval(interval);
-  }, [autoplayInterval, handleNext]);
+  }, [autoplayInterval, handleNext, isVideoPlaying, currentIndex, slideIntervals]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -118,35 +164,73 @@ export const ImagesSlider = ({
 
       {areImagesLoaded && (
         <div className="relative w-full h-full">
-          <div className="relative w-full h-full">
-            {loadedImages.map((image, index) => (
-              <div
-                key={image.src}
-                className={`absolute w-full h-full transition-opacity duration-500 ${
-                  index === currentIndex ? 'opacity-100' : 'opacity-0'
-                }`}
+          <AnimatePresence mode="wait">
+            {currentIndex === 0 && videoUrl ? (
+              <motion.div
+                key="video"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="absolute inset-0"
+              >
+                <div style={{ padding: '40.625% 0 0 0', position: 'relative' }}>
+                  <iframe
+                    ref={playerRef}
+                    src={videoUrl}
+                    frameBorder="0"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%'
+                    }}
+                    title="Vimeo Video"
+                  />
+                </div>
+              </motion.div>
+            ) : (
+              <motion.div
+                key={images[currentIndex - (videoUrl ? 1 : 0)]}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.5 }}
+                className="absolute inset-0"
               >
                 <Image
-                  src={image.src}
-                  alt={`Slide ${index + 1}`}
+                  src={images[currentIndex - (videoUrl ? 1 : 0)]}
+                  alt={`Slide ${currentIndex}`}
                   fill
                   className="object-cover"
-                  priority={index === 0}
+                  priority={currentIndex === 0}
                 />
-              </div>
-            ))}
-          </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <div className={cn("absolute bottom-4 left-1/2 transform -translate-x-1/2 flex", indicatorContainerClassName)}>
-            {loadedImages.map((_, index) => (
+            {videoUrl && (
+              <button
+                className={cn(
+                  `w-2 h-2 rounded-full transition-colors`,
+                  currentIndex === 0 ? 'bg-blue-400 active' : 'bg-white',
+                  indicatorClassName
+                )}
+                onClick={() => handleDotClick(0)}
+              />
+            )}
+            {images.map((_, index) => (
               <button
                 key={index}
                 className={cn(
                   `w-2 h-2 rounded-full transition-colors`,
-                  index === currentIndex ? 'bg-blue-400 active' : 'bg-white',
+                  currentIndex === index + (videoUrl ? 1 : 0) ? 'bg-blue-400 active' : 'bg-white',
                   indicatorClassName
                 )}
-                onClick={() => handleDotClick(index)}
+                onClick={() => handleDotClick(index + (videoUrl ? 1 : 0))}
               />
             ))}
           </div>
