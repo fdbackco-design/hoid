@@ -14,10 +14,11 @@ interface IImageSliderProps {
   indicatorContainerClassName?: string;
 }
 
-interface IImageData {
+interface IMediaData {
   src: string;
-  width: number;
-  height: number;
+  type: 'image' | 'video';
+  width?: number;
+  height?: number;
 }
 
 export const ImagesSlider = ({
@@ -31,27 +32,35 @@ export const ImagesSlider = ({
   indicatorContainerClassName,
 }: IImageSliderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [loadedImages, setLoadedImages] = useState<IImageData[]>([]);
+  const [loadedMedia, setLoadedMedia] = useState<IMediaData[]>([]);
 
-  const loadImages = useCallback(async () => {
+  const loadMedia = useCallback(async () => {
     try {
-      const imagePromises = images.map(async (src) => {
-        const img = new window.Image();
-        return new Promise<IImageData>((resolve) => {
-          img.onload = () => {
-            resolve({
-              src,
-              width: img.width,
-              height: img.height
-            });
+      const mediaPromises = images.map(async (src) => {
+        if (src.endsWith('.mov') || src.endsWith('.mp4')) {
+          return {
+            src,
+            type: 'video' as const
           };
-          img.src = src;
-        });
+        } else {
+          const img = new window.Image();
+          return new Promise<IMediaData>((resolve) => {
+            img.onload = () => {
+              resolve({
+                src,
+                type: 'image' as const,
+                width: img.width,
+                height: img.height
+              });
+            };
+            img.src = src;
+          });
+        }
       });
-      const loadedImageData = await Promise.all(imagePromises);
-      setLoadedImages(loadedImageData);
+      const loadedMediaData = await Promise.all(mediaPromises);
+      setLoadedMedia(loadedMediaData);
     } catch (error) {
-      console.error('Error loading images:', error);
+      console.error('Error loading media:', error);
     }
   }, [images]);
 
@@ -68,8 +77,8 @@ export const ImagesSlider = ({
   };
 
   useEffect(() => {
-    loadImages();
-  }, [loadImages]);
+    loadMedia();
+  }, [loadMedia]);
 
   useEffect(() => {
     if (!autoplayInterval) return;
@@ -97,7 +106,7 @@ export const ImagesSlider = ({
     };
   }, [handleNext, handlePrevious]);
 
-  const areImagesLoaded = loadedImages.length > 0;
+  const areMediaLoaded = loadedMedia.length > 0;
 
   return (
     <div
@@ -109,49 +118,62 @@ export const ImagesSlider = ({
         perspective: "1000px",
       }}
     >
-      {areImagesLoaded && children}
-      {areImagesLoaded && overlay && (
+      {areMediaLoaded && children}
+      {areMediaLoaded && overlay && (
         <div
           className={cn("absolute inset-0 bg-black/60 z-40", overlayClassName)}
         />
       )}
 
-      {areImagesLoaded && (
+      <div className="relative w-full h-full">
         <div className="relative w-full h-full">
-          <div className="relative w-full h-full">
-            {loadedImages.map((image, index) => (
-              <div
-                key={image.src}
-                className={`absolute w-full h-full transition-opacity duration-500 ${
-                  index === currentIndex ? 'opacity-100' : 'opacity-0'
-                }`}
-              >
+          {loadedMedia.map((media, index) => (
+            <div
+              key={media.src}
+              className={`absolute w-full h-full transition-opacity duration-500 ${
+                index === currentIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+            >
+              {media.type === 'video' ? (
+                <video
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  muted
+                  loop={false}
+                  playsInline
+                  onEnded={handleNext}
+                  style={{ display: index === currentIndex ? 'block' : 'none' }}
+                >
+                  <source src={media.src} type="video/quicktime" />
+                  Your browser does not support the video tag.
+                </video>
+              ) : (
                 <Image
-                  src={image.src}
+                  src={media.src}
                   alt={`Slide ${index + 1}`}
                   fill
                   className="object-cover"
                   priority={index === 0}
                 />
-              </div>
-            ))}
-          </div>
-
-          <div className={cn("absolute bottom-4 left-1/2 transform -translate-x-1/2 flex", indicatorContainerClassName)}>
-            {loadedImages.map((_, index) => (
-              <button
-                key={index}
-                className={cn(
-                  `w-2 h-2 rounded-full transition-colors`,
-                  index === currentIndex ? 'bg-blue-400 active' : 'bg-white',
-                  indicatorClassName
-                )}
-                onClick={() => handleDotClick(index)}
-              />
-            ))}
-          </div>
+              )}
+            </div>
+          ))}
         </div>
-      )}
+
+        <div className={cn("absolute bottom-4 left-1/2 transform -translate-x-1/2 flex", indicatorContainerClassName)}>
+          {loadedMedia.map((_, index) => (
+            <button
+              key={index}
+              className={cn(
+                `w-2 h-2 rounded-full transition-colors`,
+                index === currentIndex ? 'bg-blue-400 active' : 'bg-white',
+                indicatorClassName
+              )}
+              onClick={() => handleDotClick(index)}
+            />
+          ))}
+        </div>
+      </div>
     </div>
   );
 };

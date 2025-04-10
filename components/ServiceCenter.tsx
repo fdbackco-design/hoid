@@ -78,7 +78,7 @@ const ServiceCards: IServiceCard[] = [
 
 export default function ServiceCenter() {
   return (
-    <section className="w-full py-[40px] md:py-[183px] mt-[40px] md:mt-0">
+    <section className="w-full py-[40px] md:pb-[183px] mt-[40px] md:mt-0">
       <div className="font-pretendard text-center mb-[40px] md:mb-[90px] px-5 md:px-0">
         <h2 className="text-[24px] md:text-[48px] font-semibold text-black mb-[12px] md:mb-5">HOID 서비스 센터</h2>
         <p className="text-[#111111] text-[15px] md:text-[18px] font-medium">
