@@ -15,6 +15,9 @@ interface IImageSliderProps {
   indicatorContainerClassName?: string;
   videoUrl?: string;
   slideIntervals?: number[];
+  slideLinks?: string[];
+  onSlideClick?: (index: number) => void;
+  onSlideChange?: (index: number) => void;
 }
 
 interface IImageData {
@@ -40,6 +43,9 @@ export const ImagesSlider = ({
   indicatorContainerClassName = "space-x-[20px] -translate-y-[40px]",
   videoUrl,
   slideIntervals = [17000, 3000, 3000],
+  slideLinks = [],
+  onSlideClick,
+  onSlideChange,
 }: IImageSliderProps) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [loadedImages, setLoadedImages] = useState<IImageData[]>([]);
@@ -71,16 +77,31 @@ export const ImagesSlider = ({
   const handlePrevious = useCallback(() => {
     setCurrentIndex((prevIndex) => {
       const newIndex = prevIndex - 1;
-      return newIndex < 0 ? images.length + (videoUrl ? 0 : -1) : newIndex;
+      const result = newIndex < 0 ? images.length + (videoUrl ? 0 : -1) : newIndex;
+      onSlideChange?.(result);
+      return result;
     });
-  }, [images.length, videoUrl]);
+  }, [images.length, videoUrl, onSlideChange]);
 
   const handleNext = useCallback(() => {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % (images.length + (videoUrl ? 1 : 0)));
-  }, [images.length, videoUrl]);
+    setCurrentIndex((prevIndex) => {
+      const result = (prevIndex + 1) % (images.length + (videoUrl ? 1 : 0));
+      onSlideChange?.(result);
+      return result;
+    });
+  }, [images.length, videoUrl, onSlideChange]);
 
   const handleDotClick = (index: number) => {
     setCurrentIndex(index);
+    onSlideChange?.(index);
+  };
+
+  const handleSlideClick = () => {
+    if (onSlideClick) {
+      onSlideClick(currentIndex);
+    } else if (slideLinks[currentIndex]) {
+      window.open(slideLinks[currentIndex], '_blank');
+    }
   };
 
   useEffect(() => {
@@ -172,7 +193,8 @@ export const ImagesSlider = ({
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-                className="absolute inset-0"
+                className="absolute inset-0 cursor-pointer"
+                onClick={handleSlideClick}
               >
                 <div style={{ padding: '40.625% 0 0 0', position: 'relative' }}>
                   <iframe
@@ -198,7 +220,8 @@ export const ImagesSlider = ({
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
-                className="absolute inset-0"
+                className="absolute inset-0 cursor-pointer"
+                onClick={handleSlideClick}
               >
                 <Image
                   src={images[currentIndex - (videoUrl ? 1 : 0)]}

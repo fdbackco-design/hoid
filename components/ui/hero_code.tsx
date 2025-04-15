@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { ImagesSlider } from "@/components/ui/images-slider";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,6 +24,9 @@ const MotionButton = dynamic(() => import("framer-motion").then(mod => mod.motio
 });
 
 export default function ImagesSlider_() {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [nextSlideIndex, setNextSlideIndex] = useState<number | null>(null);
+
   const images = [
     "/hero_2.png",
     "/hero_3.png"
@@ -35,11 +38,32 @@ export default function ImagesSlider_() {
     "/mo_hero_3.svg"
   ];
 
+  const slideLinks = [
+    "https://smartstore.naver.com/fdbackco/products/11635845240",
+    "https://smartstore.naver.com/fdbackco/products/11696459222",
+    "https://smartstore.naver.com/fdbackco/products/11696459222"
+  ];
+
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
   }, []);
+
+  const handleSlideChange = useCallback((index: number) => {
+    setNextSlideIndex(index);
+  }, []);
+
+  useEffect(() => {
+    if (nextSlideIndex !== null) {
+      setCurrentSlide(nextSlideIndex);
+      setNextSlideIndex(null);
+    }
+  }, [nextSlideIndex]);
+
+  const handleButtonClick = () => {
+    window.open(slideLinks[currentSlide], '_blank');
+  };
 
   if (!isClient) {
     return null;
@@ -58,6 +82,7 @@ export default function ImagesSlider_() {
             indicatorContainerClassName="space-x-[20px] -translate-y-[40px]"
             videoUrl="https://player.vimeo.com/video/1074153050?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&dnt=1&controls=0"
             slideIntervals={[17000, 3000, 3000]}
+            onSlideChange={handleSlideChange}
           >
             <div className="absolute inset-0 flex items-center">
               <MotionDiv
@@ -87,6 +112,7 @@ export default function ImagesSlider_() {
                   </MotionP>
                   <MotionButton 
                     className="px-9 py-4 bg-blue-400 rounded-[50px] inline-flex justify-center items-center gap-2.5 text-white text-center font-semibold font-['Pretendard'] capitalize tracking-tight"
+                    onClick={handleButtonClick}
                   >
                     제품 자세히 보기
                   </MotionButton>
@@ -107,6 +133,7 @@ export default function ImagesSlider_() {
               overlay={false}
               indicatorClassName="w-2 h-2 rounded-full [&.active]:bg-[#51a4e4]"
               indicatorContainerClassName="gap-3.5 absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20"
+              onSlideChange={handleSlideChange}
             >
               <div className="flex flex-col w-[280px] items-start gap-4 absolute top-[179px] left-5 z-30">
                 <h2 className="self-stretch mt-[-1.00px] font-pretendard font-bold text-[#111111] text-3xl tracking-[-0.90px] leading-[42px]">
@@ -115,7 +142,10 @@ export default function ImagesSlider_() {
                   HOID가 답이다
                 </h2>
 
-                <Button className="px-5 py-[13px] bg-[#51a4e4] rounded-[50px] hover:bg-[#4090d0]">
+                <Button 
+                  className="px-5 py-[13px] bg-[#51a4e4] rounded-[50px] hover:bg-[#4090d0]"
+                  onClick={handleButtonClick}
+                >
                   <span className="font-pretendard font-semibold text-white text-xs tracking-[0.12px]">
                     제품 자세히 보기
                   </span>

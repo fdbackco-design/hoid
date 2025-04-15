@@ -23,7 +23,7 @@ export default function BulkPurchasePage() {
         <div className="w-full h-[320px] md:h-[600px] relative bg-cover bg-center">
           <div className="absolute inset-0">
             <Image
-              src="/bulk.png"
+              src="http://fdbackco.cafe24.com/HOID/bulk-purchase/bulk.png"
               alt="Bulk Purchase Hero Background"
               fill
               className="object-cover"

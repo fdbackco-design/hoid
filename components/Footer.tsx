@@ -15,12 +15,12 @@ interface ICompanyInfo {
 
 const companyInfo: ICompanyInfo = {
     name: "HOID",
-    representative: "홍길동",
-    address: "서울 강남구 테헤란로 105 모아빌딩 10-12F",
-    businessNumber: "639-02-03342",
-    salesRegistration: "1234-서울한국-1234 [사업자정보확인]",
-    privacyOfficer: "홍길동",
-    email: "contact@medifeed.com",
+    representative: "정성현",
+    address: "인천 연수구 송도과학로80 101-1301,1302호호",
+    businessNumber: "884-81-03587 [사업자정보확인]",
+    salesRegistration: "제 2025-인천연수구-0287 호",
+    privacyOfficer: "정성현",
+    email: "hoidcscs@gmail.com",
     copyright: "Copyright © 2025 HOID. All rights reserved.",
 };
 

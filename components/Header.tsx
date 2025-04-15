@@ -11,7 +11,7 @@ export default function Header() {
     { href: "/as-center", label: "A/S 센터" },
     { href: "/faq", label: "자주 묻는 질문" },
     { href: "/bulk-purchase", label: "대량 구매 문의" },
-    { href: "/store", label: "스토어", hasIcon: true },
+    { href: "https://smartstore.naver.com/fdbackco/products/11635845240", label: "스토어", hasIcon: true },
   ];
 
   const renderMenuItem = (item: typeof menuItems[0], isPc: boolean = false) => {
@@ -25,6 +25,7 @@ export default function Header() {
             width={16}
             height={16}
             className="w-4 h-4"
+            onClick={() => window.open(item.href, '_blank')}
           />
         </div>
       );
