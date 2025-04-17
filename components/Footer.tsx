@@ -16,7 +16,7 @@ interface ICompanyInfo {
 const companyInfo: ICompanyInfo = {
     name: "HOID",
     representative: "정성현",
-    address: "인천 연수구 송도과학로80 101-1301,1302호호",
+    address: "인천 연수구 송도과학로80 101-1301, 1302호",
     businessNumber: "884-81-03587 [사업자정보확인]",
     salesRegistration: "제 2025-인천연수구-0287 호",
     privacyOfficer: "정성현",
@@ -47,7 +47,7 @@ export default function Footer() {
                             <span>주소 : {companyInfo.address}</span>
                         </div>
                         <div className="flex flex-wrap items-center w-full md:w-auto">
-                            <span className="w-full md:w-auto">사업자등록번호 : {companyInfo.businessNumber}</span>
+                            <span className="w-full md:w-auto">사업자등록번호 : <a href="https://www.ftc.go.kr/bizCommPop.do?wrkr_no=2968703628" target="_blank" rel="noopener noreferrer">{companyInfo.businessNumber}</a></span>
                             <span className="mx-2 hidden md:inline">|</span>
                             <span className="w-full md:w-auto">통신판매업신고 : {companyInfo.salesRegistration}</span>
                         </div>

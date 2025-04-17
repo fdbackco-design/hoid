@@ -51,6 +51,7 @@ export const ImagesSlider = ({
   const [loadedImages, setLoadedImages] = useState<IImageData[]>([]);
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const playerRef = useRef<IVimeoPlayer | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const loadImages = useCallback(async () => {
     try {
@@ -75,26 +76,22 @@ export const ImagesSlider = ({
   }, [images]);
 
   const handlePrevious = useCallback(() => {
-    setCurrentIndex((prevIndex) => {
-      const newIndex = prevIndex - 1;
-      const result = newIndex < 0 ? images.length + (videoUrl ? 0 : -1) : newIndex;
-      onSlideChange?.(result);
-      return result;
-    });
-  }, [images.length, videoUrl, onSlideChange]);
+    const newIndex = currentIndex - 1;
+    const result = newIndex < 0 ? images.length + (videoUrl ? 0 : -1) : newIndex;
+    setCurrentIndex(result);
+    onSlideChange?.(result);
+  }, [currentIndex, images.length, videoUrl, onSlideChange]);
 
   const handleNext = useCallback(() => {
-    setCurrentIndex((prevIndex) => {
-      const result = (prevIndex + 1) % (images.length + (videoUrl ? 1 : 0));
-      onSlideChange?.(result);
-      return result;
-    });
-  }, [images.length, videoUrl, onSlideChange]);
+    const result = (currentIndex + 1) % (images.length + (videoUrl ? 1 : 0));
+    setCurrentIndex(result);
+    onSlideChange?.(result);
+  }, [currentIndex, images.length, videoUrl, onSlideChange]);
 
-  const handleDotClick = (index: number) => {
+  const handleDotClick = useCallback((index: number) => {
     setCurrentIndex(index);
     onSlideChange?.(index);
-  };
+  }, [onSlideChange]);
 
   const handleSlideClick = () => {
     if (onSlideClick) {
@@ -109,8 +106,26 @@ export const ImagesSlider = ({
   }, [loadImages]);
 
   useEffect(() => {
+    if (!autoplayInterval || isVideoPlaying) return;
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      handleNext();
+    }, slideIntervals[currentIndex]);
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [autoplayInterval, handleNext, currentIndex, slideIntervals, isVideoPlaying]);
+
+  useEffect(() => {
     if (!videoUrl || !playerRef.current) return;
-    
+
     const handleMessage = (event: MessageEvent) => {
       if (event.origin !== 'https://player.vimeo.com') return;
       
@@ -135,18 +150,6 @@ export const ImagesSlider = ({
       window.removeEventListener('message', handleMessage);
     };
   }, [videoUrl, handleNext]);
-
-  useEffect(() => {
-    if (!autoplayInterval) return;
-
-    const interval = setInterval(() => {
-      if (!isVideoPlaying) {
-        handleNext();
-      }
-    }, slideIntervals[currentIndex]);
-
-    return () => clearInterval(interval);
-  }, [autoplayInterval, handleNext, isVideoPlaying, currentIndex, slideIntervals]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {

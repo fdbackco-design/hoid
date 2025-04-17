@@ -7,6 +7,16 @@ import Script from 'next/script';
 
 export default function FAQPage() {
   const [selected, setSelected] = useState<number | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState('전체');
+
+  const categories = [
+    '전체',
+    '제품',
+    '주문/결제',
+    '취소/환불',
+    '배송',
+    'A/S'
+  ];
 
   const faqs = [
     {
@@ -125,45 +135,56 @@ export default function FAQPage() {
           </div>
 
           {/* Category Filter */}
-          <div className="flex flex-wrap md:inline-flex justify-center items-center gap-2 mt-[60px] md:mt-[160px] w-full md:px-0">
-            {/* 버튼들 생략 없이 포함 */}
-            {['전체', '제품', '주문/결제', '취소/환불', '배송', 'A/S'].map((label, index) => (
-              <div key={index} className="w-[69px] h-[39px] md:w-auto py-[10px] md:py-0">
-                <button className={`w-full md:h-[43px] py-[11px] px-[22px] md:py-[12px] md:px-[25px] rounded-[30px] flex justify-center items-center ${label === '전체' ? 'bg-[#51a4e4]' : 'bg-white outline outline-1 outline-[#dddddd]'}`}>
-                  <span className={`text-[14px] md:text-[16px] font-semibold font-pretendard ${label === '전체' ? 'text-white font-bold' : 'text-[#888888]'}`}>{label}</span>
+          <div className="flex justify-center mt-[60px] md:mt-[160px] w-full px-5 md:px-0">
+            <div className="flex flex-wrap gap-2 justify-center max-w-[600px]">
+              {categories.map((category) => (
+                <button
+                  key={category}
+                  onClick={() => setSelectedCategory(category)}
+                  className={`h-[39px] md:h-[43px] px-5 rounded-[30px] flex justify-center items-center whitespace-nowrap transition-colors ${
+                    category === selectedCategory
+                      ? 'bg-[#51a4e4] text-white'
+                      : 'bg-white text-[#888888] outline outline-1 outline-[#dddddd] hover:bg-gray-50'
+                  }`}
+                >
+                  <span className="text-[14px] md:text-[16px] font-semibold font-pretendard">
+                    {category}
+                  </span>
                 </button>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           {/* FAQ List */}
           <div className="mt-[49px] max-w-[1280px] mx-auto border-0 border-b border-[#e3e3e3]">
-            {faqs.map((faq) => (
-              <Card key={faq.id} className="cursor-pointer overflow-hidden border-0 border-t border-[#e3e3e3] rounded-none shadow-none">
-                <div
-                  className="py-[40px] px-[20px]"
-                  onClick={() => setSelected(selected === faq.id ? null : faq.id)}
-                >
-                  <div className="flex justify-between items-center">
-                    <div className="flex flex-col gap-3 w-[268px] md:w-full">
-                      <h2 className="text-[#111111] text-sm font-semibold font-pretendard">{faq.question}</h2>
-                      <p className="text-[#51a4e4] text-sm font-semibold font-pretendard">{faq.category}</p>
+            {faqs
+              .filter(faq => selectedCategory === '전체' || faq.category.includes(selectedCategory))
+              .map((faq) => (
+                <Card key={faq.id} className="cursor-pointer overflow-hidden border-0 border-t border-[#e3e3e3] rounded-none shadow-none">
+                  <div
+                    className="py-[40px] px-[20px]"
+                    onClick={() => setSelected(selected === faq.id ? null : faq.id)}
+                  >
+                    <div className="flex justify-between items-center">
+                      <div className="flex flex-col gap-3 w-[268px] md:w-full">
+                        <h2 className="text-[#111111] text-sm font-semibold font-pretendard">{faq.question}</h2>
+                        <p className="text-[#51a4e4] text-sm font-semibold font-pretendard">{faq.category}</p>
+                      </div>
+                      <Image
+                        src="/down_arrow.svg"
+                        alt="Toggle FAQ"
+                        width={18}
+                        height={18}
+                      />
                     </div>
-                    <Image
-                      src="/down_arrow.svg"
-                      alt="Toggle FAQ"
-                      width={18}
-                      height={18}
-                    />
                   </div>
-                </div>
-                {selected === faq.id && (
-                  <div className="px-[30px] pb-[41px] bg-[#fbfbfb] md:py-[40px]">
-                    {faq.content}
-                  </div>
-                )}
-              </Card>
-            ))}
+                  {selected === faq.id && (
+                    <div className="px-[30px] pb-[41px] bg-[#fbfbfb] md:py-[40px]">
+                      {faq.content}
+                    </div>
+                  )}
+                </Card>
+              ))}
           </div>
 
           <div className="flex justify-center mt-[60px] mb-[200px]">
