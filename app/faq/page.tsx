@@ -21,24 +21,15 @@ export default function FAQPage() {
   const faqs = [
     {
       id: 1,
-      question: '[HO-AP2501] 가습필터 및 수조부 관리방법은 어떻게 하나요?',
-      category: '제품/공기청정기',
+      question: '배송은 얼마나 걸리나요?',
+      category: '배송',
       content: (
         <div className="text-[#111111] text-[13px] leading-[26px] w-[280px] md:w-[847px]">
-          <p className="mb-6">노블 가습기 가습 필터는 세척 주기가 1주일 1회, 수조부 매일 1회, 물통청소 매일 1회입니다. 세척가 나타 있는 동안 계속 작동이 멈추가 필요합니다.</p>
           <div className="mb-4">
-            <p className="font-bold mb-2">가습필터 세척방법</p>
+            <p className="font-bold mb-2">오후 1시 이전 결제 완료된 주문은 당일 출고됩니다.</p>
             <ol className="list-decimal space-y-1 ml-4">
-              <li className="pl-0">미온수(40도 미만) 외에 가습 필터를 5분 이상 담궈줍니다.</li>
-              <li className="pl-0">가볍 필터를 깨끗이 이는수로 가볍 필터를 1회 세척합니다.</li>
-              <li className="pl-0">1,2번과 같은 방법으로 두이 이상 반복해줍니다.</li>
-            </ol>
-          </div>
-          <div>
-            <p className="font-bold mb-2">수조부 세척방법</p>
-            <ol className="list-decimal space-y-1 ml-4">
-              <li className="pl-0">수조부 부품들을 부드러운 천이나 칫솔에 중성세제를 묻혀 꼼꼼히 세척해줍니다.</li>
-              <li className="pl-0">세제이 묻은 수조부 부품들은 마른 천으로 닦고 자연건조시킨후 건조해줍니다.</li>
+              <li className="pl-0">이후 주문은 익일 발송되며, 평균 1~2일 내 수령 가능합니다.</li>
+              <li className="pl-0">(도서산간 지역은 1~2일 추가 소요될 수 있습니다.)</li>
             </ol>
           </div>
         </div>
@@ -46,45 +37,105 @@ export default function FAQPage() {
     },
     {
       id: 2,
-      question: '[HO-AP2501] 에어매칭 필터교환은 어떻게 하나요',
-      category: '제품/공기청정기',
-      content: '필터 교체 방법 내용...'
+      question: '필터는 얼마나 자주 교체해야 하나요?→ 잘 관리해주시면 최대 1년까지 사용 가능합니다.',
+      category: '제품',
+      content: (
+        <div className="text-[#111111] text-[13px] leading-[26px] w-[280px] md:w-[847px]">
+          <div className="mb-4">
+          <p className="mb-2">사용 환경에 따라 다를 수 있으며, 사용설명서 참고*</p>
+          </div>
+        </div>
+      ),
     },
     {
       id: 3,
-      question: "[HO-AP2501] 에러 'E21' 또는 '물통없음' 알림이 발생했어요",
-      category: '제품/공기청정기',
-      content: '에러 해결 방법 내용...'
+      question: "필터는 어디서 구매할 수 있나요?",
+      category: '제품',
+      content: (
+        <div className="text-[#111111] text-[13px] leading-[26px] w-[280px] md:w-[847px]">
+          <div className="mb-4">
+            <p className="font-bold mb-2">hoid.co.kr 자사몰에서 간편하게 구매하실 수 있습니다.</p>
+            <ol className="list-decimal space-y-1 ml-4">
+              <li className="pl-0">상품 상세 페이지에 [필터 구매 바로가기] 버튼이 함께 제공됩니다.</li>
+            </ol>
+          </div>
+        </div>
+      ),
     },
     {
       id: 4,
-      question: '[HO-AP2501] 자가관리 필터 교환방법을 알고싶어요',
-      category: '제품/공기청정기',
-      content: '자가관리 필터 교환 방법 내용...'
+      question: '설치는 복잡하지 않나요?',
+      category: '제품',
+      content: (
+        <div className="text-[#111111] text-[13px] leading-[26px] w-[280px] md:w-[847px]">
+          <div className="mb-4">
+            <p className="font-bold mb-2">아주 간단한 설치 방식으로, 제품 수령 후 코드만 연결하시면 바로 사용 가능합니다.</p>
+            <ol className="list-decimal space-y-1 ml-4">
+              <li className="pl-0">사용설명서가 동봉되어 있어 누구나 손쉽게 설치할 수 있습니다.</li>
+            </ol>
+          </div>
+        </div>
+      ),
     },
     {
       id: 5,
-      question: 'UVC 기능은 무엇인가요',
-      category: '제품/공기청정기',
-      content: 'UVC 기능 설명 내용...'
+      question: 'A/S는 어떻게 되나요?',
+      category: 'A/S',
+      content: (
+        <div className="text-[#111111] text-[13px] leading-[26px] w-[280px] md:w-[847px]">
+          <div className="mb-4">
+            <p className="font-bold mb-2">HOID 제품은 구매일로부터 1년간 무상 A/S를 제공합니다.</p>
+            <ol className="list-decimal space-y-1 ml-4">
+              <li className="pl-0">사용 중 문제가 발생하면 고객센터 또는 카카오톡 채널로 문의해 주세요.</li>
+            </ol>
+          </div>
+        </div>
+      ),
     },
     {
       id: 6,
-      question: '에어매칭 필터 종류와 기능을 알고싶어요',
-      category: '제품/공기청정기',
-      content: '에어매칭 필터 종류와 기능 설명...'
+      question: 'UV 살균 기능은 어떻게 작동되나요?',
+      category: '제품',
+      content: (
+        <div className="text-[#111111] text-[13px] leading-[26px] w-[280px] md:w-[847px]">
+          <div className="mb-4">
+            <p className="font-bold mb-2">제품에 탑재된 UV 기능은 **최대 반경 2.8m까지 살균 효과**를 제공합니다.</p>
+            <ol className="list-decimal space-y-1 ml-4">
+              <li className="pl-0">버튼으로 간편하게 ON/OFF 가능하며, **수면 중 자동 OFF 기능**도 탑재되어 있습니다.</li>
+            </ol>
+          </div>
+        </div>
+      ),
     },
     {
       id: 7,
-      question: '마이펫 모드는 어떤 기능이 있는건가요',
-      category: '제품/공기청정기',
-      content: '마이펫 모드 기능 설명...'
+      question: '전기요금은 얼마나 나오나요?',
+      category: '제품',
+      content: (
+        <div className="text-[#111111] text-[13px] leading-[26px] w-[280px] md:w-[847px]">
+          <div className="mb-4">
+            <p className="font-bold mb-2">한 달에 약 3천 원 수준의 전기요금으로 사용 가능합니다.</p>
+            <ol className="list-decimal space-y-1 ml-4">
+              <li className="pl-0">(사용 환경에 따라 다소 차이가 있을 수 있습니다.)</li>
+            </ol>
+          </div>
+        </div>
+      ),
     },
     {
       id: 8,
-      question: '필터를 집에서 청소기나 물로 청소해도 되나요',
-      category: '제품/공기청정기',
-      content: '필터 청소 관련 설명...'
+      question: '아이 있는 집에서도 안전한가요?',
+      category: '제품',
+      content: (
+        <div className="text-[#111111] text-[13px] leading-[26px] w-[280px] md:w-[847px]">
+          <div className="mb-4">
+            <p className="font-bold mb-2">네, HOID는 아이 눈높이에 맞춘 흡입구 설계와 모서리 마감 처리로<br />어린 자녀가 있는 가정에서도 안심하고 사용할 수 있도록 제작되었습니다.</p>
+            <ol className="list-decimal space-y-1 ml-4">
+              <li className="pl-0">(사용 환경에 따라 다소 차이가 있을 수 있습니다.)</li>
+            </ol>
+          </div>
+        </div>
+      ),
     },
   ];
 
