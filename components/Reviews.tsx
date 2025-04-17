@@ -10,29 +10,33 @@ interface IReview {
   modelName: string
   content: string
   image: string
+  b_image: string
   href: string
 }
 
 const reviews: IReview[] = [
   {
-    productName: "HOID 공기청정기",
-    modelName: "TP-850",
+    productName: "HOID 프리미어 공기청정기(실버)",
+    modelName: "HO-AP2501-S",
     content: "HOID 제품 처음 써보는데 가격대비 너무 좋습니다. 디자인도 깔끔하고 성능은 생각했던 것보다 더 좋네요. A/S센터도 있어서 만약 문제 생겨도 걱정 없더라구요. HOID 다른 제품도 사보려구요...",
     image: "/review_1.png",
+    b_image: "/review_b_1.png",
     href: "#"
   },
   {
-    productName: "HOID 선풍기",
-    modelName: "HF-720",
+    productName: "HOID 프리미어 공기청정기(화이트)",
+    modelName: "HO-AP2501-W",
     content: "선풍기 소음이 거의 없어서 너무 좋아요. 밤에도 편하게 사용할 수 있고 바람 세기도 적당해서 아이들 방에도 놓기 좋습니다. 에너지 효율도 좋아서 전기세 걱정 없이 사용하고 있어요.",
     image: "/review_2.png",
+    b_image: "/review_b_1.png",
     href: "#"
   },
   {
     productName: "HOID 가습기",
     modelName: "MH-300",
     content: "가습량 조절이 세밀하게 되어서 좋고, 물통도 크고 세척하기도 편해요. 특히 자동 습도 조절 기능이 있어서 신경 쓰지 않아도 알아서 잘 작동됩니다. 디자인도 심플해서 어디에나 잘 어울려요.",
-    image: "/review_1.png",
+    image: "/review_3.png",
+    b_image: "/review_b_2.png",
     href: "#"
   }
 ]
@@ -103,7 +107,7 @@ export default function Reviews() {
                   <div className="flex items-center">
                     <div className="bg-[#E2ECF4] rounded-[12px]">
                       <Image
-                        src="/review_b.svg"
+                        src={review.b_image}
                         alt="Review thumbnail"
                         width={52}
                         height={52}

@@ -7,6 +7,7 @@ interface IServiceCard {
   title: string
   description: string
   link: string
+  download?: boolean
 }
 
 const ServiceCards: IServiceCard[] = [
@@ -24,7 +25,8 @@ const ServiceCards: IServiceCard[] = [
     ),
     title: "사용 설명서",
     description: "제품에 대해 궁금하신가요? 사용설명서에서 확인하실 수 있습니다.",
-    link: "/manual"
+    link: "/guide.pdf",
+    download: true
   },
   {
     icon: (
@@ -40,7 +42,7 @@ const ServiceCards: IServiceCard[] = [
     ),
     title: "A/S 안내",
     description: "제품에 문제가 생기셨나요? A/S센터에서 서비스를 받아보세요.",
-    link: "/as-guide"
+    link: "/as-center"
   },
   {
     icon: (
@@ -72,7 +74,7 @@ const ServiceCards: IServiceCard[] = [
     ),
     title: "1:1 문의",
     description: "대량구매, 제품문의 등 무엇이든 문의주세요. 답변해드립니다.",
-    link: "/inquiry"
+    link: "/bulk-purchase"
   }
 ]
 

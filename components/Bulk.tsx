@@ -27,7 +27,7 @@ export default function Bulk() {
                 대표 번호로 전화 또는 문의 작성을 해주시면<br /> 빠르게 도와드리겠습니다.
             </p>
             <Link 
-              href="/as-center"
+              href="/bulk-purchase"
               className="inline-flex justify-center items-center px-[24px] md:px-[36px] py-[12px] md:py-[18px] w-[160px] md:w-[220px] h-[40px] md:h-[55px] bg-[#51A4E4] rounded-[50px] text-white text-[13px] md:text-[16px] font-semibold tracking-[0.01em] hover:bg-[#4293d3] transition-colors mt-[32px] md:mt-10"
             >
               대량 구매 문의 하기
