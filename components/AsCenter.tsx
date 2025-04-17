@@ -41,7 +41,7 @@ export default function AsCenter({}: IAsCenterProps) {
           <p className="text-white text-[18px] md:text-[24px] font-medium font-['Pretendard'] pt-3 text-center">운영시간 : AM 10:00 ~ PM 18:00</p>
           
           <button className="w-full md:w-auto mt-10 px-9 py-5 bg-[#4BA1F1] rounded-[50px]">
-            <span className="text-white text-[16px] md:text-[18px] font-medium font-['Pretendard']">A/S 센터 자세히 보기</span>
+            <span className="text-white text-[16px] md:text-[18px] font-medium font-['Pretendard']"><a href="/as-center">A/S 센터 자세히 보기</a></span>
           </button>
         </div>
       </div>
