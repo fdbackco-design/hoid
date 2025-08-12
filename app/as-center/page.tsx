@@ -88,7 +88,7 @@ export default function ASCenterPage() {
                                         서비스센터 운영시간
                                     </div>
                                     <div className="text-[#333333] text-[15px] md:text-[17px] font-medium text-center md:text-left md:ml-[40px]">
-                                        AM 10:00~ PM 06:00<br className="md:hidden"/><span className="hidden md:inline"> / </span>  A/S : 031-429-8570 (주말/공휴일 휴무)
+                                        AM 10:00~ PM 05:00<br className="md:hidden"/><span className="hidden md:inline"> / </span>  A/S : 1544-9537 (주말/공휴일 휴무) <br/><span className="hidden md:inline text-xs">  점심시간 PM 12:00~ PM 13:00 </span>
                                     </div>
                                 </div>
                             </div>

@@ -34,12 +34,13 @@ export default function AsCenter({}: IAsCenterProps) {
                 alt="phone icon" 
                 className="w-[32px] h-[32px] md:w-[38px] md:h-[39px]"
               />
-              <span className="text-white text-[40px] md:text-[56px] font-bold font-['Pretendard'] text-center">031-429-8570</span>
+              <span className="text-white text-[40px] md:text-[56px] font-bold font-['Pretendard'] text-center">1544-9537</span>
             </div>
             
             <div className="w-full md:w-[448px] h-px bg-zinc-300" />
             
-            <p className="text-white text-[18px] md:text-[24px] font-medium font-['Pretendard'] pt-3 text-center">운영시간 : AM 10:00 ~ PM 18:00</p>
+            <p className="text-white text-[18px] md:text-[24px] font-medium font-['Pretendard'] pt-3 text-center">운영시간 : AM 10:00 ~ PM 17:00</p>
+            <span className="text-white hidden md:inline text-s">  점심시간 PM 12:00~ PM 13:00 </span>
             
             <button className="w-full md:w-auto mt-10 px-9 py-5 bg-[#4BA1F1] rounded-[50px]">
               <span className="text-white text-[16px] md:text-[18px] font-medium font-['Pretendard']"><a href="/as-center">A/S 센터 자세히 보기</a></span>
