@@ -89,7 +89,7 @@ export default function ASCenterPage() {
                                     </div>
                                     <div className="text-[#333333] text-[15px] md:text-[17px] font-medium text-center md:text-left md:ml-[40px]">
                                         AM 10:00~ PM 05:00<br className="md:hidden"/><span className="hidden md:inline"> / </span>  A/S : 1544-9537 (주말/공휴일 휴무) <br/><span className="hidden md:inline text-xs">  점심시간 PM 12:00~ PM 13:00 </span>
-                                    </div>
+                                    </div> 
                                 </div>
                             </div>
                         </div>
