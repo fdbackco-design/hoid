@@ -43,7 +43,7 @@ export default function ImagesSlider_() {
 
   // 체류시간: 이미지(3s), 비디오(17s), 이미지(3s)
   const slideIntervals = useMemo(() => [3000, 3000, 8000, 3000], []);
-  const slideIntervalsMo = useMemo(() => [5000, 5000, 5000], []);
+  const slideIntervalsMo = useMemo(() => [5000, 5000, 5000,5000], []);
 
   // 슬라이드별 링크(비디오 포함 4개)
   const slideLinks = useMemo(
