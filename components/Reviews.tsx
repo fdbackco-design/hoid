@@ -16,6 +16,14 @@ interface IReview {
 
 const reviews: IReview[] = [
   {
+    productName: "HOID 무선청소기",
+    modelName: "HO-AC2506",
+    content: "HOID 제품 처음 써보는데 가격대비 너무 좋습니다. 디자인도 깔끔하고 성능은 생각했던 것보다 더 좋네요. A/S센터도 있어서 만약 문제 생겨도 걱정 없더라구요. HOID 다른 제품도 사보려구요...",
+    image: "/review_4.jpg",
+    b_image: "/review_b_3.png",
+    href: "https://www.coupang.com/vp/products/8987740925?itemId=26323251903&vendorItemId=93300600462&q=%ED%98%B8%EC%9D%B4%EB%93%9C&searchId=a628d9892153819&sourceType=search&itemsCount=35&searchRank=1&rank=1"
+  },
+  {
     productName: "HOID 프리미어 공기청정기(실버)",
     modelName: "HO-AP2501-S",
     content: "HOID 제품 처음 써보는데 가격대비 너무 좋습니다. 디자인도 깔끔하고 성능은 생각했던 것보다 더 좋네요. A/S센터도 있어서 만약 문제 생겨도 걱정 없더라구요. HOID 다른 제품도 사보려구요...",
