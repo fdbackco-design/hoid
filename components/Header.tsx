@@ -11,7 +11,7 @@ export default function Header() {
     { href: "/as-center", label: "A/S 센터" },
     { href: "/faq", label: "자주 묻는 질문" },
     { href: "/bulk-purchase", label: "대량 구매 문의" },
-    { href: "https://smartstore.naver.com/fdbackco/products/11635845240", label: "스토어", hasIcon: true },
+    { href: "https://www.coupang.com/vp/products/8987740925?itemId=26323251903&vendorItemId=93300600462&q=%ED%98%B8%EC%9D%B4%EB%93%9C&searchId=4d6600742001130&sourceType=search&itemsCount=36&searchRank=0&rank=0", label: "스토어", hasIcon: true },
   ];
 
   const renderMenuItem = (item: typeof menuItems[0], isPc: boolean = false) => {
