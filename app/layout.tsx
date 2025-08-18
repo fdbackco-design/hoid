@@ -6,7 +6,7 @@ import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
   title: '호이드 공식몰 - HOID 공식 홈페이지 | 맑은 공기의 시작',
-  description: '호이드 공기청정기로 집안 공기를 맑게! A/S 센터, 자주 묻는 질문, 대량 구매 문의는 공식 홈페이지에서 확인하세요.',
+  description: '맑은 공기, 편리한 청소. HOID가 만드는 프리미엄 생활환경',
   other: {
     'naver-site-verification': 'ef8eea773f3a0a223a19f8e1adcae83cececeb97',
   },
@@ -14,12 +14,12 @@ export const metadata: Metadata = {
     type: 'website',
     // ✅ 카카오톡에 보일 링크 이름(제목)
     title: 'HOID 공식몰 | 기술로 완성한 클린 라이프',   // ← 원하는 문구로 변경
-    description: '맑은 공기, 편리한 청소. HOID가 만드는 프리미엄 생활환경.',
+    description: '맑은 공기, 편리한 청소. HOID가 만드는 프리미엄 생활환경',
     url: 'https://hoid.co.kr',
     siteName: 'HOID',
     images: [
       {
-        url: 'https://hoid.co.kr/og-image2.png', // 절대경로 권장
+        url: 'https://hoid.co.kr/og_image2.png', // 절대경로 권장
         width: 1200,
         height: 630,
         alt: '호이드 공기청정기',
@@ -29,8 +29,8 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'HOID 공식몰 | 기술로 완성한 클린 라이프',     // 트위터/일부 클라이언트 대비
-    description: '맑은 공기, 편리한 청소. HOID가 만드는 프리미엄 생활환경.',
-    images: ['https://hoid.co.kr/og-image2.png'],
+    description: '맑은 공기, 편리한 청소. HOID가 만드는 프리미엄 생활환경',
+    images: ['https://hoid.co.kr/og_image2.png'],
   },
   // ⛔️ 카카오 전용 메타는 없습니다. 아래 섹션은 제거하세요.
   // Kakao: { ... }  ← 삭제
