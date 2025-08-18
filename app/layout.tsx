@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     images: [
       {
         // ✅ 절대경로 + 정적 파일 (public/og-image2.jpg 권장)
-        url: 'https://hoid.co.kr/og-image2.png',
+        url: 'https://hoid.co.kr/og_image2.png',
         width: 1200,
         height: 630,
         alt: '호이드 공기청정기',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'HOID 공식몰 | 기술로 완성한 클린 라이프',
     description: '맑은 공기, 편리한 청소. HOID가 만드는 프리미엄 생활환경',
-    images: ['https://hoid.co.kr/og-image2.png'],
+    images: ['https://hoid.co.kr/og_image2.png'],
   },
 }
 
