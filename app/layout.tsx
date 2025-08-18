@@ -13,13 +13,13 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     // ✅ 카카오톡에 보일 링크 이름(제목)
-    title: 'HOID 공식몰 | 맑은 공기의 시작',   // ← 원하는 문구로 변경
-    description: 'HOID 3IN1 프리미엄 공기청정기',
+    title: 'HOID 공식몰 | 기술로 완성한 클린 라이프',   // ← 원하는 문구로 변경
+    description: '맑은 공기, 편리한 청소. HOID가 만드는 프리미엄 생활환경.',
     url: 'https://hoid.co.kr',
     siteName: 'HOID',
     images: [
       {
-        url: 'https://hoid.co.kr/og-image.png', // 절대경로 권장
+        url: 'https://hoid.co.kr/og-image2.png', // 절대경로 권장
         width: 1200,
         height: 630,
         alt: '호이드 공기청정기',
@@ -28,9 +28,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'HOID 공식몰 | 맑은 공기의 시작',     // 트위터/일부 클라이언트 대비
-    description: 'HOID 3IN1 프리미엄 공기청정기',
-    images: ['https://hoid.co.kr/og-image.png'],
+    title: 'HOID 공식몰 | 기술로 완성한 클린 라이프',     // 트위터/일부 클라이언트 대비
+    description: '맑은 공기, 편리한 청소. HOID가 만드는 프리미엄 생활환경.',
+    images: ['https://hoid.co.kr/og-image2.png'],
   },
   // ⛔️ 카카오 전용 메타는 없습니다. 아래 섹션은 제거하세요.
   // Kakao: { ... }  ← 삭제
