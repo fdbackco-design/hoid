@@ -7,7 +7,7 @@ import Footer from '@/components/Footer'
 export const metadata: Metadata = {
   metadataBase: new URL('https://hoid.co.kr'),
   title: 'HOID 공식몰|기술로 완성한 클린 라이프',
-  description: '맑은 공기, 편리한 청소. HOID가 만드는 프리미엄 생활환경',
+  description: '맑은 공기, 편리한 청소. 프리미엄 생활환경의 시작',
   alternates: { canonical: '/' },
   robots: { index: true, follow: true },
   other: {
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
     url: 'https://hoid.co.kr/',
     siteName: 'HOID',
     title: 'HOID 공식몰|기술로 완성한 클린 라이프',
-    description: '맑은 공기, 편리한 청소. HOID가 만드는 프리미엄 생활환경',
+    description: '맑은 공기, 편리한 청소. 프리미엄 생활환경의 시작',
     images: [
       { url: 'https://hoid.co.kr/og_kakao_1200x630.png', width: 1200, height: 630, alt: 'HOID — 맑은 공기·편리한 청소' },
       { url: 'https://hoid.co.kr/og_image2.png', width: 1200, height: 630, alt: '호이드 공기청정기' },
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'HOID 공식몰|기술로 완성한 클린 라이프',
-    description: '맑은 공기, 편리한 청소. HOID가 만드는 프리미엄 생활환경',
+    description: '맑은 공기, 편리한 청소. 프리미엄 생활환경의 시작',
     images: ['https://hoid.co.kr/og_kakao_1200x630.png'],
   },
 }
