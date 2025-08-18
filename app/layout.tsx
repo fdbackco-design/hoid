@@ -1,39 +1,42 @@
-// app/layout.tsx (또는 app/[segment]/layout.tsx)
+// app/layout.tsx
 import './globals.css'
 import type { Metadata } from 'next'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://hoid.co.kr'),
   title: '호이드 공식몰 - HOID 공식 홈페이지 | 맑은 공기의 시작',
   description: '맑은 공기, 편리한 청소. HOID가 만드는 프리미엄 생활환경',
+  alternates: { canonical: '/' },
+  robots: { index: true, follow: true },
+
   other: {
     'naver-site-verification': 'ef8eea773f3a0a223a19f8e1adcae83cececeb97',
   },
+
   openGraph: {
     type: 'website',
-    // ✅ 카카오톡에 보일 링크 이름(제목)
-    title: 'HOID 공식몰 | 기술로 완성한 클린 라이프',   // ← 원하는 문구로 변경
-    description: '맑은 공기, 편리한 청소. HOID가 만드는 프리미엄 생활환경',
     url: 'https://hoid.co.kr',
     siteName: 'HOID',
+    title: 'HOID 공식몰 | 기술로 완성한 클린 라이프',
+    description: '맑은 공기, 편리한 청소. HOID가 만드는 프리미엄 생활환경',
     images: [
       {
-        url: 'https://hoid.co.kr/og_image2.png', // 절대경로 권장
+        url: new URL('/og-image2.png', 'https://hoid.co.kr').toString(),
         width: 1200,
         height: 630,
         alt: '호이드 공기청정기',
       },
     ],
   },
+
   twitter: {
     card: 'summary_large_image',
-    title: 'HOID 공식몰 | 기술로 완성한 클린 라이프',     // 트위터/일부 클라이언트 대비
+    title: 'HOID 공식몰 | 기술로 완성한 클린 라이프',
     description: '맑은 공기, 편리한 청소. HOID가 만드는 프리미엄 생활환경',
-    images: ['https://hoid.co.kr/og_image2.png'],
+    images: ['https://hoid.co.kr/og-image2.png'],
   },
-  // ⛔️ 카카오 전용 메타는 없습니다. 아래 섹션은 제거하세요.
-  // Kakao: { ... }  ← 삭제
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -41,9 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="ko">
       <body className="font-pretendard">
         <Header />
-        <main className="mt-[72px] md:mt-[90px]">
-          {children}
-        </main>
+        <main className="mt-[72px] md:mt-[90px]">{children}</main>
         <Footer />
       </body>
     </html>
