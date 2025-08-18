@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     images: [
       // ✅ 텍스트가 합성된 전용 썸네일(카카오서 description 미표시 보완)
       {
-        url: 'https://hoid.co.kr/og_kakao_1200x630.jpg',
+        url: 'https://hoid.co.kr/og_kakao_1200x630.png',
         width: 1200,
         height: 630,
         alt: 'HOID — 맑은 공기·편리한 청소',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'HOID 공식몰 | 기술로 완성한 클린 라이프',
     description: '맑은 공기, 편리한 청소. HOID가 만드는 프리미엄 생활환경',
-    images: ['https://hoid.co.kr/og_kakao_1200x630.jpg'],
+    images: ['https://hoid.co.kr/og_kakao_1200x630.png'],
   },
 }
 
