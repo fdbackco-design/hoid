@@ -36,7 +36,7 @@ export default function ImagesSlider_() {
   // PC: 총 4장(비디오 자리 = 투명 더미)
   // 순서: hero_1, hero_2, (비디오), hero_3
   const pcSlides = useMemo(
-    () => ["/hero_1.png", "/hero_2.png", BLANK, "/hero_3.png"],
+    () => ["/hero_1.png", "/hero_2.png", "/hero_3.png", "/hero_3.png"],
     []
   );
 
@@ -111,11 +111,11 @@ export default function ImagesSlider_() {
         const el = videoRef.current;
         if (!el) return;
         const onTimeUpdate = () => {
-        if (currentSlide !== VIDEO_INDEX) return;
-          const dur = el.duration;
-        if (!Number.isFinite(dur) || dur <= 0) return;
-        // 끝에서 200ms 남았을 때 바로 숨김
-        if (el.currentTime >= dur - 0.2) setForceHideVideo(true);
+          if (currentSlide !== VIDEO_INDEX) return;
+            const dur = el.duration;
+          if (!Number.isFinite(dur) || dur <= 0) return;
+          // 끝에서 50ms 남았을 때 숨김 → 공백 최소화
+          if (el.currentTime >= dur - 0.05 && !forceHideVideo) setForceHideVideo(true);
       };
       const onEnded = () => {
         // 혹시 모를 경합 차단
