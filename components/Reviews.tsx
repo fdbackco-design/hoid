@@ -46,7 +46,15 @@ const reviews: IReview[] = [
     image: "/review_3.png",
     b_image: "/review_b_2.png",
     href: "https://www.coupang.com/vp/products/8721779893?itemId=25334927905&vendorItemId=92329683038&q=%ED%98%B8%EC%9D%B4%EB%93%9C&searchId=4d6600742001130&sourceType=search&itemsCount=36&searchRank=5&rank=5"
-  }
+  },
+  {
+    productName: "HOID 프리미어 공기청정기 2세대",
+    modelName: "HO-AP2501", 
+    content: "냉풍, 온풍 기능이 다 있어서 사계절 쓸 수 있어 좋아요! 방 별로 하나씩 놓고 싶어요. 크기도 미니미해서 공간차지도 안하고 디자인도 예뻐서 인테리어 효과도 있네요.",
+    image: "/review_5.jpg",     
+    b_image: "/review_b_4.png",  
+    href: "https://www.coupang.com/vp/products/9091729489?itemId=26719292707&vendorItemId=93690857612&q=%ED%98%B8%EC%9D%B4%EB%93%9C+%EA%B3%B5%EA%B8%B0%EC%B2%AD%EC%A0%95%EA%B8%B0&searchId=480c945c1434641&sourceType=search&itemsCount=36&searchRank=2&rank=2&traceId=mg9120zv" 
+  },
 ]
 
 export default function Reviews() {
