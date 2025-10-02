@@ -26,7 +26,12 @@ const BLANK =
 
 export default function ImagesSlider_() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const vimeoRef = useRef<HTMLIFrameElement | null>(null);
+  // Vimeo 제거 → HTMLVideoElement로 교체
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  // 비디오가 끝나기 직전에 강제로 숨기기 위한 안전 플래그
+  const [forceHideVideo, setForceHideVideo] = useState(false);
+
+
 
   // PC: 총 4장(비디오 자리 = 투명 더미)
   // 순서: hero_1, hero_2, (비디오), hero_3
@@ -41,8 +46,10 @@ export default function ImagesSlider_() {
     []
   );
 
-  // 체류시간: 이미지(3s), 비디오(17s), 이미지(3s)
-  const slideIntervals = useMemo(() => [3000, 3000, 8000, 3000], []);
+  // 체류시간: 이미지(3s), 비디오(?s: 실제 duration로 동적 업데이트), 이미지(3s)
+  const [slideIntervals, setSlideIntervals] = useState<number[]>([3000, 3000, 8000, 3000]);
+  // slideIntervals가 바뀔 때 슬라이더 내부 타이머를 리셋하기 위한 key
+  const [sliderKey, setSliderKey] = useState<string>("init");
   const slideIntervalsMo = useMemo(() => [5000, 5000, 5000,5000], []);
 
   // 슬라이드별 링크(비디오 포함 4개)
@@ -60,11 +67,75 @@ export default function ImagesSlider_() {
     setCurrentSlide(index);
   }, []);
 
-  // 비디오 play/pause 제어 (deps 길이 고정)
+  // 비디오 play/pause 제어
   useEffect(() => {
-    const msg = { method: currentSlide === VIDEO_INDEX ? "play" : "pause" };
-    vimeoRef.current?.contentWindow?.postMessage(JSON.stringify(msg), "*");
+    const el = videoRef.current;
+    if (!el) return;
+    if (currentSlide === VIDEO_INDEX) {
+      // 보이는 순간 재생(모바일 자동재생 조건: muted + playsInline + user gesture 상황 주의)
+      el.play().catch(() => {/* 실패 시 무시 */});
+      setForceHideVideo(false); // 비디오 슬라이드 진입 시 다시 표시 가능
+    } else {
+      el.pause();
+      // 다음 재진입 시 항상 처음부터: 루프 경합 방지
+      el.currentTime = 0;
+      setForceHideVideo(false); // 비디오가 아닌 구간에서는 플래그 초기화
+    }
   }, [currentSlide]);
+
+  // ⬇️ 비디오 duration으로 슬라이드 간격 동기화
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+    
+    const handleLoadedMeta = () => {
+      const dur = el.duration; // seconds
+      if (Number.isFinite(dur) && dur > 0) {
+        setSlideIntervals(prev => {
+          const next = [...prev];
+          // 약간의 마진을 빼서(100~200ms) 영상이 끝나기 직전에 자연스럽게 전환
+          next[VIDEO_INDEX] = Math.max(1000, Math.round(dur * 1000) - 150);
+          return next;
+        });
+        // 내부 타이머 리셋을 위해 슬라이더를 리마운트
+        setSliderKey(`v-${Math.round(dur * 1000)}`);
+      }
+    };
+
+      el.addEventListener("loadedmetadata", handleLoadedMeta);
+      return () => el.removeEventListener("loadedmetadata", handleLoadedMeta);
+    }, []);
+
+    // ⬇️ 비디오가 끝나기 직전에 강제로 숨김 처리(전환 플리커 방지)
+    useEffect(() => {
+        const el = videoRef.current;
+        if (!el) return;
+        const onTimeUpdate = () => {
+        if (currentSlide !== VIDEO_INDEX) return;
+          const dur = el.duration;
+        if (!Number.isFinite(dur) || dur <= 0) return;
+        // 끝에서 200ms 남았을 때 바로 숨김
+        if (el.currentTime >= dur - 0.2) setForceHideVideo(true);
+      };
+      const onEnded = () => {
+        // 혹시 모를 경합 차단
+        setForceHideVideo(true);
+        el.pause();
+        el.currentTime = 0;
+      };
+      el.addEventListener("timeupdate", onTimeUpdate);
+      el.addEventListener("ended", onEnded);
+      return () => {
+        el.removeEventListener("timeupdate", onTimeUpdate);
+        el.removeEventListener("ended", onEnded);
+      };
+    }, [currentSlide]);
+
+    // ⬇️ 4번째 이미지 미리 불러와 전환 시 깜빡임 방지
+    useEffect(() => {
+      const img = new Image();
+      img.src = "/hero_3.png";
+  }, []);
 
   const handleButtonClick = useCallback(() => {
     window.open(slideLinks[currentSlide], "_blank");
@@ -77,6 +148,7 @@ export default function ImagesSlider_() {
         <div className="relative h-[780px] w-full">
           {/* 이미지 4장 → 인디케이터 4개 */}
           <ImagesSlider
+            key={sliderKey}
             className="h-[780px]"
             images={pcSlides}
             overlay={false}
@@ -91,19 +163,26 @@ export default function ImagesSlider_() {
           {/* 비디오 레이어: 항상 렌더하고 가시성만 토글(깜빡임 방지) */}
           <div
             className={`absolute inset-0 z-40 transition-opacity duration-0 ${
-              currentSlide === VIDEO_INDEX ? "opacity-100 visible" : "opacity-0 invisible"
+              (currentSlide === VIDEO_INDEX && !forceHideVideo)
+                ? 'opacity-100 visible'
+                : 'opacity-0 invisible'
             }`}
-            style={{ pointerEvents: currentSlide === VIDEO_INDEX ? "auto" : "none" }}
+            style={{ pointerEvents: currentSlide === VIDEO_INDEX && !forceHideVideo ? 'auto' : 'none' }}
           >
-            <iframe
-              ref={vimeoRef}
-              className="w-full h-full"
-              src="https://player.vimeo.com/video/1074153050?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&muted=1&dnt=1&controls=0&background=1&playsinline=1&loop=0"
-              title="HOID Video"
-              allow="autoplay; fullscreen; picture-in-picture"
-              allowFullScreen
+            <video
+              ref={videoRef}
+              className="w-full h-full object-cover"
+              src="/hoid-hero.mp4"              // public/videos/hoid-hero.mp4
+              autoPlay
+              muted
+              // loop 제거: 슬라이더 타이밍과 경합 방지
+              playsInline
+              preload="metadata"
+              poster="/review_2.png"    // 선택(권장): 첫 프레임 대체 이미지
             />
           </div>
+
+
 
           {/* 텍스트/버튼 오버레이 (비디오보다 위) */}
           <div className="absolute inset-0 flex items-center z-50">
