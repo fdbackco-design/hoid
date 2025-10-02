@@ -28,15 +28,17 @@ export default function ImagesSlider_() {
   const [currentSlide, setCurrentSlide] = useState(0);
   // Vimeo 제거 → HTMLVideoElement로 교체
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  // 비디오가 끝나기 직전에 강제로 숨기기 위한 안전 플래그
+  // 비디오가 끝나기 직전에 강제로 숨기기 위한 안전 플래그;
   const [forceHideVideo, setForceHideVideo] = useState(false);
+  // 4번 이미지를 임시로 덮어씌우는 오버레이(인덱스=3로 넘어갈 때까지 유지)
+  const [showTailOverlay, setShowTailOverlay] = useState(false);
 
 
 
   // PC: 총 4장(비디오 자리 = 투명 더미)
   // 순서: hero_1, hero_2, (비디오), hero_3
   const pcSlides = useMemo(
-    () => ["/hero_1.png", "/hero_2.png", "/hero_3.png", "/hero_3.png"],
+    () => ["/hero_1.png", "/hero_2.png", BLANK, "/hero_3.png"],
     []
   );
 
@@ -65,6 +67,8 @@ export default function ImagesSlider_() {
 
   const handleSlideChange = useCallback((index: number) => {
     setCurrentSlide(index);
+    // 실제로 4번(인덱스 3)으로 넘어간 순간 오버레이 해제
+    if (index === 3) setShowTailOverlay(false);
   }, []);
 
   // 비디오 play/pause 제어
@@ -80,6 +84,7 @@ export default function ImagesSlider_() {
       // 다음 재진입 시 항상 처음부터: 루프 경합 방지
       el.currentTime = 0;
       setForceHideVideo(false); // 비디오가 아닌 구간에서는 플래그 초기화
+      setShowTailOverlay(false);
     }
   }, [currentSlide]);
 
@@ -115,11 +120,15 @@ export default function ImagesSlider_() {
             const dur = el.duration;
           if (!Number.isFinite(dur) || dur <= 0) return;
           // 끝에서 50ms 남았을 때 숨김 → 공백 최소화
-          if (el.currentTime >= dur - 0.05 && !forceHideVideo) setForceHideVideo(true);
-      };
+          if (el.currentTime >= dur - 0.05) {
+            if (!forceHideVideo) setForceHideVideo(true); // 비디오 레이어 숨김
+            if (!showTailOverlay) setShowTailOverlay(true); // ★ 4번 이미지 오버레이 ON(유지)
+          }
+        };
       const onEnded = () => {
         // 혹시 모를 경합 차단
         setForceHideVideo(true);
+        setShowTailOverlay(true);
         el.pause();
         el.currentTime = 0;
       };
@@ -182,7 +191,22 @@ export default function ImagesSlider_() {
             />
           </div>
 
-
+          {/* 4번 이미지 “테일 오버레이”: 인덱스=2 유지 중에도 4번 이미지를 고정 노출 */}
+          <div
+            className={`absolute inset-0 z-45 transition-opacity duration-0 ${
+            (currentSlide === VIDEO_INDEX && showTailOverlay)
+              ? 'opacity-100 visible'
+              : 'opacity-0 invisible'
+            }`}
+            style={{ pointerEvents: 'none' }}  // 오버레이는 클릭 막지 않음
+          >
+            <img
+              src="/hero_3.png"
+              alt="Slide 4"
+              className="w-full h-full object-cover"
+              draggable={false}
+            />
+          </div>
 
           {/* 텍스트/버튼 오버레이 (비디오보다 위) */}
           <div className="absolute inset-0 flex items-center z-50">
