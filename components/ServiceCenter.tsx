@@ -1,5 +1,3 @@
-// app/(routes)/service-center/page.tsx  또는 해당 컴포넌트 파일
-
 "use client";
 
 import { useState } from "react";
@@ -9,25 +7,24 @@ import { Card, CardContent } from "@/components/ui/card";
 
 interface IServiceOption {
   label: string;
-  href: string;
-  download?: boolean;
+  href: string;       // /public 아래 절대경로
+  download?: boolean; // true면 다운로드
 }
 
 interface IServiceCard {
   icon: React.ReactNode;
   title: string;
   description: string;
-  // 일반 링크 카드용
+  // 내부 페이지 이동용
   link?: string;
-  download?: boolean;
-  // 드롭다운 카드용
+  // 드롭다운(카탈로그 선택)용
   custom?: boolean;
   options?: IServiceOption[];
 }
 
 const ServiceCards: IServiceCard[] = [
   {
-    // ✅ 드롭다운(카탈로그 선택) 카드
+    // ✅ 드롭다운(카탈로그 선택)
     icon: (
       <div className="w-[54px] h-[54px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
         <Image
@@ -40,37 +37,18 @@ const ServiceCards: IServiceCard[] = [
       </div>
     ),
     title: "사용 설명서",
-    description:
-      "제품에 대해 궁금하신가요? 사용설명서에서 확인하실 수 있습니다.",
+    description: "제품에 대해 궁금하신가요? 사용설명서에서 확인하실 수 있습니다.",
     custom: true,
     options: [
-      {
-        label: "호이드 에어로퓨전 5 in 1",
-        href: "/guidehoid2.pdf",
-        download: true,
-      },
-      {
-        label: "호이드 오브제 무선 청소기",
-        href: "/guideVC.pdf",
-        download: true,
-      },
-      {
-        label: "호이드 UV살균 공기청정 선풍기",
-        href: "/guide.pdf",
-        download: true,
-      },
+      { label: "호이드 에어로퓨전 5 in 1",  href: "/guidehoid2.pdf", download: true },
+      { label: "호이드 오브제 무선 청소기", href: "/guideVC.pdf",    download: true },
+      { label: "호이드 UV살균 공기청정 선풍기", href: "/guide.pdf",  download: true },
     ],
   },
   {
     icon: (
       <div className="w-[54px] h-[54px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
-        <Image
-          src="/service_2.svg"
-          alt="A/S 안내 아이콘"
-          width={32}
-          height={32}
-          className="object-contain w-[32px] h-[32px]"
-        />
+        <Image src="/service_2.svg" alt="A/S 안내 아이콘" width={32} height={32} className="object-contain w-[32px] h-[32px]" />
       </div>
     ),
     title: "A/S 안내",
@@ -80,35 +58,21 @@ const ServiceCards: IServiceCard[] = [
   {
     icon: (
       <div className="w-[54px] h-[54px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
-        <Image
-          src="/service_3.svg"
-          alt="FAQ 아이콘"
-          width={32}
-          height={32}
-          className="object-contain w-[32px] h-[32px]"
-        />
+        <Image src="/service_3.svg" alt="FAQ 아이콘" width={32} height={32} className="object-contain w-[32px] h-[32px]" />
       </div>
     ),
     title: "FAQ",
-    description:
-      "자주묻는 질문에서 궁금하신 사항을 바로 확인 하실 수 있습니다.",
+    description: "자주묻는 질문에서 궁금하신 사항을 바로 확인 하실 수 있습니다.",
     link: "/faq",
   },
   {
     icon: (
       <div className="w-[54px] h-[54px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
-        <Image
-          src="/service_4.svg"
-          alt="1:1 문의 아이콘"
-          width={32}
-          height={32}
-          className="object-contain w-[32px] h-[32px]"
-        />
+        <Image src="/service_4.svg" alt="1:1 문의 아이콘" width={32} height={32} className="object-contain w-[32px] h-[32px]" />
       </div>
     ),
     title: "1:1 문의",
-    description:
-      "대량구매, 제품문의 등 무엇이든 문의주세요. 답변해드립니다.",
+    description: "대량구매, 제품문의 등 무엇이든 문의주세요. 답변해드립니다.",
     link: "/bulk-purchase",
   },
 ];
@@ -134,21 +98,21 @@ export default function ServiceCenter() {
         <div className="bg-[#F5F5F5] rounded-2xl w-full xl:w-[880px] flex flex-col justify-center p-6 md:p-12">
           <div className="grid grid-cols-2 gap-8 sm:gap-x-10 sm:gap-y-12">
             {ServiceCards.map((card, i) => {
-              // ✅ 드롭다운(카탈로그 선택) 카드
+              // ✅ 드롭다운(카탈로그 선택) 카드 — <a>로 직접 다운로드 (Link 사용 안 함)
               if (card.custom && card.options?.length) {
                 const isOpen = openIndex === i;
                 return (
                   <div
                     key={i}
                     className="relative flex flex-col items-center text-center group"
-                    onMouseEnter={() => setOpenIndex(i)} // 데스크톱 hover
-                    onMouseLeave={() => setOpenIndex((prev) => (prev === i ? null : prev))}
+                    onMouseEnter={() => setOpenIndex(i)}
+                    onMouseLeave={() => setOpenIndex(prev => (prev === i ? null : prev))}
                   >
                     <button
                       type="button"
                       aria-haspopup="menu"
                       aria-expanded={isOpen}
-                      onClick={() => setOpenIndex((prev) => (prev === i ? null : i))} // 모바일 토글
+                      onClick={() => setOpenIndex(prev => (prev === i ? null : i))}
                       className="flex flex-col items-center text-center"
                     >
                       <Card className="border-none shadow-none bg-transparent">
@@ -175,25 +139,23 @@ export default function ServiceCenter() {
                       <ul className="py-2">
                         {card.options.map((opt, idx) => (
                           <li key={idx}>
-                            <Link
-                              href={opt.href}
-                              download={opt.download}
+                            <a
+                              href={opt.href}                 // ✅ 정적 파일 직접 요청
+                              download={opt.download}         // 다운로드 힌트
+                              target="_blank"                 // 새 탭(선택)
+                              rel="noopener"
                               className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-gray-50 text-left"
                               onClick={() => setOpenIndex(null)}
                             >
                               <span className="text-[14px] text-[#333]">{opt.label}</span>
                               {opt.download && (
-                                <svg
-                                  xmlns="http://www.w3.org/2000/svg"
-                                  viewBox="0 0 24 24"
-                                  fill="currentColor"
-                                  className="w-4 h-4 text-gray-500"
-                                >
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                  fill="currentColor" className="w-4 h-4 text-gray-500">
                                   <path d="M12 16l4-5h-3V4h-2v7H8l4 5z" />
                                   <path d="M20 18H4v2h16v-2z" />
                                 </svg>
                               )}
-                            </Link>
+                            </a>
                           </li>
                         ))}
                       </ul>
@@ -202,19 +164,12 @@ export default function ServiceCenter() {
                 );
               }
 
-              // ✅ 일반 링크 카드
+              // ✅ 내부 페이지 이동은 Link 유지
               return (
-                <Link
-                  key={i}
-                  href={card.link!}
-                  download={card.download}
-                  className="flex flex-col items-center text-center group"
-                >
+                <Link key={i} href={card.link!} className="flex flex-col items-center text-center group" prefetch>
                   <Card className="border-none shadow-none bg-transparent">
                     <CardContent className="p-0 flex flex-col items-center text-center">
-                      <div className="mb-5 transition-transform duration-300 group-hover:scale-105">
-                        {card.icon}
-                      </div>
+                      <div className="mb-5 transition-transform duration-300 group-hover:scale-105">{card.icon}</div>
                       <h3 className="font-pretendard font-semibold text-[#333] text-base md:text-lg mb-2">
                         {card.title}
                       </h3>
@@ -231,13 +186,7 @@ export default function ServiceCenter() {
 
         {/* 이미지 섹션 */}
         <div className="relative w-full xl:w-[500px] aspect-[16/9] md:aspect-[4/3] xl:aspect-auto rounded-2xl overflow-hidden">
-          <Image
-            src="/service_5.svg"
-            alt="Service Center Visual"
-            fill
-            className="object-cover"
-            priority={false}
-          />
+          <Image src="/service_5.svg" alt="Service Center Visual" fill className="object-cover" priority={false} />
         </div>
       </div>
     </section>
