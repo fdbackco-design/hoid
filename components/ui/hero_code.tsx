@@ -2,8 +2,9 @@
 
 import React, { useMemo, useEffect, useState, useCallback, useRef } from "react";
 import dynamic from "next/dynamic";
+import Image from "next/image"; // ✅ 추가
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button"; // ❌ 미사용 제거
 
 const MotionDiv = dynamic(() => import("framer-motion").then(m => m.motion.div), { ssr: false });
 const MotionH1  = dynamic(() => import("framer-motion").then(m => m.motion.h1),  { ssr: false });
@@ -80,7 +81,7 @@ export default function ImagesSlider_() {
         setShowTailOverlay(false);
       }, 200);
     }
-  }, [currentSlide]);
+  }, [currentSlide, forceHideVideo]); // ✅ 의존성 포함
 
   // 📍 비디오 메타데이터 로드 시 duration 반영
   useEffect(() => {
@@ -171,14 +172,16 @@ export default function ImagesSlider_() {
             />
           </div>
 
-          {/* 🩵 4번 이미지 오버레이 */}
+          {/* 🩵 4번 이미지 오버레이 (Next/Image로 교체) */}
           {showTailOverlay && currentSlide === VIDEO_INDEX && (
             <div className="absolute inset-0 z-45">
-              <img
+              <Image
                 src="/hero_3.png"
                 alt="Slide 4"
-                className="w-full h-full object-cover"
-                draggable={false}
+                fill
+                priority={false}
+                sizes="100vw"
+                className="object-cover select-none pointer-events-none"
               />
             </div>
           )}
