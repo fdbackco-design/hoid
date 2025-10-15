@@ -2,14 +2,19 @@
 
 import React, { useMemo, useEffect, useState, useCallback, useRef } from "react";
 import dynamic from "next/dynamic";
-import Image from "next/image";
+// 'Image' 컴포넌트는 비디오 오버레이(poster)나 다른 부분에서 사용될 수 있으므로,
+// 만약 실제로 사용하지 않는다면 이 줄을 삭제해야 합니다. 
+// 현재 코드에서는 <video>의 poster 속성으로 대체되어 직접 사용되지 않으므로 삭제해도 무방합니다.
+// import Image from "next/image"; 
 import { Card, CardContent } from "@/components/ui/card";
 
+// Framer Motion 컴포넌트 동적 로딩
 const MotionDiv = dynamic(() => import("framer-motion").then(m => m.motion.div), { ssr: false });
 const MotionH1  = dynamic(() => import("framer-motion").then(m => m.motion.h1),  { ssr: false });
 const MotionP   = dynamic(() => import("framer-motion").then(m => m.motion.p),   { ssr: false });
 const MotionButton = dynamic(() => import("framer-motion").then(m => m.motion.button), { ssr: false });
 
+// ImagesSlider 컴포넌트 동적 로딩
 const ImagesSlider = dynamic(
   () => import("@/components/ui/images-slider").then(m => m.ImagesSlider),
   { ssr: false }
@@ -22,9 +27,9 @@ export default function ImagesSlider_() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  // PC 버전 슬라이드 이미지 및 비디오 경로
+  // PC 버전 슬라이드 이미지 경로 (비디오 위치는 포스터 이미지로 대체)
   const pcSlides = useMemo(
-    () => ["/hero_1.png", "/hero_2.png", "/hero_3.png", "/hero_3.png"], // 3, 4번 이미지를 동일하게 설정
+    () => ["/hero_1.png", "/hero_2.png", "/hero_3.png", "/hero_3.png"],
     []
   );
 
@@ -34,7 +39,7 @@ export default function ImagesSlider_() {
     []
   );
 
-  // 모든 슬라이드가 동일한 시간(5초)으로 유지되도록 설정
+  // 모든 슬라이드가 동일한 시간(5초)으로 유지되도록 통일
   const slideIntervals = useMemo(() => [5000, 5000, 5000, 5000], []);
   const slideIntervalsMo = useMemo(() => [5000, 5000, 5000, 5000], []);
 
@@ -73,7 +78,7 @@ export default function ImagesSlider_() {
     }
   }, [currentSlide]);
 
-
+  // '자세히 보기' 버튼 클릭 핸들러
   const handleButtonClick = useCallback(() => {
     window.open(slideLinks[currentSlide], "_blank");
   }, [slideLinks, currentSlide]);
@@ -118,7 +123,7 @@ export default function ImagesSlider_() {
             />
           </div>
 
-          {/* 텍스트 및 버튼 UI */}
+          {/* 텍스트 및 버튼 UI (상호작용을 위해 최상단에 위치) */}
           <div className="absolute inset-0 flex items-center z-50 pointer-events-none">
             <MotionDiv
               initial={{ opacity: 0, y: -80 }}
@@ -156,8 +161,6 @@ export default function ImagesSlider_() {
               indicatorClassName="w-2 h-2 rounded-full [&.active]:bg-[#51a4e4]"
               indicatorContainerClassName="gap-3.5 absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20"
               slideIntervals={slideIntervalsMo}
-              // 모바일에서는 비디오가 없으므로 별도 핸들러가 필요 없습니다.
-              // onSlideChange={handleSlideChange} 
             >
               {null}
             </ImagesSlider>
