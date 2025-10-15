@@ -2,9 +2,8 @@
 
 import React, { useMemo, useEffect, useState, useCallback, useRef } from "react";
 import dynamic from "next/dynamic";
-import Image from "next/image"; // ✅ 추가
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
-// import { Button } from "@/components/ui/button"; // ❌ 미사용 제거
 
 const MotionDiv = dynamic(() => import("framer-motion").then(m => m.motion.div), { ssr: false });
 const MotionH1  = dynamic(() => import("framer-motion").then(m => m.motion.h1),  { ssr: false });
@@ -22,7 +21,16 @@ const VIDEO_PLACEHOLDER = "/hero_3.png";
 export default function ImagesSlider_() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [forceHideVideo, setForceHideVideo] = useState(true); // 초기값은 숨김
+
+  // 화면 표시용: 비디오 레이어 숨김/표시
+  const [forceHideVideo, _setForceHideVideo] = useState(true);
+  const forceHideVideoRef = useRef(true); // 경합 방지용 ref
+  const setForceHideVideo = (v: boolean) => {
+    forceHideVideoRef.current = v;
+    _setForceHideVideo(v);
+    console.log(`[STATE] forceHideVideo -> ${v}`);
+  };
+
   const [showTailOverlay, setShowTailOverlay] = useState(false);
 
   const pcSlides = useMemo(
@@ -43,47 +51,50 @@ export default function ImagesSlider_() {
     () => [
       "https://www.coupang.com/vp/products/8987740925",
       "https://www.coupang.com/vp/products/8987740925",
-      "https://www.coupang.com/vp/products/8675880265", // 비디오 슬라이드
+      "https://www.coupang.com/vp/products/8675880265",
       "https://www.coupang.com/vp/products/8721779893",
     ],
     []
   );
 
-  // 📍 슬라이드 변경 핸들러
+  // 슬라이드 변경: 같은 인덱스로 중복 호출되면 무시
   const handleSlideChange = useCallback((index: number) => {
+    if (index === currentSlide) {
+      console.log(`[SLIDE] (dup) keep index=${index}`);
+      return;
+    }
     console.log("[SLIDE] → index:", index);
     setCurrentSlide(index);
     if (index === 3) setShowTailOverlay(false);
-  }, []);
+  }, [currentSlide]);
 
-  // 📍 비디오 show/hide 로직
+  // 비디오 show/hide 제어 — currentSlide만 의존
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
 
-    console.log(`[VIDEO CONTROL] currentSlide=${currentSlide}, forceHide=${forceHideVideo}`);
+    console.log(`[VIDEO CONTROL] currentSlide=${currentSlide}, forceHide=${forceHideVideoRef.current}`);
 
     if (currentSlide === VIDEO_INDEX) {
-      // 살짝 지연을 두고 표시 (transition overlap 방지)
-      requestAnimationFrame(() => {
-        console.log("[VIDEO] ▶ play()");
-        el.currentTime = 0;
-        el.play().catch(() => {});
-        setForceHideVideo(false);
-      });
-    } else {
-      console.log("[VIDEO] ⏸ pause() & hide");
-      el.pause();
+      // 즉시 표시 + 재생
+      setForceHideVideo(false);
       el.currentTime = 0;
-      // 슬라이드 전환 애니메이션 끝난 뒤 숨김 확정
-      setTimeout(() => {
-        setForceHideVideo(true);
-        setShowTailOverlay(false);
-      }, 200);
+      const p = el.play();
+      if (p && typeof p.catch === "function") {
+        p.catch(err => console.log("[VIDEO] play() error:", err?.message));
+      }
+      console.log("[VIDEO] ▶ play() & show");
+    } else {
+      // 즉시 숨김 + 정지 (지연 제거!)
+      if (!el.paused) el.pause();
+      el.currentTime = 0;
+      setForceHideVideo(true);
+      setShowTailOverlay(false);
+      console.log("[VIDEO] ⏸ pause() & HIDE (immediate)");
     }
-  }, [currentSlide, forceHideVideo]); // ✅ 의존성 포함
+  }, [currentSlide]);
 
-  // 📍 비디오 메타데이터 로드 시 duration 반영
+  // 비디오 메타데이터 로드 → duration 동기화
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
@@ -104,7 +115,7 @@ export default function ImagesSlider_() {
     return () => el.removeEventListener("loadedmetadata", handleLoadedMeta);
   }, []);
 
-  // 📍 비디오가 끝나기 직전 강제 숨김 + 오버레이
+  // 영상 끝 직전 → 오버레이 ON + 레이어 숨김
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
@@ -112,19 +123,31 @@ export default function ImagesSlider_() {
     const onTimeUpdate = () => {
       if (currentSlide !== VIDEO_INDEX) return;
       const dur = el.duration;
-      if (!Number.isFinite(dur)) return;
+      if (!Number.isFinite(dur) || dur <= 0) return;
 
       if (el.currentTime >= dur - 0.05) {
-        if (!forceHideVideo) {
+        if (!forceHideVideoRef.current) {
           console.log("[VIDEO] nearing end → hide & overlay");
-          setForceHideVideo(true);
+          setForceHideVideo(true);       // 즉시 숨김
         }
-        if (!showTailOverlay) setShowTailOverlay(true);
+        if (!showTailOverlay) setShowTailOverlay(true); // 다음 이미지 오버레이
       }
     };
+    const onEnded = () => {
+      console.log("[VIDEO] ended → hide & overlay");
+      setForceHideVideo(true);
+      setShowTailOverlay(true);
+      el.pause();
+      el.currentTime = 0;
+    };
+
     el.addEventListener("timeupdate", onTimeUpdate);
-    return () => el.removeEventListener("timeupdate", onTimeUpdate);
-  }, [currentSlide, forceHideVideo, showTailOverlay]);
+    el.addEventListener("ended", onEnded);
+    return () => {
+      el.removeEventListener("timeupdate", onTimeUpdate);
+      el.removeEventListener("ended", onEnded);
+    };
+  }, [currentSlide, showTailOverlay]);
 
   const handleButtonClick = useCallback(() => {
     window.open(slideLinks[currentSlide], "_blank");
@@ -145,14 +168,13 @@ export default function ImagesSlider_() {
             slideIntervals={slideIntervals}
             onSlideChange={handleSlideChange}
           >
-            {/* children required by IImageSliderProps */}
             {null}
           </ImagesSlider>
 
-          {/* 🎥 비디오 레이어 */}
+          {/* 비디오 레이어 (즉시 전환: duration-0) */}
           <div
-            className={`absolute inset-0 z-40 transition-opacity duration-150 ${
-              !forceHideVideo && currentSlide === VIDEO_INDEX
+            className={`absolute inset-0 z-40 transition-opacity duration-0 ${
+              currentSlide === VIDEO_INDEX && !forceHideVideo
                 ? "opacity-100 visible"
                 : "opacity-0 invisible"
             }`}
@@ -172,21 +194,20 @@ export default function ImagesSlider_() {
             />
           </div>
 
-          {/* 🩵 4번 이미지 오버레이 (Next/Image로 교체) */}
+          {/* 4번 이미지 오버레이 */}
           {showTailOverlay && currentSlide === VIDEO_INDEX && (
-            <div className="absolute inset-0 z-45">
+            <div className="absolute inset-0 z-45 pointer-events-none">
               <Image
                 src="/hero_3.png"
                 alt="Slide 4"
                 fill
-                priority={false}
                 sizes="100vw"
-                className="object-cover select-none pointer-events-none"
+                className="object-cover select-none"
               />
             </div>
           )}
 
-          {/* 텍스트 */}
+          {/* 텍스트/버튼 */}
           <div className="absolute inset-0 flex items-center z-50">
             <MotionDiv
               initial={{ opacity: 0, y: -80 }}
@@ -213,7 +234,7 @@ export default function ImagesSlider_() {
         </div>
       </div>
 
-      {/* 모바일 (영상 없음) */}
+      {/* 모바일(영상 없음) */}
       <div className="md:hidden">
         <Card className="w-full h-[540px] relative overflow-hidden border-0 shadow-none rounded-none">
           <CardContent className="w-full h-full p-0 border-0 rounded-none">
