@@ -15,38 +15,30 @@ const ImagesSlider = dynamic(
   { ssr: false }
 );
 
-const VIDEO_INDEX = 2;
-const VIDEO_PLACEHOLDER = "/hero_3.png";
+// 슬라이드 순서에서 비디오가 위치하는 인덱스 (0부터 시작, 3번째는 2)
+const VIDEO_INDEX = 2; 
 
 export default function ImagesSlider_() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const videoRef = useRef<HTMLVideoElement | null>(null);
 
-  // 화면 표시용: 비디오 레이어 숨김/표시
-  const [forceHideVideo, _setForceHideVideo] = useState(true);
-  const forceHideVideoRef = useRef(true); // 경합 방지용 ref
-  const setForceHideVideo = (v: boolean) => {
-    forceHideVideoRef.current = v;
-    _setForceHideVideo(v);
-    console.log(`[STATE] forceHideVideo -> ${v}`);
-  };
-
-  const [showTailOverlay, setShowTailOverlay] = useState(false);
-
+  // PC 버전 슬라이드 이미지 및 비디오 경로
   const pcSlides = useMemo(
-    () => ["/hero_1.png", "/hero_2.png", VIDEO_PLACEHOLDER, "/hero_3.png"],
+    () => ["/hero_1.png", "/hero_2.png", "/hero_3.png", "/hero_3.png"], // 3, 4번 이미지를 동일하게 설정
     []
   );
 
+  // 모바일 버전 슬라이드 이미지 경로
   const moImages = useMemo(
     () => ["/mo_hero_1.svg", "/mo_hero_2.svg", "/mo_hero_3.svg", "/mo_hero_4.svg"],
     []
   );
 
-  const [slideIntervals, setSlideIntervals] = useState<number[]>([3000, 3000, 8000, 3000]);
-  const [sliderKey, setSliderKey] = useState<string>("init");
+  // 모든 슬라이드가 동일한 시간(5초)으로 유지되도록 설정
+  const slideIntervals = useMemo(() => [5000, 5000, 5000, 5000], []);
   const slideIntervalsMo = useMemo(() => [5000, 5000, 5000, 5000], []);
 
+  // 슬라이드별 이동 링크
   const slideLinks = useMemo(
     () => [
       "https://www.coupang.com/vp/products/8987740925",
@@ -56,98 +48,31 @@ export default function ImagesSlider_() {
     ],
     []
   );
-
-  // 슬라이드 변경: 같은 인덱스로 중복 호출되면 무시
+  
+  // 슬라이드 변경 시 현재 인덱스 업데이트
   const handleSlideChange = useCallback((index: number) => {
-    if (index === currentSlide) {
-      console.log(`[SLIDE] (dup) keep index=${index}`);
-      return;
-    }
-    console.log("[SLIDE] → index:", index);
     setCurrentSlide(index);
-    if (index === 3) setShowTailOverlay(false);
-  }, [currentSlide]);
-
-  // 비디오 show/hide 제어 — currentSlide만 의존
-  useEffect(() => {
-    const el = videoRef.current;
-    if (!el) return;
-
-    console.log(`[VIDEO CONTROL] currentSlide=${currentSlide}, forceHide=${forceHideVideoRef.current}`);
-
-    if (currentSlide === VIDEO_INDEX) {
-      // 즉시 표시 + 재생
-      setForceHideVideo(false);
-      el.currentTime = 0;
-      const p = el.play();
-      if (p && typeof p.catch === "function") {
-        p.catch(err => console.log("[VIDEO] play() error:", err?.message));
-      }
-      console.log("[VIDEO] ▶ play() & show");
-    } else {
-      // 즉시 숨김 + 정지 (지연 제거!)
-      if (!el.paused) el.pause();
-      el.currentTime = 0;
-      setForceHideVideo(true);
-      setShowTailOverlay(false);
-      console.log("[VIDEO] ⏸ pause() & HIDE (immediate)");
-    }
-  }, [currentSlide]);
-
-  // 비디오 메타데이터 로드 → duration 동기화
-  useEffect(() => {
-    const el = videoRef.current;
-    if (!el) return;
-
-    const handleLoadedMeta = () => {
-      const dur = el.duration;
-      console.log("[VIDEO META] duration:", dur);
-      if (Number.isFinite(dur) && dur > 0) {
-        setSlideIntervals(prev => {
-          const next = [...prev];
-          next[VIDEO_INDEX] = Math.max(1000, Math.round(dur * 1000) - 150);
-          return next;
-        });
-        setSliderKey(`v-${Math.round(dur * 1000)}`);
-      }
-    };
-    el.addEventListener("loadedmetadata", handleLoadedMeta);
-    return () => el.removeEventListener("loadedmetadata", handleLoadedMeta);
   }, []);
 
-  // 영상 끝 직전 → 오버레이 ON + 레이어 숨김
+  // 현재 슬라이드 인덱스에 따라 비디오 재생/정지 제어
   useEffect(() => {
-    const el = videoRef.current;
-    if (!el) return;
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
 
-    const onTimeUpdate = () => {
-      if (currentSlide !== VIDEO_INDEX) return;
-      const dur = el.duration;
-      if (!Number.isFinite(dur) || dur <= 0) return;
+    if (currentSlide === VIDEO_INDEX) {
+      // 3번 슬라이드일 때: 비디오를 처음부터 재생
+      videoElement.currentTime = 0;
+      videoElement.play().catch(error => {
+        // 자동 재생 정책 등으로 인한 오류를 콘솔에 기록
+        console.error("Video play failed:", error);
+      });
+    } else {
+      // 다른 슬라이드일 때: 비디오를 정지하고 시간을 리셋
+      videoElement.pause();
+      videoElement.currentTime = 0;
+    }
+  }, [currentSlide]);
 
-      if (el.currentTime >= dur - 0.05) {
-        if (!forceHideVideoRef.current) {
-          console.log("[VIDEO] nearing end → hide & overlay");
-          setForceHideVideo(true);       // 즉시 숨김
-        }
-        if (!showTailOverlay) setShowTailOverlay(true); // 다음 이미지 오버레이
-      }
-    };
-    const onEnded = () => {
-      console.log("[VIDEO] ended → hide & overlay");
-      setForceHideVideo(true);
-      setShowTailOverlay(true);
-      el.pause();
-      el.currentTime = 0;
-    };
-
-    el.addEventListener("timeupdate", onTimeUpdate);
-    el.addEventListener("ended", onEnded);
-    return () => {
-      el.removeEventListener("timeupdate", onTimeUpdate);
-      el.removeEventListener("ended", onEnded);
-    };
-  }, [currentSlide, showTailOverlay]);
 
   const handleButtonClick = useCallback(() => {
     window.open(slideLinks[currentSlide], "_blank");
@@ -155,11 +80,10 @@ export default function ImagesSlider_() {
 
   return (
     <>
-      {/* PC */}
+      {/* PC 버전 슬라이더 */}
       <div className="hidden md:block max-w-[1920px] mx-auto">
         <div className="relative h-[780px] w-full">
           <ImagesSlider
-            key={sliderKey}
             className="h-[780px]"
             images={pcSlides}
             overlay={false}
@@ -171,16 +95,16 @@ export default function ImagesSlider_() {
             {null}
           </ImagesSlider>
 
-          {/* 비디오 레이어 (즉시 전환: duration-0) */}
+          {/* 비디오 레이어: 3번 슬라이드일 때만 보이도록 처리 */}
           <div
-            className={`absolute inset-0 z-40 transition-opacity duration-0 ${
-              currentSlide === VIDEO_INDEX && !forceHideVideo
+            className={`absolute inset-0 z-40 transition-opacity duration-300 ${
+              currentSlide === VIDEO_INDEX
                 ? "opacity-100 visible"
                 : "opacity-0 invisible"
             }`}
             style={{
               backgroundColor: "#000",
-              pointerEvents: currentSlide === VIDEO_INDEX && !forceHideVideo ? "auto" : "none",
+              pointerEvents: currentSlide === VIDEO_INDEX ? "auto" : "none",
             }}
           >
             <video
@@ -190,25 +114,12 @@ export default function ImagesSlider_() {
               muted
               playsInline
               preload="auto"
-              poster="/hero_3.png"
+              poster="/hero_3.png" // 비디오 로딩 중 보일 이미지
             />
           </div>
 
-          {/* 4번 이미지 오버레이 */}
-          {showTailOverlay && currentSlide === VIDEO_INDEX && (
-            <div className="absolute inset-0 z-45 pointer-events-none">
-              <Image
-                src="/hero_3.png"
-                alt="Slide 4"
-                fill
-                sizes="100vw"
-                className="object-cover select-none"
-              />
-            </div>
-          )}
-
-          {/* 텍스트/버튼 */}
-          <div className="absolute inset-0 flex items-center z-50">
+          {/* 텍스트 및 버튼 UI */}
+          <div className="absolute inset-0 flex items-center z-50 pointer-events-none">
             <MotionDiv
               initial={{ opacity: 0, y: -80 }}
               animate={{ opacity: 1, y: 0 }}
@@ -223,7 +134,7 @@ export default function ImagesSlider_() {
                   강력한 UV 살균과 공기청정 기술이 하나로!
                 </MotionP>
                 <MotionButton
-                  className="px-9 py-4 bg-blue-400 rounded-[50px] inline-flex justify-center items-center gap-2.5 text-white text-center font-semibold"
+                  className="px-9 py-4 bg-blue-400 rounded-[50px] inline-flex justify-center items-center gap-2.5 text-white text-center font-semibold pointer-events-auto"
                   onClick={handleButtonClick}
                 >
                   제품 자세히 보기
@@ -234,7 +145,7 @@ export default function ImagesSlider_() {
         </div>
       </div>
 
-      {/* 모바일(영상 없음) */}
+      {/* 모바일 버전 슬라이더 */}
       <div className="md:hidden">
         <Card className="w-full h-[540px] relative overflow-hidden border-0 shadow-none rounded-none">
           <CardContent className="w-full h-full p-0 border-0 rounded-none">
@@ -245,7 +156,8 @@ export default function ImagesSlider_() {
               indicatorClassName="w-2 h-2 rounded-full [&.active]:bg-[#51a4e4]"
               indicatorContainerClassName="gap-3.5 absolute bottom-6 left-1/2 transform -translate-x-1/2 z-20"
               slideIntervals={slideIntervalsMo}
-              onSlideChange={handleSlideChange}
+              // 모바일에서는 비디오가 없으므로 별도 핸들러가 필요 없습니다.
+              // onSlideChange={handleSlideChange} 
             >
               {null}
             </ImagesSlider>
