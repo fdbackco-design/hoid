@@ -1,17 +1,33 @@
+// app/(routes)/service-center/page.tsx  또는 해당 컴포넌트 파일
+
+"use client";
+
+import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
+
+interface IServiceOption {
+  label: string;
+  href: string;
+  download?: boolean;
+}
 
 interface IServiceCard {
   icon: React.ReactNode;
   title: string;
   description: string;
-  link: string;
+  // 일반 링크 카드용
+  link?: string;
   download?: boolean;
+  // 드롭다운 카드용
+  custom?: boolean;
+  options?: IServiceOption[];
 }
 
 const ServiceCards: IServiceCard[] = [
   {
+    // ✅ 드롭다운(카탈로그 선택) 카드
     icon: (
       <div className="w-[54px] h-[54px] md:h-[62px] bg-white rounded-full flex items-center justify-center">
         <Image
@@ -24,9 +40,26 @@ const ServiceCards: IServiceCard[] = [
       </div>
     ),
     title: "사용 설명서",
-    description: "제품에 대해 궁금하신가요? 사용설명서에서 확인하실 수 있습니다.",
-    link: "/guide.pdf",
-    download: true,
+    description:
+      "제품에 대해 궁금하신가요? 사용설명서에서 확인하실 수 있습니다.",
+    custom: true,
+    options: [
+      {
+        label: "호이드 에어로퓨전 5 in 1",
+        href: "/guidehoid2.pdf",
+        download: true,
+      },
+      {
+        label: "호이드 오브제 무선 청소기",
+        href: "/guideVC.pdf",
+        download: true,
+      },
+      {
+        label: "호이드 UV살균 공기청정 선풍기",
+        href: "/guide.pdf",
+        download: true,
+      },
+    ],
   },
   {
     icon: (
@@ -57,7 +90,8 @@ const ServiceCards: IServiceCard[] = [
       </div>
     ),
     title: "FAQ",
-    description: "자주묻는 질문에서 궁금하신 사항을 바로 확인 하실 수 있습니다.",
+    description:
+      "자주묻는 질문에서 궁금하신 사항을 바로 확인 하실 수 있습니다.",
     link: "/faq",
   },
   {
@@ -73,12 +107,15 @@ const ServiceCards: IServiceCard[] = [
       </div>
     ),
     title: "1:1 문의",
-    description: "대량구매, 제품문의 등 무엇이든 문의주세요. 답변해드립니다.",
+    description:
+      "대량구매, 제품문의 등 무엇이든 문의주세요. 답변해드립니다.",
     link: "/bulk-purchase",
   },
 ];
 
 export default function ServiceCenter() {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
   return (
     <section className="w-full py-10 md:py-24 mt-10 md:mt-0">
       {/* 헤더 */}
@@ -96,28 +133,99 @@ export default function ServiceCenter() {
         {/* 카드 섹션 */}
         <div className="bg-[#F5F5F5] rounded-2xl w-full xl:w-[880px] flex flex-col justify-center p-6 md:p-12">
           <div className="grid grid-cols-2 gap-8 sm:gap-x-10 sm:gap-y-12">
-            {ServiceCards.map((card, i) => (
-              <Link
-                key={i}
-                href={card.link}
-                download={card.download}
-                className="flex flex-col items-center text-center group"
-              >
-                <Card className="border-none shadow-none bg-transparent">
-                  <CardContent className="p-0 flex flex-col items-center text-center">
-                    <div className="mb-5 transition-transform duration-300 group-hover:scale-105">
-                      {card.icon}
+            {ServiceCards.map((card, i) => {
+              // ✅ 드롭다운(카탈로그 선택) 카드
+              if (card.custom && card.options?.length) {
+                const isOpen = openIndex === i;
+                return (
+                  <div
+                    key={i}
+                    className="relative flex flex-col items-center text-center group"
+                    onMouseEnter={() => setOpenIndex(i)} // 데스크톱 hover
+                    onMouseLeave={() => setOpenIndex((prev) => (prev === i ? null : prev))}
+                  >
+                    <button
+                      type="button"
+                      aria-haspopup="menu"
+                      aria-expanded={isOpen}
+                      onClick={() => setOpenIndex((prev) => (prev === i ? null : i))} // 모바일 토글
+                      className="flex flex-col items-center text-center"
+                    >
+                      <Card className="border-none shadow-none bg-transparent">
+                        <CardContent className="p-0 flex flex-col items-center text-center">
+                          <div className="mb-5 transition-transform duration-300 group-hover:scale-105">
+                            {card.icon}
+                          </div>
+                          <h3 className="font-pretendard font-semibold text-[#333] text-base md:text-lg mb-2">
+                            {card.title}
+                          </h3>
+                          <p className="font-pretendard text-[#666] text-sm md:text-[15px] leading-6 max-w-[220px]">
+                            {card.description}
+                          </p>
+                        </CardContent>
+                      </Card>
+                    </button>
+
+                    {/* 드롭다운 패널 */}
+                    <div
+                      className={`z-10 absolute top-full mt-3 w-[260px] rounded-xl border bg-white shadow-md transition-all ${
+                        isOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"
+                      }`}
+                    >
+                      <ul className="py-2">
+                        {card.options.map((opt, idx) => (
+                          <li key={idx}>
+                            <Link
+                              href={opt.href}
+                              download={opt.download}
+                              className="flex items-center justify-between gap-3 px-4 py-3 hover:bg-gray-50 text-left"
+                              onClick={() => setOpenIndex(null)}
+                            >
+                              <span className="text-[14px] text-[#333]">{opt.label}</span>
+                              {opt.download && (
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 24 24"
+                                  fill="currentColor"
+                                  className="w-4 h-4 text-gray-500"
+                                >
+                                  <path d="M12 16l4-5h-3V4h-2v7H8l4 5z" />
+                                  <path d="M20 18H4v2h16v-2z" />
+                                </svg>
+                              )}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <h3 className="font-pretendard font-semibold text-[#333] text-base md:text-lg mb-2">
-                      {card.title}
-                    </h3>
-                    <p className="font-pretendard text-[#666] text-sm md:text-[15px] leading-6 max-w-[220px]">
-                      {card.description}
-                    </p>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
+                  </div>
+                );
+              }
+
+              // ✅ 일반 링크 카드
+              return (
+                <Link
+                  key={i}
+                  href={card.link!}
+                  download={card.download}
+                  className="flex flex-col items-center text-center group"
+                >
+                  <Card className="border-none shadow-none bg-transparent">
+                    <CardContent className="p-0 flex flex-col items-center text-center">
+                      <div className="mb-5 transition-transform duration-300 group-hover:scale-105">
+                        {card.icon}
+                      </div>
+                      <h3 className="font-pretendard font-semibold text-[#333] text-base md:text-lg mb-2">
+                        {card.title}
+                      </h3>
+                      <p className="font-pretendard text-[#666] text-sm md:text-[15px] leading-6 max-w-[220px]">
+                        {card.description}
+                      </p>
+                    </CardContent>
+                  </Card>
+                </Link>
+              );
+            })}
           </div>
         </div>
 
