@@ -20,39 +20,35 @@ const ImagesSlider = dynamic(
 // 비디오가 들어갈 인덱스(0-based): hero_1(0), hero_2(1), 비디오(2), hero_3(3)
 const VIDEO_INDEX = 2;
 
-// 1x1 투명 PNG (비디오 자리 더미)
-const BLANK =
-  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR4nGNgYAAAAAMAASsJTYQAAAAASUVORK5CYII=";
+// 비디오 자리 플레이스홀더 = 다음(4번째) 이미지로 고정 → 전환 시 흰 화면 방지
+const VIDEO_PLACEHOLDER = "/hero_3.png";
 
 export default function ImagesSlider_() {
   const [currentSlide, setCurrentSlide] = useState(0);
-  // Vimeo 제거 → HTMLVideoElement로 교체
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  // 비디오가 끝나기 직전에 강제로 숨기기 위한 안전 플래그;
+
+  // 비디오가 끝나기 직전에 강제로 숨기기 위한 안전 플래그
   const [forceHideVideo, setForceHideVideo] = useState(false);
-  // 4번 이미지를 임시로 덮어씌우는 오버레이(인덱스=3로 넘어갈 때까지 유지)
+  // 4번 이미지를 비디오 끝 직전에 오버레이로 깔아 플리커 제거
   const [showTailOverlay, setShowTailOverlay] = useState(false);
 
-
-
-  // PC: 총 4장(비디오 자리 = 투명 더미)
-  // 순서: hero_1, hero_2, (비디오), hero_3
+  // PC: 총 4장 (비디오 자리는 4번 이미지로 채움)
+  // 순서: 1번 이미지, 2번 이미지, (비디오), 4번 이미지
   const pcSlides = useMemo(
-    () => ["/hero_1.png", "/hero_2.png", BLANK, "/hero_3.png"],
+    () => ["/hero_1.png", "/hero_2.png", VIDEO_PLACEHOLDER, "/hero_3.png"],
     []
   );
 
-  // 모바일은 영상 없이 3장
+  // 모바일은 영상 없이 4장
   const moImages = useMemo(
     () => ["/mo_hero_1.svg", "/mo_hero_2.svg", "/mo_hero_3.svg", "/mo_hero_4.svg"],
     []
   );
 
-  // 체류시간: 이미지(3s), 비디오(?s: 실제 duration로 동적 업데이트), 이미지(3s)
+  // 체류시간: 이미지(3s), 비디오(메타데이터로 동기화), 이미지(3s)
   const [slideIntervals, setSlideIntervals] = useState<number[]>([3000, 3000, 8000, 3000]);
-  // slideIntervals가 바뀔 때 슬라이더 내부 타이머를 리셋하기 위한 key
-  const [sliderKey, setSliderKey] = useState<string>("init");
-  const slideIntervalsMo = useMemo(() => [5000, 5000, 5000,5000], []);
+  const [sliderKey, setSliderKey] = useState<string>("init"); // 내부 타이머 리셋용
+  const slideIntervalsMo = useMemo(() => [5000, 5000, 5000, 5000], []);
 
   // 슬라이드별 링크(비디오 포함 4개)
   const slideLinks = useMemo(
@@ -67,8 +63,7 @@ export default function ImagesSlider_() {
 
   const handleSlideChange = useCallback((index: number) => {
     setCurrentSlide(index);
-    // 실제로 4번(인덱스 3)으로 넘어간 순간 오버레이 해제
-    if (index === 3) setShowTailOverlay(false);
+    if (index === 3) setShowTailOverlay(false); // 실제 4번(인덱스 3) 진입 시 오버레이 해제
   }, []);
 
   // 비디오 play/pause 제어
@@ -76,74 +71,71 @@ export default function ImagesSlider_() {
     const el = videoRef.current;
     if (!el) return;
     if (currentSlide === VIDEO_INDEX) {
-      // 보이는 순간 재생(모바일 자동재생 조건: muted + playsInline + user gesture 상황 주의)
-      el.play().catch(() => {/* 실패 시 무시 */});
-      setForceHideVideo(false); // 비디오 슬라이드 진입 시 다시 표시 가능
+      el.play().catch(() => {});
+      setForceHideVideo(false);
     } else {
       el.pause();
-      // 다음 재진입 시 항상 처음부터: 루프 경합 방지
       el.currentTime = 0;
-      setForceHideVideo(false); // 비디오가 아닌 구간에서는 플래그 초기화
+      setForceHideVideo(false);
       setShowTailOverlay(false);
     }
   }, [currentSlide]);
 
-  // ⬇️ 비디오 duration으로 슬라이드 간격 동기화
+  // 비디오 duration으로 슬라이드 간격 동기화
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
-    
+
     const handleLoadedMeta = () => {
       const dur = el.duration; // seconds
       if (Number.isFinite(dur) && dur > 0) {
         setSlideIntervals(prev => {
           const next = [...prev];
-          // 약간의 마진을 빼서(100~200ms) 영상이 끝나기 직전에 자연스럽게 전환
+          // 약간의 마진(150ms)을 빼 영상 종료 직전에 자연스럽게 전환
           next[VIDEO_INDEX] = Math.max(1000, Math.round(dur * 1000) - 150);
           return next;
         });
-        // 내부 타이머 리셋을 위해 슬라이더를 리마운트
-        setSliderKey(`v-${Math.round(dur * 1000)}`);
+        setSliderKey(`v-${Math.round(dur * 1000)}`); // 타이머 리셋
       }
     };
 
-      el.addEventListener("loadedmetadata", handleLoadedMeta);
-      return () => el.removeEventListener("loadedmetadata", handleLoadedMeta);
-    }, []);
+    el.addEventListener("loadedmetadata", handleLoadedMeta);
+    return () => el.removeEventListener("loadedmetadata", handleLoadedMeta);
+  }, []);
 
-    // ⬇️ 비디오가 끝나기 직전에 강제로 숨김 처리(전환 플리커 방지)
-    useEffect(() => {
-        const el = videoRef.current;
-        if (!el) return;
-        const onTimeUpdate = () => {
-          if (currentSlide !== VIDEO_INDEX) return;
-            const dur = el.duration;
-          if (!Number.isFinite(dur) || dur <= 0) return;
-          // 끝에서 50ms 남았을 때 숨김 → 공백 최소화
-          if (el.currentTime >= dur - 0.05) {
-            if (!forceHideVideo) setForceHideVideo(true); // 비디오 레이어 숨김
-            if (!showTailOverlay) setShowTailOverlay(true); // ★ 4번 이미지 오버레이 ON(유지)
-          }
-        };
-      const onEnded = () => {
-        // 혹시 모를 경합 차단
-        setForceHideVideo(true);
-        setShowTailOverlay(true);
-        el.pause();
-        el.currentTime = 0;
-      };
-      el.addEventListener("timeupdate", onTimeUpdate);
-      el.addEventListener("ended", onEnded);
-      return () => {
-        el.removeEventListener("timeupdate", onTimeUpdate);
-        el.removeEventListener("ended", onEnded);
-      };
-    }, [currentSlide]);
+  // 비디오가 끝나기 직전에 강제 숨김 + 4번 이미지 오버레이
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
 
-    // ⬇️ 4번째 이미지 미리 불러와 전환 시 깜빡임 방지
-    useEffect(() => {
-      const img = new Image();
-      img.src = "/hero_3.png";
+    const onTimeUpdate = () => {
+      if (currentSlide !== VIDEO_INDEX) return;
+      const dur = el.duration;
+      if (!Number.isFinite(dur) || dur <= 0) return;
+      if (el.currentTime >= dur - 0.05) { // 남은 50ms
+        if (!forceHideVideo) setForceHideVideo(true);
+        if (!showTailOverlay) setShowTailOverlay(true);
+      }
+    };
+    const onEnded = () => {
+      setForceHideVideo(true);
+      setShowTailOverlay(true);
+      el.pause();
+      el.currentTime = 0;
+    };
+
+    el.addEventListener("timeupdate", onTimeUpdate);
+    el.addEventListener("ended", onEnded);
+    return () => {
+      el.removeEventListener("timeupdate", onTimeUpdate);
+      el.removeEventListener("ended", onEnded);
+    };
+  }, [currentSlide, forceHideVideo, showTailOverlay]);
+
+  // 4번째 이미지 미리 불러와 전환 시 깜빡임 방지
+  useEffect(() => {
+    const img = new Image();
+    img.src = "/hero_3.png";
   }, []);
 
   const handleButtonClick = useCallback(() => {
@@ -169,36 +161,39 @@ export default function ImagesSlider_() {
             {null}
           </ImagesSlider>
 
-          {/* 비디오 레이어: 항상 렌더하고 가시성만 토글(깜빡임 방지) */}
+          {/* 비디오 레이어: 항상 렌더하고 가시성만 토글 */}
           <div
             className={`absolute inset-0 z-40 transition-opacity duration-0 ${
               (currentSlide === VIDEO_INDEX && !forceHideVideo)
-                ? 'opacity-100 visible'
-                : 'opacity-0 invisible'
+                ? "opacity-100 visible"
+                : "opacity-0 invisible"
             }`}
-            style={{ pointerEvents: currentSlide === VIDEO_INDEX && !forceHideVideo ? 'auto' : 'none' }}
+            // 배경을 검정으로 고정해 로딩 순간 흰 화면 방지
+            style={{
+              backgroundColor: "#000",
+              pointerEvents: currentSlide === VIDEO_INDEX && !forceHideVideo ? "auto" : "none",
+            }}
           >
             <video
               ref={videoRef}
               className="w-full h-full object-cover"
-              src="/hoid-hero.mp4"              // public/videos/hoid-hero.mp4
+              src="/hoid-hero.mp4"
               autoPlay
               muted
-              // loop 제거: 슬라이더 타이밍과 경합 방지
               playsInline
-              preload="metadata"
-              poster="/review_2.png"    // 선택(권장): 첫 프레임 대체 이미지
+              preload="auto"      // 적극 로드
+              poster="/hero_3.png" // 로딩 전/버퍼링 시 화면 채움
             />
           </div>
 
-          {/* 4번 이미지 “테일 오버레이”: 인덱스=2 유지 중에도 4번 이미지를 고정 노출 */}
+          {/* 4번 이미지 오버레이(비디오 끝 직전부터 다음 슬라이드 진입까지 표시) */}
           <div
             className={`absolute inset-0 z-45 transition-opacity duration-0 ${
-            (currentSlide === VIDEO_INDEX && showTailOverlay)
-              ? 'opacity-100 visible'
-              : 'opacity-0 invisible'
+              currentSlide === VIDEO_INDEX && showTailOverlay
+                ? "opacity-100 visible"
+                : "opacity-0 invisible"
             }`}
-            style={{ pointerEvents: 'none' }}  // 오버레이는 클릭 막지 않음
+            style={{ pointerEvents: "none" }}
           >
             <img
               src="/hero_3.png"
@@ -208,7 +203,7 @@ export default function ImagesSlider_() {
             />
           </div>
 
-          {/* 텍스트/버튼 오버레이 (비디오보다 위) */}
+          {/* 텍스트/버튼 오버레이 */}
           <div className="absolute inset-0 flex items-center z-50">
             <MotionDiv
               initial={{ opacity: 0, y: -80 }}
