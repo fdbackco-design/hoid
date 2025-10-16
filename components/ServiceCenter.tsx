@@ -40,8 +40,8 @@ const ServiceCards: IServiceCard[] = [
     description: "제품에 대해 궁금하신가요? 사용설명서에서 확인하실 수 있습니다.",
     custom: true,
     options: [
-      { label: "호이드 에어로퓨전 5 in 1", href: "/guidehoid2.pdf" },
-      { label: "호이드 오브제 무선 청소기", href: "/guideVC.pdf" },
+      { label: "호이드 에어로퓨전 5 in 1", href: "/호이드 에어로퓨전 5 in 1.pdf" },
+      { label: "호이드 오브제 무선 청소기", href: "/호이드 오브제 무선 청소기.pdf" },
       { label: "호이드 UV살균 공기청정 선풍기", href: "/guide.pdf" },
     ],
   },
