@@ -91,7 +91,7 @@ export default function BulkPurchasePage() {
                       담당자 메일 : <a href="mailto:fdbackteams@gmail.com" className="underline">fdbackteams@gmail.com</a>
                     </div>
                     <div className="text-[#333333] text-[17px] font-medium text-left">
-                      문의사항을 가능한 상세히 작성해주시면 보다 상세한 답변이 가능합니다.
+                      대량 구매 및 B2B 납품 문의는 담당자 연락처로 연락 부탁드립니다.
                     </div>
                   </div>
                 </div>
