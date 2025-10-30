@@ -23,7 +23,8 @@ export default function Bulk() {
               {"대량 구매 문의"}
             </h2>
             <p className="w-full mt-3 md:mt-7 text-[14px] md:text-xl text-white font-medium leading-[22px] md:leading-[34px]">
-                대량 구매 및 B2B 납품 문의는 아래 연락처로 연락 부탁드립니다.
+                대량 구매를 원하시나요?<br className="hidden md:block" />
+                대표 번호로 전화 또는 문의 작성을 해주시면<br /> 빠르게 도와드리겠습니다.
             </p>
             <Link 
               href="/bulk-purchase"
