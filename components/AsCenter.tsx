@@ -24,7 +24,7 @@ export default function AsCenter({}: IAsCenterProps) {
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-7 px-5 md:px-0">
           <div className="flex flex-col items-center gap-[24px] mb-4">
             <h1 className="text-white text-[30px] md:text-[46px] font-bold font-['Pretendard'] -tracking-normal text-center">HOID A/S 센터</h1>
-            <p className="text-white text-[14px] md:text-[22px] font-medium font-['Pretendard'] text-center">HOID는 A/S 센터를 상시 운영하고 있습니다.</p>
+            <p className="text-white text-[14px] md:text-[22px] font-medium font-['Pretendard'] text-center">제품 고장 및 불량 문의는 고객센터로 연락 부탁드립니다.</p>
           </div>
 
           <div className="flex flex-col items-center gap-1 w-full md:w-auto">
