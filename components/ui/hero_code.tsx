@@ -29,7 +29,7 @@ export default function ImagesSlider_() {
 
   // PC 버전 슬라이드 이미지 경로 (비디오 위치는 포스터 이미지로 대체)
   const pcSlides = useMemo(
-    () => ["/hero_1.png", "/hero_2.png", "/hero_3.png", "/hero_3.png"],
+    () => ["/hero_1.jpg", "/hero_2.png", "/hero_3.png", "/hero_3.png"],
     []
   );
 
