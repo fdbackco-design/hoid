@@ -35,7 +35,7 @@ export default function ImagesSlider_() {
 
   // 모바일 버전 슬라이드 이미지 경로
   const moImages = useMemo(
-    () => ["/mo_hero_1.svg", "/mo_hero_2.svg", "/mo_hero_3.svg", "/mo_hero_4.svg"],
+    () => ["/mo_hero_1.jpg", "/mo_hero_2.svg", "/mo_hero_3.jpg", "/mo_hero_4.svg"],
     []
   );
 
