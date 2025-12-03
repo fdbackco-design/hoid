@@ -8,7 +8,7 @@ export default function Bulk() {
         {/* 배경 이미지 */}
         <div className="absolute inset-0">
           <Image
-            src="/bulk.svg"
+            src="/bulk.jpg"
             alt="bulk section image"
             fill
             className="object-cover brightness-75"
