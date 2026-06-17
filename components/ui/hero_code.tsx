@@ -46,11 +46,38 @@ export default function ImagesSlider_() {
   // 슬라이드별 이동 링크
   const slideLinks = useMemo(
     () => [
-      "https://www.coupang.com/vp/products/8987740925",
+      "https://www.coupang.com/vp/products/9091729489?itemId=26719292707&vendorItemId=93690857612&q=hoid%20%EA%B3%B5%EA%B8%B0%EC%B2%AD%EC%A0%95%EA%B8%B0&searchId=1654918e10724546&sourceType=search&itemsCount=5&searchRank=0&rank=0&traceId=mqhglp5j",
       "https://www.coupang.com/vp/products/8987740925",
       "https://www.coupang.com/vp/products/8675880265",
       "https://www.coupang.com/vp/products/8721779893",
       "https://www.coupang.com/vp/products/8721779893",
+    ],
+    []
+  );
+
+  // 슬라이드별 문구
+  const slideTexts = useMemo(
+    () => [
+      {
+        title: "강력한 살균, 완벽한 청정\nHOID가 답이다",
+        description: "강력한 UV 살균과 공기청정 기술이 하나로!",
+      },
+      {
+        title: "바로 켜는 우리집 스마트 스크린\nHOID가 답이다",
+        description: "언제, 어디에서나 이동식 스마트TV",
+      },
+      {
+        title: "강력한 살균, 완벽한 청정\nHOID가 답이다",
+        description: "강력한 UV 살균과 공기청정 기술이 하나로!",
+      },
+      {
+        title: "강력한 살균, 완벽한 청정\nHOID가 답이다",
+        description: "강력한 UV 살균과 공기청정 기술이 하나로!",
+      },
+      {
+        title: "강력한 살균, 완벽한 청정\nHOID가 답이다",
+        description: "강력한 UV 살균과 공기청정 기술이 하나로!",
+      },
     ],
     []
   );
@@ -133,11 +160,17 @@ export default function ImagesSlider_() {
               className="flex flex-col justify-center ml-[120px] max-w-[499px]"
             >
               <div className="flex flex-col items-start space-y-6">
-                <MotionH1 className="text-[#111111] font-pretendard text-[48px] font-bold text-left leading-tight">
-                  강력한 살균, 완벽한 청정<br />HOID가 답이다
+                <MotionH1
+                  key={`title-${currentSlide}`}
+                  className="text-[#111111] font-pretendard text-[48px] font-bold text-left leading-tight whitespace-pre-line"
+                >
+                  {slideTexts[currentSlide].title}
                 </MotionH1>
-                <MotionP className="text-[#333333] text-[22px] text-left font-medium">
-                  강력한 UV 살균과 공기청정 기술이 하나로!
+                <MotionP
+                  key={`desc-${currentSlide}`}
+                  className="text-[#333333] text-[22px] text-left font-medium"
+                >
+                  {slideTexts[currentSlide].description}
                 </MotionP>
                 <MotionButton
                   className="px-9 py-4 bg-blue-400 rounded-[50px] inline-flex justify-center items-center gap-2.5 text-white text-center font-semibold pointer-events-auto"
