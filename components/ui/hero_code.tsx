@@ -48,7 +48,7 @@ export default function ImagesSlider_() {
     () => [
       "https://www.coupang.com/vp/products/9091729489?itemId=26719292707&vendorItemId=93690857612&q=hoid%20%EA%B3%B5%EA%B8%B0%EC%B2%AD%EC%A0%95%EA%B8%B0&searchId=1654918e10724546&sourceType=search&itemsCount=5&searchRank=0&rank=0&traceId=mqhglp5j",
       "https://www.coupang.com/vp/products/8987740925",
-      "https://www.coupang.com/vp/products/8675880265",
+      "https://www.coupang.com/vp/products/9091729489?itemId=26719292707&vendorItemId=93690857612&q=hoid%20공기청정기&searchId=1654918e10724546&sourceType=search&itemsCount=5&searchRank=0&rank=0&traceId=mqhglp5j",
       "https://www.coupang.com/vp/products/8987740925",
       "https://www.coupang.com/vp/products/8721779893",
       "https://www.coupang.com/vp/products/8721779893",
