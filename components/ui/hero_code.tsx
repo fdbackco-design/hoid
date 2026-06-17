@@ -67,16 +67,16 @@ export default function ImagesSlider_() {
         description: "언제, 어디에서나 이동식 스마트TV",
       },
       {
-        title: "강력한 살균, 완벽한 청정\nHOID가 답이다",
-        description: "강력한 UV 살균과 공기청정 기술이 하나로!",
+        title: "강력한 흡입, 깔끔한 청소\nHOID가 답이다",
+        description: "먼지를 빠르게 정리하는 스마트 청소 솔루션",
       },
       {
         title: "강력한 살균, 완벽한 청정\nHOID가 답이다",
         description: "강력한 UV 살균과 공기청정 기술이 하나로!",
       },
       {
-        title: "강력한 살균, 완벽한 청정\nHOID가 답이다",
-        description: "강력한 UV 살균과 공기청정 기술이 하나로!",
+        title: "쾌적한 습도, 산뜻한 공간\nHOID가 답이다",
+        description: "공간을 더 뽀송하게 관리하는 제습 솔루션!",
       },
     ],
     []
