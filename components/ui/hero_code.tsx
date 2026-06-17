@@ -20,8 +20,8 @@ const ImagesSlider = dynamic(
   { ssr: false }
 );
 
-// 슬라이드 순서에서 비디오가 위치하는 인덱스 (0부터 시작, 4번째는 3)
-const VIDEO_INDEX = 3;
+// 슬라이드 순서에서 비디오가 위치하는 인덱스 (0부터 시작, 5번째는 4)
+const VIDEO_INDEX = 4;
 
 export default function ImagesSlider_() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -29,7 +29,7 @@ export default function ImagesSlider_() {
 
   // PC 버전 슬라이드 이미지 경로 (비디오 위치는 포스터 이미지로 대체)
   const pcSlides = useMemo(
-    () => ["/hero_all.png", "/hero_tv.png", "/hero_2.png", "/hero_3.png", "/hero_3.png"],
+    () => ["/hero_all.png", "/hero_tv.png", "/hero_air.png", "/hero_2.png", "/hero_3.png", "/hero_3.png"],
     []
   );
 
@@ -40,7 +40,7 @@ export default function ImagesSlider_() {
   );
 
   // 모든 슬라이드가 동일한 시간(5초)으로 유지되도록 통일
-  const slideIntervals = useMemo(() => [5000, 5000, 5000, 5000, 5000], []);
+  const slideIntervals = useMemo(() => [5000, 5000, 5000, 5000, 5000, 5000], []);
   const slideIntervalsMo = useMemo(() => [5000, 5000, 5000, 5000, 5000], []);
 
   // 슬라이드별 이동 링크
@@ -49,6 +49,7 @@ export default function ImagesSlider_() {
       "https://www.coupang.com/vp/products/9091729489?itemId=26719292707&vendorItemId=93690857612&q=hoid%20%EA%B3%B5%EA%B8%B0%EC%B2%AD%EC%A0%95%EA%B8%B0&searchId=1654918e10724546&sourceType=search&itemsCount=5&searchRank=0&rank=0&traceId=mqhglp5j",
       "https://www.coupang.com/vp/products/8987740925",
       "https://www.coupang.com/vp/products/8675880265",
+      "https://www.coupang.com/vp/products/8987740925",
       "https://www.coupang.com/vp/products/8721779893",
       "https://www.coupang.com/vp/products/8721779893",
     ],
@@ -65,6 +66,10 @@ export default function ImagesSlider_() {
       {
         title: "바로 켜는 스마트 스크린\nHOID가 답이다",
         description: "언제, 어디에서나 이동식 스마트TV",
+      },
+      {
+        title: "강력한 살균, 완벽한 청정\nHOID가 답이다",
+        description: "강력한 UV 살균과 공기청정 기술이 하나로!",
       },
       {
         title: "강력한 흡입, 깔끔한 청소\nHOID가 답이다",
@@ -93,7 +98,7 @@ export default function ImagesSlider_() {
     if (!videoElement) return;
 
     if (currentSlide === VIDEO_INDEX) {
-      // 4번 슬라이드일 때: 비디오를 처음부터 재생
+      // 5번 슬라이드일 때: 비디오를 처음부터 재생
       videoElement.currentTime = 0;
       videoElement.play().catch(error => {
         // 자동 재생 정책 등으로 인한 오류를 콘솔에 기록
@@ -128,7 +133,7 @@ export default function ImagesSlider_() {
             {null}
           </ImagesSlider>
 
-          {/* 비디오 레이어: 4번 슬라이드일 때만 보이도록 처리 */}
+          {/* 비디오 레이어: 5번 슬라이드일 때만 보이도록 처리 */}
           <div
             className={`absolute inset-0 z-40 transition-opacity duration-300 ${
               currentSlide === VIDEO_INDEX
