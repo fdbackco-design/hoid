@@ -20,8 +20,8 @@ const ImagesSlider = dynamic(
   { ssr: false }
 );
 
-// 슬라이드 순서에서 비디오가 위치하는 인덱스 (0부터 시작, 3번째는 2)
-const VIDEO_INDEX = 2; 
+// 슬라이드 순서에서 비디오가 위치하는 인덱스 (0부터 시작, 4번째는 3)
+const VIDEO_INDEX = 3;
 
 export default function ImagesSlider_() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -29,19 +29,19 @@ export default function ImagesSlider_() {
 
   // PC 버전 슬라이드 이미지 경로 (비디오 위치는 포스터 이미지로 대체)
   const pcSlides = useMemo(
-    () => ["/hero_1.jpg", "/hero_2.png", "/hero_3.png", "/hero_3.png"],
+    () => ["/hero_all.png", "/hero_tv.png", "/hero_2.png", "/hero_3.png", "/hero_3.png"],
     []
   );
 
   // 모바일 버전 슬라이드 이미지 경로
   const moImages = useMemo(
-    () => ["/mo_hero_1.jpg", "/mo_hero_2.svg", "/mo_hero_3.jpg", "/mo_hero_4.svg"],
+    () => ["/mo_hero_all.png", "/mo_hero_tv.png",  "/mo_hero_2.svg", "/mo_hero_3.jpg", "/mo_hero_4.svg"],
     []
   );
 
   // 모든 슬라이드가 동일한 시간(5초)으로 유지되도록 통일
-  const slideIntervals = useMemo(() => [5000, 5000, 5000, 5000], []);
-  const slideIntervalsMo = useMemo(() => [5000, 5000, 5000, 5000], []);
+  const slideIntervals = useMemo(() => [5000, 5000, 5000, 5000, 5000], []);
+  const slideIntervalsMo = useMemo(() => [5000, 5000, 5000, 5000, 5000], []);
 
   // 슬라이드별 이동 링크
   const slideLinks = useMemo(
@@ -49,6 +49,7 @@ export default function ImagesSlider_() {
       "https://www.coupang.com/vp/products/8987740925",
       "https://www.coupang.com/vp/products/8987740925",
       "https://www.coupang.com/vp/products/8675880265",
+      "https://www.coupang.com/vp/products/8721779893",
       "https://www.coupang.com/vp/products/8721779893",
     ],
     []
@@ -65,7 +66,7 @@ export default function ImagesSlider_() {
     if (!videoElement) return;
 
     if (currentSlide === VIDEO_INDEX) {
-      // 3번 슬라이드일 때: 비디오를 처음부터 재생
+      // 4번 슬라이드일 때: 비디오를 처음부터 재생
       videoElement.currentTime = 0;
       videoElement.play().catch(error => {
         // 자동 재생 정책 등으로 인한 오류를 콘솔에 기록
@@ -100,7 +101,7 @@ export default function ImagesSlider_() {
             {null}
           </ImagesSlider>
 
-          {/* 비디오 레이어: 3번 슬라이드일 때만 보이도록 처리 */}
+          {/* 비디오 레이어: 4번 슬라이드일 때만 보이도록 처리 */}
           <div
             className={`absolute inset-0 z-40 transition-opacity duration-300 ${
               currentSlide === VIDEO_INDEX

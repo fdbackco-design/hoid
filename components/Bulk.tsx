@@ -8,10 +8,17 @@ export default function Bulk() {
         {/* 배경 이미지 */}
         <div className="absolute inset-0">
           <Image
-            src="/bulk.jpg"
+            src="/mo_bulk.png"
             alt="bulk section image"
             fill
-            className="object-cover brightness-75"
+            className="object-cover brightness-75 md:hidden"
+            priority
+          />
+          <Image
+            src="/bulk_pc.png"
+            alt="bulk section image"
+            fill
+            className="object-cover brightness-75 hidden md:block"
             priority
           />
         </div>

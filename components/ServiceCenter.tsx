@@ -214,7 +214,7 @@ export default function ServiceCenter() {
         {/* 이미지 섹션 */}
         <div className="relative w-full xl:w-[500px] aspect-[16/9] md:aspect-[4/3] xl:aspect-auto rounded-2xl overflow-hidden">
           <Image
-            src="/service_5.jpg"
+            src="/service_5.png"
             alt="Service Center Visual"
             fill
             className="object-cover"
