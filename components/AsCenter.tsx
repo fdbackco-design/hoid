@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 interface IAsCenterProps {
   title?: string
   description?: string
@@ -29,9 +31,11 @@ export default function AsCenter({}: IAsCenterProps) {
 
           <div className="flex flex-col items-center gap-1 w-full md:w-auto">
             <div className="flex items-center gap-3 flex-col md:flex-row">
-              <img 
-                src="/phone.svg" 
-                alt="phone icon" 
+              <Image
+                src="/phone.svg"
+                alt="phone icon"
+                width={38}
+                height={39}
                 className="w-[32px] h-[32px] md:w-[38px] md:h-[39px]"
               />
               <span className="text-white text-[40px] md:text-[56px] font-bold font-['Pretendard'] text-center">1544-9537</span>
