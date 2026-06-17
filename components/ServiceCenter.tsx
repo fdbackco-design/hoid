@@ -43,6 +43,7 @@ const ServiceCards: IServiceCard[] = [
       { label: "호이드 에어로퓨전 공기청정기 5in1", href: "/호이드 에어로퓨전 공기청정기 5 in 1.pdf" },
       { label: "호이드 오브제 무선 청소기", href: "/호이드 오브제 무선 청소기.pdf" },
       { label: "호이드 UV살균 공기청정 선풍기", href: "/guide.pdf" },
+      { label: "호이드 무빙 스마트TV", href: "/HOID MOVE 무빙 스마트TV 32.pdf" },
     ],
   },
   {
