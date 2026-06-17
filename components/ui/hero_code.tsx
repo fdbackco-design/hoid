@@ -59,11 +59,11 @@ export default function ImagesSlider_() {
   const slideTexts = useMemo(
     () => [
       {
-        title: "강력한 살균, 완벽한 청정\nHOID가 답이다",
-        description: "강력한 UV 살균과 공기청정 기술이 하나로!",
+        title: "우리 집 생활 솔루션\nHOID가 답이다",
+        description: "한 번에 완성하는 스마트 라이프!",
       },
       {
-        title: "바로 켜는 우리집 스마트 스크린\nHOID가 답이다",
+        title: "바로 켜는 스마트 스크린\nHOID가 답이다",
         description: "언제, 어디에서나 이동식 스마트TV",
       },
       {
