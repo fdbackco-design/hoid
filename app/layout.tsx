@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   alternates: { canonical: '/' },
   robots: { index: true, follow: true },
   other: {
-    'naver-site-verification': 'ef8eea773f3a0a223a19f8e1adcae83cececeb97',
+    'naver-site-verification': '89b9949c7b22e05e163144dbad980aaa315a060b',
   },
   openGraph: {
     type: 'website',
