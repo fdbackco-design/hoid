@@ -11,13 +11,17 @@ export const AEROFUSION_MARKUP = `<noscript><style>.loader{display:none}</style>
     <!-- Nav -->
     <header class="nav" id="nav">
       <a class="nav__logo" href="#top" aria-label="HOiD 홈">HOiD</a>
-      <nav class="nav__links">
+      <nav class="nav__links" id="nav-links">
         <a href="/as-center">A/S 센터</a>
         <a href="/faq">자주 묻는 질문</a>
         <a href="/bulk-purchase">대량 구매 문의</a>
         <a href="https://feedmall.co.kr/" target="_blank" rel="noopener">스토어 ↗</a>
+        <a href="#lineup" class="nav__links-cta">전 제품 보기</a>
       </nav>
       <a href="#lineup" class="nav__cta">전 제품 보기</a>
+      <button type="button" class="nav__toggle" id="nav-toggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
     </header>
 
     <main id="top">

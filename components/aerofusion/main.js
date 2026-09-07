@@ -20,22 +20,56 @@ const heroSrc = (i) => `/frames/hero/h_${pad(i + 1)}.jpg`
 const orbitSrc = (i) => `/frames/orbit/o_${pad(i + 1)}.jpg`
 const explodeSrc = (i) => `/frames/explode/e_${pad(i + 1)}.jpg`
 
-/* scene state */
-const hero = { canvas: null, ctx: null, imgs: [], frame: 0, count: HERO_COUNT }
-const orbit = { canvas: null, ctx: null, imgs: [], frame: 0, count: ORBIT_COUNT, scale: 1 }
-const explode = { canvas: null, ctx: null, imgs: [], frame: 0, count: EXPLODE_COUNT, scale: 1 }
+const isMobileViewport = () => window.matchMedia('(max-width: 860px)').matches
+const getDpr = () => Math.min(window.devicePixelRatio || 1, isMobileViewport() ? 1.5 : 2)
 
-const DPR = Math.min(window.devicePixelRatio || 1, 2)
+/* scene state — hero focus keeps model face + product in mobile portrait crop */
+const hero = {
+  canvas: null,
+  ctx: null,
+  imgs: [],
+  frame: 0,
+  count: HERO_COUNT,
+  focusX: 0.5,
+  focusY: 0.5,
+  fit: 'cover',
+}
+const orbit = { canvas: null, ctx: null, imgs: [], frame: 0, count: ORBIT_COUNT, scale: 1, focusX: 0.5, focusY: 0.5, fit: 'cover' }
+const explode = { canvas: null, ctx: null, imgs: [], frame: 0, count: EXPLODE_COUNT, scale: 1, focusX: 0.5, focusY: 0.5, fit: 'cover' }
 
 /* ------------------------------------------------------------------
    Canvas sizing + cover draw
 ------------------------------------------------------------------ */
+function syncSceneFocus() {
+  const mobile = isMobileViewport()
+  /*
+    히어로 프레임은 1440×812(가로). 모바일 세로 cover면 좌우가 크게 잘려
+    모델 얼굴·제품이 동시에 보이지 않음.
+    → 모바일은 가로 fit(거의 contain)으로 둘 다 보이게 하고, 이미지는 상단에 배치.
+  */
+  hero.fit = mobile ? 'width' : 'cover'
+  hero.focusX = 0.5
+  hero.focusY = mobile ? 0.28 : 0.5
+  orbit.fit = 'cover'
+  orbit.focusX = mobile ? 0.5 : 0.5
+  orbit.focusY = mobile ? 0.48 : 0.5
+  explode.fit = 'cover'
+  explode.focusX = 0.5
+  explode.focusY = mobile ? 0.45 : 0.5
+}
+
 function sizeCanvas(scene) {
   const c = scene.canvas
+  if (!c) return
+  const dpr = getDpr()
   const w = c.clientWidth
   const h = c.clientHeight
-  c.width = Math.round(w * DPR)
-  c.height = Math.round(h * DPR)
+  const nextW = Math.round(w * dpr)
+  const nextH = Math.round(h * dpr)
+  if (c.width !== nextW || c.height !== nextH) {
+    c.width = nextW
+    c.height = nextH
+  }
 }
 
 function draw(scene) {
@@ -62,13 +96,32 @@ function draw(scene) {
   const ch = canvas.height
   const iw = img.naturalWidth
   const ih = img.naturalHeight
+  const mobile = isMobileViewport()
 
-  const base = Math.max(cw / iw, ch / ih)
-  const s = base * (scene.scale || 1)
+  // 매 프레임 뷰포트 기준으로 판별 — 리사이즈/에뮬레이션 후에도 cover로 굳지 않게
+  const fit = scene === hero
+    ? (mobile ? 'width' : 'cover')
+    : (scene.fit || 'cover')
+  const fx = scene === hero
+    ? 0.5
+    : (Number.isFinite(scene.focusX) ? scene.focusX : 0.5)
+  const fy = scene === hero
+    ? (mobile ? 0.28 : 0.5)
+    : (Number.isFinite(scene.focusY) ? scene.focusY : 0.5)
+
+  const cover = Math.max(cw / iw, ch / ih)
+  let s
+  if (fit === 'width') {
+    // 가로 전체를 보여 얼굴+제품이 함께 보이게 (잘림 최소화)
+    s = cw / iw
+    s = Math.min(s, cover)
+  } else {
+    s = cover * (scene.scale || 1)
+  }
   const dw = iw * s
   const dh = ih * s
-  const dx = (cw - dw) / 2
-  const dy = (ch - dh) / 2
+  const dx = (cw - dw) * fx
+  const dy = (ch - dh) * fy
 
   ctx.clearRect(0, 0, cw, ch)
   ctx.drawImage(img, dx, dy, dw, dh)
@@ -160,6 +213,7 @@ function boot() {
   const loaderEl = document.getElementById('loader')
 
   // size + first paint asap (don't wait for full load)
+  syncSceneFocus()
   sizeCanvas(hero)
   sizeCanvas(orbit)
   sizeCanvas(explode)
@@ -168,6 +222,7 @@ function boot() {
     if (runId !== loadGeneration) return
     if (fill) fill.style.width = '100%'
     if (pct) pct.textContent = '100'
+    syncSceneFocus()
     sizeCanvas(hero); draw(hero)
     sizeCanvas(orbit); draw(orbit)
     sizeCanvas(explode); draw(explode)
@@ -530,6 +585,53 @@ function initScroll() {
 }
 
 /* ------------------------------------------------------------------
+   Mobile nav
+------------------------------------------------------------------ */
+let mobileNavBound = false
+
+function setupMobileNav() {
+  const nav = document.getElementById('nav')
+  const toggle = document.getElementById('nav-toggle')
+  const links = document.getElementById('nav-links')
+  if (!nav || !toggle || !links || mobileNavBound) return
+  mobileNavBound = true
+
+  const close = () => {
+    nav.classList.remove('is-open')
+    toggle.setAttribute('aria-expanded', 'false')
+    toggle.setAttribute('aria-label', '메뉴 열기')
+    document.body.style.overflow = ''
+  }
+
+  const open = () => {
+    nav.classList.add('is-open')
+    toggle.setAttribute('aria-expanded', 'true')
+    toggle.setAttribute('aria-label', '메뉴 닫기')
+    document.body.style.overflow = 'hidden'
+  }
+
+  toggle.addEventListener('click', (event) => {
+    event.stopPropagation()
+    if (nav.classList.contains('is-open')) close()
+    else open()
+  })
+
+  links.querySelectorAll('a').forEach((anchor) => {
+    anchor.addEventListener('click', () => close())
+  })
+
+  document.addEventListener('click', (event) => {
+    if (!nav.classList.contains('is-open')) return
+    if (nav.contains(event.target)) return
+    close()
+  })
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') close()
+  })
+}
+
+/* ------------------------------------------------------------------
    Resize / lifecycle (Next.js client mount)
 ------------------------------------------------------------------ */
 let resizeTO
@@ -539,15 +641,21 @@ export function initAerofusion() {
     resizeHandler = () => {
       clearTimeout(resizeTO)
       resizeTO = setTimeout(() => {
+        syncSceneFocus()
         sizeCanvas(hero); draw(hero)
         sizeCanvas(orbit); draw(orbit)
         sizeCanvas(explode); draw(explode)
         updateLeaders()
         ScrollTrigger.refresh()
+        if (window.innerWidth > 860) {
+          document.getElementById('nav')?.classList.remove('is-open')
+          document.body.style.overflow = ''
+        }
       }, 160)
     }
     window.addEventListener('resize', resizeHandler)
   }
+  setupMobileNav()
   boot()
 }
 
@@ -564,6 +672,8 @@ export function destroyAerofusion() {
   ScrollTrigger.getAll().forEach((t) => t.kill())
   gsap.killTweensOf('*')
   booted = false
+  mobileNavBound = false
+  document.body.style.overflow = ''
   hero.frame = 0
   orbit.frame = 0
   orbit.scale = 1
