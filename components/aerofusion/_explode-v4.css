@@ -1,0 +1,70 @@
+
+/* ============================================================
+   EXPLODE — pinned scroll-scrub, layers peel apart
+   ============================================================ */
+.explode { position: relative; height: 340vh; background: var(--ink); }
+.explode__stage {
+  position: sticky; top: 0; height: 100vh; width: 100%;
+  overflow: hidden; display: flex; align-items: center; justify-content: center;
+}
+.explode__intro {
+  position: absolute; left: var(--gutter); top: clamp(90px, 15vh, 140px); z-index: 3;
+  max-width: 420px; color: #fff;
+}
+.explode__intro h2 {
+  font-family: var(--f-display); font-weight: 500;
+  font-size: clamp(28px, 4vw, 52px); color: #fff;
+  margin-top: 16px; letter-spacing: -0.03em;
+}
+.explode__sub { margin-top: 18px; color: rgba(255,255,255,.62); font-size: 14.5px; line-height: 1.6; }
+
+.explode__stack {
+  position: relative;
+  width: clamp(280px, 34vh, 400px);
+  z-index: 2;
+  will-change: transform;
+}
+.explode__stack::before {
+  content: "";
+  position: absolute; left: 50%; top: 50%;
+  width: 340%; height: 90%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(55% 55% at 50% 50%, rgba(123,163,204,.30), transparent 72%);
+  pointer-events: none; z-index: -1;
+}
+.explode__assembled {
+  position: absolute; left: 0; top: 50%; width: 100%;
+  transform: translateY(-50%);
+  background-color: #fff;
+  background-size: contain; background-repeat: no-repeat; background-position: center;
+  border-radius: 14px;
+  box-shadow: 0 34px 70px -26px rgba(0,0,0,.62);
+  z-index: 5;
+}
+.explode__layer {
+  width: 100%;
+  background-color: #fff;
+  background-size: contain; background-repeat: no-repeat; background-position: center;
+  border-radius: 14px;
+  box-shadow: 0 34px 70px -26px rgba(0,0,0,.62);
+  position: relative;
+}
+.explode__tag {
+  position: absolute; left: calc(100% + 18px); top: 50%; transform: translate(0, -50%);
+  white-space: nowrap;
+  font-family: var(--f-display); font-size: 12.5px; letter-spacing: .04em;
+  color: #fff; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2);
+  padding: 8px 16px; border-radius: 100px; opacity: 0;
+  backdrop-filter: blur(6px);
+}
+
+@media (max-width: 860px) {
+  .explode { height: 360vh; }
+  .explode__intro { left: var(--gutter); right: var(--gutter); max-width: none; text-align: center; }
+  .explode__stack { width: clamp(200px, 52vw, 280px); }
+  .explode__stack::before { width: 240%; height: 140%; }
+  .explode__tag {
+    left: 50%; top: auto; bottom: calc(100% + 10px); transform: translate(-50%, 0);
+    font-size: 10.5px; padding: 5px 10px;
+  }
+}
