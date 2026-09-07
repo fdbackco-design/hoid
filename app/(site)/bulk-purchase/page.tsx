@@ -24,14 +24,14 @@ export default function BulkPurchasePage() {
           <div className="absolute inset-0">
             <Image
               src="/mo_bulk.png"
-              alt="Bulk Purchase Hero Background"
+              alt=""
               fill
               className="object-cover brightness-75 md:hidden"
               priority
             />
             <Image
               src="/bulk_pc.png"
-              alt="Bulk Purchase Hero Background"
+              alt=""
               fill
               className="object-cover brightness-75 hidden md:block"
               priority
@@ -39,9 +39,9 @@ export default function BulkPurchasePage() {
           </div>
           <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
             <div className="w-[320px] md:w-[700px] flex flex-col items-center gap-4">
-              <div className="w-full text-center text-white text-[26px] md:text-[46px] font-extrabold tracking-wide">
+              <h1 className="w-full text-center text-white text-[26px] md:text-[46px] font-extrabold tracking-wide">
                 대량 구매 문의
-              </div>
+              </h1>
               <div className="w-full text-center text-white text-[15px] md:text-[28px] font-medium leading-relaxed">
                 양식 작성을 통해 간편하게<br/>견적을 받아보실 수 있습니다.
               </div>
@@ -56,7 +56,7 @@ export default function BulkPurchasePage() {
               <div className="flex flex-col items-center gap-4">
                 <Image
                   src="/bulk_icon.svg"
-                  alt="Service Info Icon"
+                  alt=""
                   width={60}
                   height={60}
                 />
@@ -80,7 +80,7 @@ export default function BulkPurchasePage() {
               <div className="absolute left-[70px] top-[75px]">
                 <Image
                   src="/bulk_icon.svg"
-                  alt="Service Info Icon"
+                  alt=""
                   width={90}
                   height={90}
                 />

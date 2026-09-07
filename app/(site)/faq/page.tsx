@@ -3,7 +3,7 @@
 import { Card } from '@/components/ui/card';
 import { useState } from 'react';
 import Image from 'next/image';
-import Script from 'next/script';
+import JsonLd from '@/components/seo/JsonLd';
 
 export default function FAQPage() {
   const [selected, setSelected] = useState<number | null>(null);
@@ -170,11 +170,7 @@ export default function FAQPage() {
 
   return (
     <>
-      <Script
-        id="faq-jsonld"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
+      <JsonLd id="faq-jsonld" data={faqJsonLd} />
       <div className="font-pretendard bg-white flex flex-row justify-center w-full">
         <div className="bg-white w-full max-w-[1920px] relative">
           {/* Hero Section */}
@@ -182,7 +178,7 @@ export default function FAQPage() {
             <div className="absolute inset-0">
               <Image
                 src="/faq.svg"
-                alt="FAQ Background"
+                alt=""
                 fill
                 className="object-cover"
                 priority
@@ -190,9 +186,9 @@ export default function FAQPage() {
             </div>
             <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
               <div className="w-[320px] md:w-[700px] flex flex-col items-center gap-4">
-                <div className="w-full text-center text-white text-[26px] md:text-[46px] font-extrabold tracking-wide">
+                <h1 className="w-full text-center text-white text-[26px] md:text-[46px] font-extrabold tracking-wide">
                   자주 묻는 질문
-                </div>
+                </h1>
                 <div className="w-full text-center text-white text-[15px] md:text-[28px] font-medium leading-relaxed">
                   제품에 문제가 생겼나요?<br />
                   자주 묻는 질문을 먼저 살펴보세요.
@@ -239,7 +235,7 @@ export default function FAQPage() {
                       </div>
                       <Image
                         src="/down_arrow.svg"
-                        alt="Toggle FAQ"
+                        alt=""
                         width={18}
                         height={18}
                       />

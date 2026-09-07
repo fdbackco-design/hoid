@@ -1,4 +1,5 @@
-export const AEROFUSION_MARKUP = `<div class="loader" id="loader" aria-hidden="true">
+export const AEROFUSION_MARKUP = `<noscript><style>.loader{display:none}</style></noscript>
+    <div class="loader" id="loader" aria-hidden="true">
       <div class="loader__mark">HOiD</div>
       <div class="loader__bar"><span id="loader-fill"></span></div>
       <div class="loader__pct"><span id="loader-pct">0</span><i>%</i></div>
@@ -11,9 +12,9 @@ export const AEROFUSION_MARKUP = `<div class="loader" id="loader" aria-hidden="t
     <header class="nav" id="nav">
       <a class="nav__logo" href="#top" aria-label="HOiD 홈">HOiD</a>
       <nav class="nav__links">
-        <a href="#service">A/S 센터</a>
-        <a href="#service">자주 묻는 질문</a>
-        <a href="#bulk">대량 구매 문의</a>
+        <a href="/as-center">A/S 센터</a>
+        <a href="/faq">자주 묻는 질문</a>
+        <a href="/bulk-purchase">대량 구매 문의</a>
         <a href="https://feedmall.co.kr/" target="_blank" rel="noopener">스토어 ↗</a>
       </nav>
       <a href="#lineup" class="nav__cta">전 제품 보기</a>
@@ -23,7 +24,7 @@ export const AEROFUSION_MARKUP = `<div class="loader" id="loader" aria-hidden="t
       <!-- ========== HERO (pinned scrub) ========== -->
       <section class="hero" id="hero" data-scene="hero">
         <div class="hero__stage">
-          <canvas class="scene__canvas" id="hero-canvas"></canvas>
+          <canvas class="scene__canvas" id="hero-canvas" role="img" aria-label="HOiD 에어로퓨전 공기청정 냉온풍기">HOiD 에어로퓨전 제품 이미지</canvas>
           <div class="hero__vignette" aria-hidden="true"></div>
 
           <div class="hero__copy">
@@ -53,7 +54,7 @@ export const AEROFUSION_MARKUP = `<div class="loader" id="loader" aria-hidden="t
       <!-- ========== ORBIT (pinned scrub) ========== -->
       <section class="orbit" id="tech" data-scene="orbit">
         <div class="orbit__stage">
-          <canvas class="scene__canvas" id="orbit-canvas"></canvas>
+          <canvas class="scene__canvas" id="orbit-canvas" role="img" aria-label="HOiD 에어로퓨전 제품 구조">HOiD 에어로퓨전 제품 구조 이미지</canvas>
 
           <div class="orbit__intro" data-orbit="intro">
             <p class="eyebrow eyebrow--ink eyebrow--ko"><span class="eyebrow__dot"></span> 프리미어 공기청정기 2세대 · 안을 들여다보다</p>
@@ -98,7 +99,7 @@ export const AEROFUSION_MARKUP = `<div class="loader" id="loader" aria-hidden="t
       <!-- ========== HUMAN BREAK (model-face) ========== -->
       <section class="human" id="human">
         <div class="human__media">
-          <img class="human__img" src="/img/model-face.jpg" alt="맑은 공기 속의 사용자" loading="lazy" />
+          <img class="human__img" src="/img/model-face.jpg" alt="HOiD 에어로퓨전이 놓인 맑고 편안한 실내" width="1600" height="872" loading="lazy" decoding="async" />
           <span class="human__scrim" aria-hidden="true"></span>
         </div>
         <div class="human__copy">
@@ -145,7 +146,7 @@ export const AEROFUSION_MARKUP = `<div class="loader" id="loader" aria-hidden="t
       <!-- ========== EXPLODE (pinned scrub — real video frame sequence) ========== -->
       <section class="explode" id="explode">
         <div class="explode__stage">
-          <div class="explode__frame"><canvas class="scene__canvas" id="explode-canvas"></canvas></div>
+          <div class="explode__frame"><canvas class="scene__canvas" id="explode-canvas" role="img" aria-label="HOiD 에어로퓨전 5단 분해 구조">HOiD 에어로퓨전 분해 구조 이미지</canvas></div>
 
           <div class="explode__intro" data-explode="intro">
             <p class="eyebrow eyebrow--ko"><span class="eyebrow__dot"></span> 조립 구조</p>
@@ -254,7 +255,7 @@ export const AEROFUSION_MARKUP = `<div class="loader" id="loader" aria-hidden="t
 
           <div class="lineup__grid">
             <article class="pcard pcard--feature reveal">
-              <div class="pcard__media"><img src="/img/ap2501-gen2.jpg" alt="호이드 에어로퓨전 공기청정 냉온풍기 5in1 UV살균 음이온 사계절용" loading="lazy" /></div>
+              <div class="pcard__media"><img src="/img/ap2501-gen2.jpg" alt="호이드 에어로퓨전 5in1 공기청정 냉온풍기" width="450" height="400" loading="lazy" decoding="async" /></div>
               <div class="pcard__body">
                 <span class="pcard__tag">FLAGSHIP</span>
                 <h3>호이드 에어로퓨전 공기청정 냉온풍기<br />5in1 UV살균 음이온 사계절용</h3>
@@ -264,7 +265,7 @@ export const AEROFUSION_MARKUP = `<div class="loader" id="loader" aria-hidden="t
             </article>
 
             <article class="pcard reveal">
-              <div class="pcard__media"><img src="/img/ap2501-silver.jpg" alt="HOiD 프리미어 공기청정기 실버" loading="lazy" /></div>
+              <div class="pcard__media"><img src="/img/ap2501-silver.jpg" alt="HOiD 프리미어 공기청정기 2세대 실버" width="522" height="400" loading="lazy" decoding="async" /></div>
               <div class="pcard__body">
                 <h3>프리미어 공기청정기</h3>
                 <p class="pcard__model">HO-AP2501-S · 실버</p>
@@ -272,7 +273,7 @@ export const AEROFUSION_MARKUP = `<div class="loader" id="loader" aria-hidden="t
             </article>
 
             <article class="pcard reveal">
-              <div class="pcard__media"><img src="/img/ap2501-white.jpg" alt="HOiD 프리미어 공기청정기 화이트" loading="lazy" /></div>
+              <div class="pcard__media"><img src="/img/ap2501-white.jpg" alt="HOiD 프리미어 공기청정기 2세대 화이트" width="601" height="400" loading="lazy" decoding="async" /></div>
               <div class="pcard__body">
                 <h3>프리미어 공기청정기</h3>
                 <p class="pcard__model">HO-AP2501-W · 화이트</p>
@@ -280,7 +281,7 @@ export const AEROFUSION_MARKUP = `<div class="loader" id="loader" aria-hidden="t
             </article>
 
             <article class="pcard reveal">
-              <div class="pcard__media"><img src="/img/vacuum.jpg" alt="HOiD 무선청소기" loading="lazy" /></div>
+              <div class="pcard__media"><img src="/img/vacuum.jpg" alt="HOiD 오브제 무선청소기" width="600" height="400" loading="lazy" decoding="async" /></div>
               <div class="pcard__body">
                 <h3>무선청소기</h3>
                 <p class="pcard__model">HO-AC2506</p>
@@ -288,7 +289,7 @@ export const AEROFUSION_MARKUP = `<div class="loader" id="loader" aria-hidden="t
             </article>
 
             <article class="pcard reveal">
-              <div class="pcard__media"><img src="/img/tv.jpg" alt="HOiD MOVE 무빙 스마트TV 32" loading="lazy" /></div>
+              <div class="pcard__media"><img src="/img/tv.jpg" alt="HOiD MOVE 무빙 스마트TV 32인치" width="450" height="400" loading="lazy" decoding="async" /></div>
               <div class="pcard__body">
                 <h3>MOVE 무빙 스마트TV 32</h3>
                 <p class="pcard__model">SFSDA1132H</p>
@@ -296,7 +297,7 @@ export const AEROFUSION_MARKUP = `<div class="loader" id="loader" aria-hidden="t
             </article>
 
             <article class="pcard reveal">
-              <div class="pcard__media"><img src="/img/dehumidifier.jpg" alt="호이드 더 데일리 제습기 13L" loading="lazy" /></div>
+              <div class="pcard__media"><img src="/img/dehumidifier.jpg" alt="HOiD 더 데일리 제습기 13L" width="900" height="900" loading="lazy" decoding="async" /></div>
               <div class="pcard__body">
                 <h3>더 데일리 제습기</h3>
                 <p class="pcard__model">D1023 · 1일 제습량 13L</p>
@@ -326,7 +327,7 @@ export const AEROFUSION_MARKUP = `<div class="loader" id="loader" aria-hidden="t
               <h3>A/S 안내</h3>
               <p>제품에 문제가 생기셨나요? 1544-9537로 연결해 서비스를 받아보세요.</p>
             </a>
-            <a class="scard reveal" href="#faq">
+            <a class="scard reveal" href="/faq">
               <span class="scard__no">03</span>
               <h3>FAQ</h3>
               <p>자주묻는 질문에서 궁금하신 사항을 바로 확인하실 수 있습니다.</p>
@@ -396,7 +397,7 @@ export const AEROFUSION_MARKUP = `<div class="loader" id="loader" aria-hidden="t
 
       <!-- ========== CTA ========== -->
       <section class="cta" id="cta">
-        <img class="cta__ghost" src="/img/product-base.png" alt="" aria-hidden="true" loading="lazy" />
+        <img class="cta__ghost" src="/img/product-base.png" alt="" aria-hidden="true" width="1142" height="3486" loading="lazy" decoding="async" />
         <div class="cta__inner">
           <p class="eyebrow eyebrow--ko"><span class="eyebrow__dot"></span> HOiD 공식 스토어</p>
           <h2 class="cta__title reveal">

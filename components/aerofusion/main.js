@@ -5,6 +5,8 @@ gsap.registerPlugin(ScrollTrigger)
 
 let resizeHandler = null
 let booted = false
+let loadGeneration = 0
+let preloadObservers = []
 
 /* ------------------------------------------------------------------
    Frame sequences
@@ -38,7 +40,22 @@ function sizeCanvas(scene) {
 
 function draw(scene) {
   const { ctx, canvas } = scene
-  const img = scene.imgs[Math.round(scene.frame)]
+  const target = Math.round(scene.frame)
+  let img = scene.imgs[target]
+  if (!img || !img.complete || !img.naturalWidth) {
+    for (let offset = 1; offset < scene.count; offset++) {
+      const before = scene.imgs[target - offset]
+      const after = scene.imgs[target + offset]
+      if (before?.complete && before.naturalWidth) {
+        img = before
+        break
+      }
+      if (after?.complete && after.naturalWidth) {
+        img = after
+        break
+      }
+    }
+  }
   if (!ctx || !img || !img.complete || !img.naturalWidth) return
 
   const cw = canvas.width
@@ -58,17 +75,70 @@ function draw(scene) {
 }
 
 /* ------------------------------------------------------------------
-   Preload with progress
------------------------------------------------------------------- */
-function preloadInto(scene, srcFn) {
-  const tasks = []
-  for (let i = 0; i < scene.count; i++) {
-    const im = new Image()
-    im.src = srcFn(i)
-    scene.imgs[i] = im
-    tasks.push(im)
+   Progressive frame loading
+------------------------------------------------------------------- */
+function loadFrame(scene, srcFn, index, runId, priority = false) {
+  if (runId !== loadGeneration) return Promise.resolve()
+
+  const existing = scene.imgs[index]
+  if (existing?.complete) return Promise.resolve()
+
+  return new Promise((resolve) => {
+    const im = existing || new Image()
+    const settle = () => {
+      if (runId === loadGeneration) draw(scene)
+      resolve()
+    }
+
+    im.decoding = 'async'
+    if (priority) im.fetchPriority = 'high'
+    im.addEventListener('load', settle, { once: true })
+    im.addEventListener('error', settle, { once: true })
+    if (!existing) {
+      scene.imgs[index] = im
+      im.src = srcFn(index)
+    }
+  })
+}
+
+async function preloadSequence(scene, srcFn, indexes, runId, concurrency = 4) {
+  const queue = [...indexes]
+  const worker = async () => {
+    while (queue.length && runId === loadGeneration) {
+      const index = queue.shift()
+      await loadFrame(scene, srcFn, index, runId)
+    }
   }
-  return tasks
+
+  await Promise.all(Array.from({ length: concurrency }, worker))
+}
+
+function preloadNearSection(selector, scene, srcFn, runId) {
+  const element = document.querySelector(selector)
+  if (!element) return
+
+  const start = () => {
+    void preloadSequence(
+      scene,
+      srcFn,
+      Array.from({ length: scene.count }, (_, index) => index),
+      runId,
+    )
+  }
+
+  if (!('IntersectionObserver' in window)) {
+    start()
+    return
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    if (!entries.some((entry) => entry.isIntersecting)) return
+    observer.disconnect()
+    start()
+  }, { rootMargin: '120% 0px' })
+
+  observer.observe(element)
+  preloadObservers.push(observer)
 }
 
 function boot() {
@@ -82,52 +152,69 @@ function boot() {
   orbit.ctx = orbit.canvas.getContext('2d')
   explode.ctx = explode.canvas.getContext('2d')
 
-  const all = [...preloadInto(hero, heroSrc), ...preloadInto(orbit, orbitSrc), ...preloadInto(explode, explodeSrc)]
-  const total = all.length
-  let loaded = 0
+  const runId = ++loadGeneration
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
   const fill = document.getElementById('loader-fill')
   const pct = document.getElementById('loader-pct')
   const loaderEl = document.getElementById('loader')
 
-  const bump = () => {
-    loaded++
-    const p = Math.round((loaded / total) * 100)
-    if (fill) fill.style.width = p + '%'
-    if (pct) pct.textContent = p
-    if (loaded === total) onReady()
-  }
-
-  all.forEach((im) => {
-    if (im.complete && im.naturalWidth) bump()
-    else {
-      im.addEventListener('load', bump, { once: true })
-      im.addEventListener('error', bump, { once: true })
-    }
-  })
-
   // size + first paint asap (don't wait for full load)
   sizeCanvas(hero)
   sizeCanvas(orbit)
   sizeCanvas(explode)
-  const firstHero = hero.imgs[0]
-  if (firstHero) firstHero.addEventListener('load', () => draw(hero), { once: true })
 
-  function onReady() {
+  function onReady(animate = true) {
+    if (runId !== loadGeneration) return
+    if (fill) fill.style.width = '100%'
+    if (pct) pct.textContent = '100'
     sizeCanvas(hero); draw(hero)
     sizeCanvas(orbit); draw(orbit)
     sizeCanvas(explode); draw(explode)
-    initScroll()
-    setupLeaders()
-    // driven by gsap's ticker (rAF) rather than a ScrollTrigger onUpdate —
-    // see the note above setupLeaders/updateLeaders for why.
-    gsap.ticker.add(updateLeaders)
+    if (animate) {
+      initScroll()
+      setupLeaders()
+      // driven by gsap's ticker (rAF) rather than a ScrollTrigger onUpdate —
+      // see the note above setupLeaders/updateLeaders for why.
+      gsap.ticker.add(updateLeaders)
+    }
     setTimeout(() => {
-      loaderEl.classList.add('is-done')
-      playIntro()
-      ScrollTrigger.refresh()
+      if (runId !== loadGeneration) return
+      loaderEl?.classList.add('is-done')
+      if (animate) {
+        playIntro()
+        ScrollTrigger.refresh()
+      }
     }, 180)
   }
+
+  if (reduceMotion) {
+    document.querySelectorAll('video[autoplay]').forEach((video) => {
+      video.autoplay = false
+      video.pause()
+    })
+    hero.frame = 0
+    orbit.frame = orbit.count - 1
+    explode.frame = explode.count - 1
+    Promise.all([
+      loadFrame(hero, heroSrc, 0, runId, true),
+      loadFrame(orbit, orbitSrc, orbit.count - 1, runId),
+      loadFrame(explode, explodeSrc, explode.count - 1, runId),
+    ]).then(() => onReady(false))
+    return
+  }
+
+  loadFrame(hero, heroSrc, 0, runId, true).then(() => {
+    onReady(true)
+    void preloadSequence(
+      hero,
+      heroSrc,
+      Array.from({ length: hero.count - 1 }, (_, index) => index + 1),
+      runId,
+    )
+    preloadNearSection('.orbit', orbit, orbitSrc, runId)
+    preloadNearSection('.explode', explode, explodeSrc, runId)
+  })
 }
 
 /* ------------------------------------------------------------------
@@ -465,6 +552,9 @@ export function initAerofusion() {
 }
 
 export function destroyAerofusion() {
+  loadGeneration++
+  preloadObservers.forEach((observer) => observer.disconnect())
+  preloadObservers = []
   if (resizeHandler) {
     window.removeEventListener('resize', resizeHandler)
     resizeHandler = null
@@ -474,6 +564,11 @@ export function destroyAerofusion() {
   ScrollTrigger.getAll().forEach((t) => t.kill())
   gsap.killTweensOf('*')
   booted = false
+  hero.frame = 0
+  orbit.frame = 0
+  orbit.scale = 1
+  explode.frame = 0
+  explode.scale = 1
   hero.imgs = []
   orbit.imgs = []
   explode.imgs = []

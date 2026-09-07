@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  outputFileTracingRoot: __dirname,
   images: {
     remotePatterns: [
       {
@@ -16,10 +17,10 @@ const nextConfig = {
     serverActions: {
       allowedOrigins: ['localhost:3000'],
     },
-    turbo: {
-      rules: {
-        '*.svg': ['@svgr/webpack'],
-      },
+  },
+  turbopack: {
+    rules: {
+      '*.svg': ['@svgr/webpack'],
     },
   },
   webpack: (config) => {
@@ -31,4 +32,4 @@ const nextConfig = {
   },
 }
 
-module.exports = nextConfig 
+module.exports = nextConfig

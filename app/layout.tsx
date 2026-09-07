@@ -1,6 +1,7 @@
 // app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
+import SiteJsonLd from "@/components/seo/SiteJsonLd";
 import {
   DEFAULT_DESCRIPTION,
   DEFAULT_OG_DESCRIPTION,
@@ -8,6 +9,7 @@ import {
   KEYWORDS,
   SITE_NAME,
   SITE_URL,
+  SOCIAL_IMAGE,
 } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -40,9 +42,6 @@ export const metadata: Metadata = {
       "naver-site-verification": "89b9949c7b22e05e163144dbad980aaa315a060b",
     },
   },
-  other: {
-    "naver-site-verification": "89b9949c7b22e05e163144dbad980aaa315a060b",
-  },
   formatDetection: {
     telephone: true,
     email: true,
@@ -58,25 +57,18 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: SITE_URL,
+    url: `${SITE_URL}/`,
     siteName: SITE_NAME,
     locale: "ko_KR",
     title: DEFAULT_TITLE,
     description: DEFAULT_OG_DESCRIPTION,
-    images: [
-      {
-        url: `${SITE_URL}/og-image.jpg`,
-        width: 1200,
-        height: 630,
-        alt: "HOiD 에어로퓨전",
-      },
-    ],
+    images: [SOCIAL_IMAGE],
   },
   twitter: {
     card: "summary_large_image",
     title: DEFAULT_TITLE,
     description: DEFAULT_OG_DESCRIPTION,
-    images: [`${SITE_URL}/og-image.jpg`],
+    images: [SOCIAL_IMAGE.url],
   },
 };
 
@@ -98,7 +90,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <meta name="theme-color" content="#0e1116" />
       </head>
-      <body className="font-pretendard">{children}</body>
+      <body className="font-pretendard">
+        <SiteJsonLd />
+        {children}
+      </body>
     </html>
   );
 }

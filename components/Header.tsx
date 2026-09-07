@@ -40,7 +40,7 @@ export default function Header() {
         <Link href="/" className="flex items-center">
           <Image
             src="/logo.svg"
-            alt="HOID Logo"
+            alt="HOiD 공식 사이트"
             width={96}
             height={25}
             className="w-[96px] h-[25px]"
@@ -54,6 +54,8 @@ export default function Header() {
               <li key={index}>
                 <Link 
                   href={item.href}
+                  target={item.hasIcon ? "_blank" : undefined}
+                  rel={item.hasIcon ? "noopener noreferrer" : undefined}
                   className="text-[#111111] text-[18px] tracking-[-0.18px] font-semibold font-pretendard hover:text-[#666666] transition-colors"
                 >
                   {renderMenuItem(item, true)}
@@ -70,7 +72,7 @@ export default function Header() {
           <Link href="/" className="flex items-center">
             <Image
               src="/logo.svg"
-              alt="HOID Logo"
+              alt="HOiD 공식 사이트"
               width={70}
               height={18}
               className="w-[70px] h-[18px]"
@@ -81,11 +83,12 @@ export default function Header() {
           <button 
             className="w-[20px] h-[18px] flex items-center justify-center p-0"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Menu"
+              aria-label={isMenuOpen ? "메뉴 닫기" : "메뉴 열기"}
+              aria-expanded={isMenuOpen}
           >
             <Image
               src="/hamburger.svg"
-              alt="Menu"
+              alt=""
               width={20}
               height={18}
               className="w-[20px] h-[18px]"
@@ -102,6 +105,8 @@ export default function Header() {
                   <li key={index} className="py-2">
                     <Link 
                       href={item.href}
+                      target={item.hasIcon ? "_blank" : undefined}
+                      rel={item.hasIcon ? "noopener noreferrer" : undefined}
                       className="block text-[14px] leading-[21px] text-[#111111] font-pretendard font-normal hover:text-[#666666] transition-colors"
                       onClick={() => setIsMenuOpen(false)}
                     >
@@ -116,4 +121,4 @@ export default function Header() {
       </div>
     </header>
   )
-} 
+}

@@ -2,13 +2,21 @@ export const SITE_URL = "https://hoid.co.kr";
 
 export const SITE_NAME = "HOiD";
 
-export const DEFAULT_TITLE = "HOiD — 기술로 완성한 클린 라이프";
+export const DEFAULT_TITLE =
+  "HOiD 에어로퓨전 5in1 공기청정 냉온풍기 | 호이드";
 
 export const DEFAULT_DESCRIPTION =
-  "HOiD 공식몰 — 에어로퓨전 공기청정기·청소기·스마트TV·제습기";
+  "호이드 공식 사이트에서 에어로퓨전 5in1 공기청정 냉온풍기와 무선청소기, 무빙 스마트TV, 제습기 제품 및 A/S 정보를 확인하세요.";
 
 export const DEFAULT_OG_DESCRIPTION =
-  "HOiD 에어로퓨전 5in1 — 냉풍·온풍·공기청정·살균을 한 대로";
+  "냉풍·온풍·공기청정·음이온·UV살균을 한 대로. HOiD 에어로퓨전 5in1과 클린 라이프 제품을 만나보세요.";
+
+export const SOCIAL_IMAGE = {
+  url: `${SITE_URL}/og-image.jpg`,
+  width: 1200,
+  height: 630,
+  alt: "HOiD 에어로퓨전 5in1 공기청정 냉온풍기",
+};
 
 export const KEYWORDS = [
   "HOID",

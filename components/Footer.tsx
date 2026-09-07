@@ -31,7 +31,7 @@ export default function Footer() {
                 <div className="w-full md:w-[600px]">
                     <Image
                         src="/footer_logo.png"
-                        alt="Footer Logo"
+                        alt="HOiD"
                         width={96}
                         height={25}
                         className="mb-[40px] md:mb-[40px]"
@@ -64,4 +64,4 @@ export default function Footer() {
             </div>
         </footer>
     );
-} 
+}
