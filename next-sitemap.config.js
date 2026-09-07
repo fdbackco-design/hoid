@@ -3,6 +3,8 @@
 module.exports = {
   siteUrl: "https://hoid.co.kr",
   generateRobotsTxt: true,
+  generateIndexSitemap: false,
+  autoLastmod: false,
   sitemapSize: 7000,
   changefreq: "weekly",
   priority: 0.7,
@@ -19,7 +21,6 @@ module.exports = {
       loc: path,
       changefreq: path === "/" ? "daily" : config.changefreq,
       priority: priorities[path] ?? config.priority,
-      lastmod: new Date().toISOString(),
     };
   },
   robotsTxtOptions: {

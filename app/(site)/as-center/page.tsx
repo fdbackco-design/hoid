@@ -47,7 +47,7 @@ export default function ASCenterPage() {
                     <div className="absolute inset-0">
                         <Image
                             src="/service_hero.svg"
-                            alt="HOID Service Background"
+                            alt=""
                             fill
                             className="object-cover"
                             priority
@@ -55,9 +55,9 @@ export default function ASCenterPage() {
                     </div>
                     <div className="absolute inset-0 flex flex-col items-center justify-center z-10">
                         <div className="w-[320px] md:w-[700px] flex flex-col items-center gap-4">
-                            <div className="w-full text-center text-white text-[32px] md:text-[46px] font-extrabold tracking-wide">
-                                HOID SERVICE
-                            </div>
+                            <h1 className="w-full text-center text-white text-[32px] md:text-[46px] font-extrabold tracking-wide">
+                                HOiD 서비스 센터
+                            </h1>
                             <div className="w-full text-center text-white text-[14px] md:text-[28px] font-medium leading-relaxed">
                                 HOID의 서비스는 자체 전문가팀을 통해<br/>
                                 전국 어디에서나 동일한 서비스를 제공해드립니다.
@@ -72,7 +72,7 @@ export default function ASCenterPage() {
                         <div className="flex flex-col items-center md:items-start md:absolute md:left-[70px] md:top-[88px] pt-10 md:pt-0">
                             <Image
                                 src="/service_info_icon.svg"
-                                alt="Service Info Icon"
+                                alt=""
                                 width={90}
                                 height={90}
                                 className="w-[60px] h-[60px] md:w-[90px] md:h-[90px]"
@@ -112,7 +112,7 @@ export default function ASCenterPage() {
                                     <div className="relative h-full">
                                         <Image
                                             src="/free_repair.svg"
-                                            alt="Free Repair Icon"
+                                            alt=""
                                             width={100}
                                             height={98}
                                             className="w-full h-full md:ml-[70px]"
@@ -143,7 +143,7 @@ export default function ASCenterPage() {
                                     <div className="relative h-full">
                                         <Image
                                             src="/paid_repair.svg"
-                                            alt="Paid Repair Icon"
+                                            alt=""
                                             width={100}
                                             height={91}
                                             className="w-full h-full md:ml-[70px]"
@@ -188,7 +188,7 @@ export default function ASCenterPage() {
                                         <div className="w-[320px] md:w-[140x] h-[104px] md:h-[127px] md:mb-[27px]">
                                             <Image
                                                 src={feature.image}
-                                                alt="Service Feature"
+                                                alt=""
                                                 width={140}
                                                 height={127}
                                                 className="w-full h-full"
