@@ -23,10 +23,17 @@ export default function BulkPurchasePage() {
         <div className="w-full h-[320px] md:h-[600px] relative bg-cover bg-center">
           <div className="absolute inset-0">
             <Image
-              src="http://fdbackco.cafe24.com/HOID/bulk-purchase/bulk.png"
+              src="/mo_bulk.png"
               alt="Bulk Purchase Hero Background"
               fill
-              className="object-cover"
+              className="object-cover brightness-75 md:hidden"
+              priority
+            />
+            <Image
+              src="/bulk_pc.png"
+              alt="Bulk Purchase Hero Background"
+              fill
+              className="object-cover brightness-75 hidden md:block"
               priority
             />
           </div>
