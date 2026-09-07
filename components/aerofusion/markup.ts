@@ -150,13 +150,13 @@ export const AEROFUSION_MARKUP = `<noscript><style>.loader{display:none}</style>
       <!-- ========== EXPLODE (pinned scrub — real video frame sequence) ========== -->
       <section class="explode" id="explode">
         <div class="explode__stage">
-          <div class="explode__frame"><canvas class="scene__canvas" id="explode-canvas" role="img" aria-label="HOiD 에어로퓨전 5단 분해 구조">HOiD 에어로퓨전 분해 구조 이미지</canvas></div>
-
           <div class="explode__intro" data-explode="intro">
             <p class="eyebrow eyebrow--ko"><span class="eyebrow__dot"></span> 조립 구조</p>
             <h2>정밀하게 맞물린<br />조립 구조</h2>
             <p class="explode__sub">겉커버 · 프리필터 그릴 · 원통형 HEPA 필터 · 모터 · 하단 본체 — 스크롤을 내리며 에어로퓨전의 설계를 한 층씩 들여다보세요.</p>
           </div>
+
+          <div class="explode__frame"><canvas class="scene__canvas" id="explode-canvas" role="img" aria-label="HOiD 에어로퓨전 5단 분해 구조">HOiD 에어로퓨전 분해 구조 이미지</canvas></div>
 
           <ul class="explode__labels">
             <li class="explode__label" data-label="1"><span class="explode__label-no">01</span>겉커버</li>
@@ -214,7 +214,7 @@ export const AEROFUSION_MARKUP = `<noscript><style>.loader{display:none}</style>
             <p class="reviews__sub reveal">한국 · 일본 · 미국 — 세 나라의 실사용자가 직접 들려주는 프리미어 공기청정기 2세대 이야기.</p>
           </header>
 
-          <div class="reviews__grid">
+          <div class="reviews__grid" id="reviews-carousel" tabindex="0" aria-label="사용 후기 영상 카드">
             <article class="rcard reveal">
               <div class="rcard__media">
                 <video class="rcard__video" src="/video/reviews/review-kr.mp4" poster="/video/reviews/review-kr-poster.jpg" controls playsinline preload="none"></video>
@@ -245,6 +245,7 @@ export const AEROFUSION_MARKUP = `<noscript><style>.loader{display:none}</style>
               </div>
             </article>
           </div>
+          <div class="reviews__pager" id="reviews-pager" aria-label="후기 국가 선택"></div>
         </div>
       </section>
 
@@ -257,7 +258,7 @@ export const AEROFUSION_MARKUP = `<noscript><style>.loader{display:none}</style>
             <p class="lineup__sub reveal">공기청정기 · 무선청소기 · 무빙 스마트TV · 제습기 — HOiD가 만드는 공간의 기본기.</p>
           </header>
 
-          <div class="lineup__grid">
+          <div class="lineup__grid" id="lineup-carousel" tabindex="0" aria-label="HOiD 제품 라인업 카드">
             <article class="pcard pcard--feature reveal">
               <div class="pcard__media"><img src="/img/ap2501-gen2.jpg" alt="호이드 에어로퓨전 5in1 공기청정 냉온풍기" width="450" height="400" loading="lazy" decoding="async" /></div>
               <div class="pcard__body">
@@ -308,6 +309,7 @@ export const AEROFUSION_MARKUP = `<noscript><style>.loader{display:none}</style>
               </div>
             </article>
           </div>
+          <div class="lineup__dots" id="lineup-dots" aria-hidden="true"></div>
         </div>
       </section>
 
