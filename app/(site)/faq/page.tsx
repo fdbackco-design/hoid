@@ -23,6 +23,8 @@ export default function FAQPage() {
       id: 1,
       question: '배송은 얼마나 걸리나요?',
       category: '배송',
+      answerText:
+        '오후 1시 이전 결제 완료된 주문은 당일 출고됩니다. 이후 주문은 익일 발송되며, 평균 1~2일 내 수령 가능합니다. 도서산간 지역은 1~2일 추가 소요될 수 있습니다.',
       content: (
         <div className="text-[#111111] text-[13px] leading-[26px] w-[280px] md:w-[847px]">
           <div className="mb-4">
@@ -37,8 +39,10 @@ export default function FAQPage() {
     },
     {
       id: 2,
-      question: '필터는 얼마나 자주 교체해야 하나요?→ 잘 관리해주시면 최대 1년까지 사용 가능합니다.',
+      question: '필터는 얼마나 자주 교체해야 하나요?',
       category: '제품',
+      answerText:
+        '사용 환경에 따라 다를 수 있으며, 잘 관리해주시면 최대 1년까지 사용 가능합니다. 자세한 내용은 사용설명서를 참고해 주세요.',
       content: (
         <div className="text-[#111111] text-[13px] leading-[26px] w-[280px] md:w-[847px]">
           <div className="mb-4">
@@ -51,6 +55,8 @@ export default function FAQPage() {
       id: 3,
       question: "필터는 어디서 구매할 수 있나요?",
       category: '제품',
+      answerText:
+        'hoid.co.kr 자사몰에서 간편하게 구매하실 수 있습니다. 상품 상세 페이지에 필터 구매 바로가기 버튼이 함께 제공됩니다.',
       content: (
         <div className="text-[#111111] text-[13px] leading-[26px] w-[280px] md:w-[847px]">
           <div className="mb-4">
@@ -66,6 +72,8 @@ export default function FAQPage() {
       id: 4,
       question: '설치는 복잡하지 않나요?',
       category: '제품',
+      answerText:
+        '아주 간단한 설치 방식으로, 제품 수령 후 코드만 연결하시면 바로 사용 가능합니다. 사용설명서가 동봉되어 있어 누구나 손쉽게 설치할 수 있습니다.',
       content: (
         <div className="text-[#111111] text-[13px] leading-[26px] w-[280px] md:w-[847px]">
           <div className="mb-4">
@@ -81,6 +89,8 @@ export default function FAQPage() {
       id: 5,
       question: 'A/S는 어떻게 되나요?',
       category: 'A/S',
+      answerText:
+        'HOID 제품은 구매일로부터 1년간 무상 A/S를 제공합니다. 공기청정기·청소기·제습기는 1544-9537, 무빙 스마트TV는 070-8648-1288로 문의해 주세요.',
       content: (
         <div className="text-[#111111] text-[13px] leading-[26px] w-[280px] md:w-[847px]">
           <div className="mb-4">
@@ -96,6 +106,8 @@ export default function FAQPage() {
       id: 6,
       question: 'UV 살균 기능은 어떻게 작동되나요?',
       category: '제품',
+      answerText:
+        '제품에 탑재된 UV 기능은 최대 반경 2.8m까지 살균 효과를 제공합니다. 버튼으로 ON/OFF 가능하며, 수면 중 자동 OFF 기능도 탑재되어 있습니다.',
       content: (
         <div className="text-[#111111] text-[13px] leading-[26px] w-[280px] md:w-[847px]">
           <div className="mb-4">
@@ -111,6 +123,8 @@ export default function FAQPage() {
       id: 7,
       question: '전기요금은 얼마나 나오나요?',
       category: '제품',
+      answerText:
+        '한 달에 약 3천 원 수준의 전기요금으로 사용 가능합니다. 사용 환경에 따라 다소 차이가 있을 수 있습니다.',
       content: (
         <div className="text-[#111111] text-[13px] leading-[26px] w-[280px] md:w-[847px]">
           <div className="mb-4">
@@ -126,6 +140,8 @@ export default function FAQPage() {
       id: 8,
       question: '아이 있는 집에서도 안전한가요?',
       category: '제품',
+      answerText:
+        '네, HOID는 아이 눈높이에 맞춘 흡입구 설계와 모서리 마감 처리로 어린 자녀가 있는 가정에서도 안심하고 사용할 수 있도록 제작되었습니다.',
       content: (
         <div className="text-[#111111] text-[13px] leading-[26px] w-[280px] md:w-[847px]">
           <div className="mb-4">
@@ -142,14 +158,14 @@ export default function FAQPage() {
   const faqJsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": faqs.slice(0, 3).map((faq) => ({
+    "mainEntity": faqs.map((faq) => ({
       "@type": "Question",
       "name": faq.question,
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": typeof faq.content === 'string' ? faq.content : "상세 내용은 홈페이지에서 확인해 주세요."
-      }
-    }))
+        "text": faq.answerText,
+      },
+    })),
   };
 
   return (
