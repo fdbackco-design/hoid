@@ -16,26 +16,54 @@ const ORBIT_COUNT = 121
 const EXPLODE_COUNT = 121
 
 const pad = (n) => String(n).padStart(3, '0')
-const heroSrc = (i) => `/frames/hero/h_${pad(i + 1)}.jpg`
+const isMobileViewport = () => window.matchMedia('(max-width: 860px)').matches
+const getDpr = () => Math.min(window.devicePixelRatio || 1, isMobileViewport() ? 1.5 : 2)
+const heroSrcDesktop = (i) => `/frames/hero/h_${pad(i + 1)}.jpg`
+const heroSrcMobile = (i) => `/frames/hero-m/h_${pad(i + 1)}.jpg`
+const getHeroSrc = () => (isMobileViewport() ? heroSrcMobile : heroSrcDesktop)
 const orbitSrc = (i) => `/frames/orbit/o_${pad(i + 1)}.jpg`
 const explodeSrc = (i) => `/frames/explode/e_${pad(i + 1)}.jpg`
 
 /* scene state */
-const hero = { canvas: null, ctx: null, imgs: [], frame: 0, count: HERO_COUNT }
-const orbit = { canvas: null, ctx: null, imgs: [], frame: 0, count: ORBIT_COUNT, scale: 1 }
-const explode = { canvas: null, ctx: null, imgs: [], frame: 0, count: EXPLODE_COUNT, scale: 1 }
-
-const DPR = Math.min(window.devicePixelRatio || 1, 2)
+const hero = {
+  canvas: null,
+  ctx: null,
+  imgs: [],
+  frame: 0,
+  count: HERO_COUNT,
+  focusX: 0.5,
+  focusY: 0.5,
+  usingMobile: null,
+}
+const orbit = { canvas: null, ctx: null, imgs: [], frame: 0, count: ORBIT_COUNT, scale: 1, focusX: 0.5, focusY: 0.5 }
+const explode = { canvas: null, ctx: null, imgs: [], frame: 0, count: EXPLODE_COUNT, scale: 1, focusX: 0.5, focusY: 0.5 }
 
 /* ------------------------------------------------------------------
    Canvas sizing + cover draw
 ------------------------------------------------------------------ */
+function syncSceneFocus() {
+  const mobile = isMobileViewport()
+  // PC: 가로 프레임 중앙. 모바일: 세로 프레임(3:4) — 피사체가 하단 쪽에 있어 살짝 아래로
+  hero.focusX = 0.5
+  hero.focusY = mobile ? 0.58 : 0.5
+  orbit.focusX = 0.5
+  orbit.focusY = mobile ? 0.48 : 0.5
+  explode.focusX = 0.5
+  explode.focusY = mobile ? 0.5 : 0.5
+}
+
 function sizeCanvas(scene) {
   const c = scene.canvas
+  if (!c) return
+  const dpr = getDpr()
   const w = c.clientWidth
   const h = c.clientHeight
-  c.width = Math.round(w * DPR)
-  c.height = Math.round(h * DPR)
+  const nextW = Math.round(w * dpr)
+  const nextH = Math.round(h * dpr)
+  if (c.width !== nextW || c.height !== nextH) {
+    c.width = nextW
+    c.height = nextH
+  }
 }
 
 function draw(scene) {
@@ -63,15 +91,37 @@ function draw(scene) {
   const iw = img.naturalWidth
   const ih = img.naturalHeight
 
-  const base = Math.max(cw / iw, ch / ih)
-  const s = base * (scene.scale || 1)
+  const s = Math.max(cw / iw, ch / ih) * (scene.scale || 1)
   const dw = iw * s
   const dh = ih * s
-  const dx = (cw - dw) / 2
-  const dy = (ch - dh) / 2
+  const fx = Number.isFinite(scene.focusX) ? scene.focusX : 0.5
+  const fy = Number.isFinite(scene.focusY) ? scene.focusY : 0.5
+  const dx = (cw - dw) * fx
+  const dy = (ch - dh) * fy
 
   ctx.clearRect(0, 0, cw, ch)
   ctx.drawImage(img, dx, dy, dw, dh)
+}
+
+/** 뷰포트 전환 시 PC/모바일 히어로 시퀀스를 갈아끼움 */
+function ensureHeroFrameSet() {
+  const wantMobile = isMobileViewport()
+  if (hero.usingMobile === wantMobile) return
+  hero.usingMobile = wantMobile
+  hero.imgs = []
+  const srcFn = getHeroSrc()
+  const runId = loadGeneration
+  const idx = Math.max(0, Math.min(hero.count - 1, Math.round(hero.frame) || 0))
+  loadFrame(hero, srcFn, idx, runId, true).then(() => {
+    if (runId !== loadGeneration) return
+    draw(hero)
+    void preloadSequence(
+      hero,
+      srcFn,
+      Array.from({ length: hero.count }, (_, i) => i).filter((i) => i !== idx),
+      runId,
+    )
+  })
 }
 
 /* ------------------------------------------------------------------
@@ -160,6 +210,9 @@ function boot() {
   const loaderEl = document.getElementById('loader')
 
   // size + first paint asap (don't wait for full load)
+  hero.usingMobile = isMobileViewport()
+  const heroSrc = getHeroSrc()
+  syncSceneFocus()
   sizeCanvas(hero)
   sizeCanvas(orbit)
   sizeCanvas(explode)
@@ -168,6 +221,7 @@ function boot() {
     if (runId !== loadGeneration) return
     if (fill) fill.style.width = '100%'
     if (pct) pct.textContent = '100'
+    syncSceneFocus()
     sizeCanvas(hero); draw(hero)
     sizeCanvas(orbit); draw(orbit)
     sizeCanvas(explode); draw(explode)
@@ -530,6 +584,172 @@ function initScroll() {
 }
 
 /* ------------------------------------------------------------------
+   Mobile nav
+------------------------------------------------------------------ */
+let mobileNavBound = false
+
+function setupMobileNav() {
+  const nav = document.getElementById('nav')
+  const toggle = document.getElementById('nav-toggle')
+  const links = document.getElementById('nav-links')
+  if (!nav || !toggle || !links || mobileNavBound) return
+  mobileNavBound = true
+
+  const close = () => {
+    nav.classList.remove('is-open')
+    toggle.setAttribute('aria-expanded', 'false')
+    toggle.setAttribute('aria-label', '메뉴 열기')
+    document.body.style.overflow = ''
+  }
+
+  const open = () => {
+    nav.classList.add('is-open')
+    toggle.setAttribute('aria-expanded', 'true')
+    toggle.setAttribute('aria-label', '메뉴 닫기')
+    document.body.style.overflow = 'hidden'
+  }
+
+  toggle.addEventListener('click', (event) => {
+    event.stopPropagation()
+    if (nav.classList.contains('is-open')) close()
+    else open()
+  })
+
+  links.querySelectorAll('a').forEach((anchor) => {
+    anchor.addEventListener('click', () => close())
+  })
+
+  document.addEventListener('click', (event) => {
+    if (!nav.classList.contains('is-open')) return
+    if (nav.contains(event.target)) return
+    close()
+  })
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') close()
+  })
+}
+
+/* ------------------------------------------------------------------
+   Reviews mobile carousel (pill pager — distinct from lineup dots)
+------------------------------------------------------------------ */
+let reviewsCarouselBound = false
+
+function setupReviewsCarousel() {
+  const track = document.getElementById('reviews-carousel')
+  const pager = document.getElementById('reviews-pager')
+  if (!track || !pager || reviewsCarouselBound) return
+  reviewsCarouselBound = true
+
+  const cards = Array.from(track.querySelectorAll('.rcard'))
+  if (!cards.length) return
+
+  pager.innerHTML = ''
+  const pills = cards.map((card, index) => {
+    const label = card.querySelector('.rcard__flag')?.textContent?.trim() || `${index + 1}`
+    const btn = document.createElement('button')
+    btn.type = 'button'
+    btn.className = 'reviews__pill'
+    btn.textContent = label
+    btn.setAttribute('aria-label', label)
+    btn.addEventListener('click', () => {
+      cards[index].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' })
+    })
+    pager.appendChild(btn)
+    return btn
+  })
+
+  const count = document.createElement('span')
+  count.className = 'reviews__count'
+  count.textContent = `01 / ${String(cards.length).padStart(2, '0')}`
+  pager.appendChild(count)
+
+  const videos = () => Array.from(track.querySelectorAll('video'))
+
+  const syncActive = () => {
+    if (!window.matchMedia('(max-width: 860px)').matches) {
+      pills.forEach((pill) => pill.classList.remove('is-active'))
+      return
+    }
+    const edge = track.scrollLeft + 24
+    let best = 0
+    let bestDist = Infinity
+    cards.forEach((card, index) => {
+      const dist = Math.abs(card.offsetLeft - edge)
+      if (dist < bestDist) {
+        bestDist = dist
+        best = index
+      }
+    })
+    pills.forEach((pill, index) => {
+      pill.classList.toggle('is-active', index === best)
+    })
+    count.textContent = `${String(best + 1).padStart(2, '0')} / ${String(cards.length).padStart(2, '0')}`
+
+    videos().forEach((video, index) => {
+      if (index !== best && !video.paused) video.pause()
+    })
+  }
+
+  track.addEventListener('scroll', () => {
+    window.requestAnimationFrame(syncActive)
+  }, { passive: true })
+  window.addEventListener('resize', syncActive)
+  syncActive()
+}
+let lineupCarouselBound = false
+
+function setupLineupCarousel() {
+  const track = document.getElementById('lineup-carousel')
+  const dotsWrap = document.getElementById('lineup-dots')
+  if (!track || !dotsWrap || lineupCarouselBound) return
+  lineupCarouselBound = true
+
+  const cards = Array.from(track.querySelectorAll('.pcard'))
+  if (!cards.length) return
+
+  dotsWrap.innerHTML = ''
+  const dots = cards.map((_, index) => {
+    const btn = document.createElement('button')
+    btn.type = 'button'
+    btn.className = 'lineup__dot'
+    btn.setAttribute('aria-label', `${index + 1}번째 제품`)
+    btn.addEventListener('click', () => {
+      cards[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' })
+    })
+    dotsWrap.appendChild(btn)
+    return btn
+  })
+
+  const syncActive = () => {
+    if (!window.matchMedia('(max-width: 860px)').matches) {
+      dots.forEach((dot) => dot.classList.remove('is-active'))
+      return
+    }
+    const mid = track.scrollLeft + track.clientWidth / 2
+    let best = 0
+    let bestDist = Infinity
+    cards.forEach((card, index) => {
+      const center = card.offsetLeft + card.offsetWidth / 2
+      const dist = Math.abs(center - mid)
+      if (dist < bestDist) {
+        bestDist = dist
+        best = index
+      }
+    })
+    dots.forEach((dot, index) => {
+      dot.classList.toggle('is-active', index === best)
+    })
+  }
+
+  track.addEventListener('scroll', () => {
+    window.requestAnimationFrame(syncActive)
+  }, { passive: true })
+  window.addEventListener('resize', syncActive)
+  syncActive()
+}
+
+/* ------------------------------------------------------------------
    Resize / lifecycle (Next.js client mount)
 ------------------------------------------------------------------ */
 let resizeTO
@@ -539,15 +759,24 @@ export function initAerofusion() {
     resizeHandler = () => {
       clearTimeout(resizeTO)
       resizeTO = setTimeout(() => {
+        syncSceneFocus()
+        ensureHeroFrameSet()
         sizeCanvas(hero); draw(hero)
         sizeCanvas(orbit); draw(orbit)
         sizeCanvas(explode); draw(explode)
         updateLeaders()
         ScrollTrigger.refresh()
+        if (window.innerWidth > 860) {
+          document.getElementById('nav')?.classList.remove('is-open')
+          document.body.style.overflow = ''
+        }
       }, 160)
     }
     window.addEventListener('resize', resizeHandler)
   }
+  setupMobileNav()
+  setupReviewsCarousel()
+  setupLineupCarousel()
   boot()
 }
 
@@ -564,7 +793,12 @@ export function destroyAerofusion() {
   ScrollTrigger.getAll().forEach((t) => t.kill())
   gsap.killTweensOf('*')
   booted = false
+  mobileNavBound = false
+  lineupCarouselBound = false
+  reviewsCarouselBound = false
+  document.body.style.overflow = ''
   hero.frame = 0
+  hero.usingMobile = null
   orbit.frame = 0
   orbit.scale = 1
   explode.frame = 0
