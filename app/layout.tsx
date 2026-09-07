@@ -1,16 +1,52 @@
 // app/layout.tsx
 import "./globals.css";
 import type { Metadata } from "next";
+import {
+  DEFAULT_DESCRIPTION,
+  DEFAULT_OG_DESCRIPTION,
+  DEFAULT_TITLE,
+  KEYWORDS,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/seo";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://hoid.co.kr"),
-  title: "HOiD — 기술로 완성한 클린 라이프",
-  description:
-    "HOiD 공식 브랜드 사이트. 에어로퓨전 공기청정 냉온풍기 5in1부터 무선청소기, 무빙 스마트TV, 제습기까지 — 기술로 완성한 클린 라이프를 만나보세요.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: DEFAULT_TITLE,
+    template: `%s | ${SITE_NAME}`,
+  },
+  description: DEFAULT_DESCRIPTION,
+  keywords: KEYWORDS,
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  applicationName: SITE_NAME,
+  category: "가전",
   alternates: { canonical: "/" },
-  robots: { index: true, follow: true },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  verification: {
+    other: {
+      "naver-site-verification": "89b9949c7b22e05e163144dbad980aaa315a060b",
+    },
+  },
   other: {
     "naver-site-verification": "89b9949c7b22e05e163144dbad980aaa315a060b",
+  },
+  formatDetection: {
+    telephone: true,
+    email: true,
+    address: true,
   },
   icons: {
     icon: [
@@ -22,15 +58,14 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: "https://hoid.co.kr/",
-    siteName: "HOiD",
+    url: SITE_URL,
+    siteName: SITE_NAME,
     locale: "ko_KR",
-    title: "HOiD — 기술로 완성한 클린 라이프",
-    description:
-      "에어로퓨전 공기청정 냉온풍기 5in1 — 냉풍·온풍·공기청정·음이온·UV살균을 한 대로. 계절마다 가전을 바꾸지 않아도 되는 올시즌 에어 솔루션.",
+    title: DEFAULT_TITLE,
+    description: DEFAULT_OG_DESCRIPTION,
     images: [
       {
-        url: "https://hoid.co.kr/og-image.jpg",
+        url: `${SITE_URL}/og-image.jpg`,
         width: 1200,
         height: 630,
         alt: "HOiD 에어로퓨전",
@@ -39,9 +74,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "HOiD — 기술로 완성한 클린 라이프",
-    description: "에어로퓨전 공기청정 냉온풍기 5in1 — 한 대로 사계절.",
-    images: ["https://hoid.co.kr/og-image.jpg"],
+    title: DEFAULT_TITLE,
+    description: DEFAULT_OG_DESCRIPTION,
+    images: [`${SITE_URL}/og-image.jpg`],
   },
 };
 
