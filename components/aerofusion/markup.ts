@@ -419,8 +419,8 @@ export const AEROFUSION_MARKUP = `<noscript><style>.loader{display:none}</style>
           <div class="foot__brand">
             <span class="foot__logo">HOiD</span>
             <p class="foot__legal">
-              대표 : 정성현 · 인천광역시 연수구 송도과학로 32, 송도테크노파크IT센터 에스동 3003-3호 (송도동)<br />
-              사업자등록번호 884-81-03587 · 통신판매업신고 제 2025-인천연수구-0287호 · 개인정보보호책임자 정성현 · E-mail hoidcscs@gmail.com
+              대표 : 송해민 · 인천광역시 연수구 송도과학로 32, 송도테크노파크IT센터 에스동 3003-3호 (송도동)<br />
+              사업자등록번호 296-87-03628· 통신판매업신고 제 2025-인천연수구-0287호 · 개인정보보호책임자 송해민 · E-mail hoidcscs@gmail.com
             </p>
           </div>
           <span class="foot__copy">Copyright © 2025 HOiD. All rights reserved.</span>

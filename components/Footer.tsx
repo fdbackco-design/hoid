@@ -15,11 +15,11 @@ interface ICompanyInfo {
 
 const companyInfo: ICompanyInfo = {
     name: "HOID",
-    representative: "정성현",
+    representative: "송해민",
     address: "인천광역시 연수구 송도과학로 32, 송도테크노파크IT센터 에스동 3003-3호 (송도동)",
-    businessNumber: "884-81-03587 [사업자정보확인]",
+    businessNumber: "296-87-03628",
     salesRegistration: "제 2025-인천연수구-0287 호",
-    privacyOfficer: "정성현",
+    privacyOfficer: "송해민",
     email: "hoidcscs@gmail.com",
     copyright: "Copyright © 2025 HOID. All rights reserved.",
 };
